@@ -1,0 +1,103 @@
+
+
+item.Alumina.name=Alumina
+item.Aluminum_Ingot.name=Aluminum Ingot
+item.Aluminum_Double_Ingot.name=Aluminum Double Ingot
+item.Aluminum_Unshaped.name=Unshaped Aluminum
+item.Aluminum_Sheet.name=Aluminum Sheet
+item.Aluminum_Double_Sheet.name=Aluminum Double Sheet
+item.Ammonium_Diuranate.name=Ammonium Diuranate
+item.Bauxite.Bauxite.name=Bauxite
+item.Bauxite.Rich_Bauxite.name=Rich Bauxite
+item.Bauxite.Poor_Bauxite.name=Poor Bauxite
+item.Enriched_Uranium_Powder.name=Enriched Uranium Powder
+item.Fiberglass.name=Fiberglass
+item.Fluorite.Chipped.name=Chipped Fluorite
+item.Fluorite.Flawed.name=Flawed Fluorite
+item.Fluorite.Normal.name=Fluorite
+item.Fluorite.Flawless.name=Flawless Fluorite
+item.Fluorite.Exquisite.name=Exquisite Fluorite
+item.Fluorite_Powder.name=Fluorite Powder
+item.Glass_Fiber.name=Glass Fiber
+item.Lye.name=Lye
+item.Yeast.name=Yeast
+item.Fluorite.name=Fluorite
+item.Oily_Mash.name=Oily Mash
+item.Potash.name=Potash
+item.Pitchblende_Powder.name=Pitchblende Powder
+item.Uranium_Hexafluoride.name=Uranium Hexafluoride
+item.Uranyl_Nitrate.name=Uranyl Nitrate
+item.Yellowcake.name=Yellowcake
+
+item.Lead_Bottle.name=Lead Bottle
+item.Hydrofluoric_Acid_Bottle.name=Hydrofluoric Acid Bottle
+item.Nitric_Acid_Bottle.name=Nitric Acid Bottle
+item.Glycerol_Bottle.name=Glycerol Bottle
+item.Nitroglycerin_Bottle.name=Nitroglycerin Bottle
+
+item.Biodiesel_Bottle.name=Biodiesel Bottle
+item.Plant_Oil_Bottle.name=Plant Oil Bottle
+item.Ethanol_Bottle.name=Ethanol Bottle
+item.Creosote_Bottle.name=Creosote Bottle
+
+item.Biodiesel_Wooden_Bucket.name=Biodiesel Wooden Bucket
+item.Plant_Oil_Wooden_Bucket.name=Plant Oil Wooden Bucket
+item.Ethanol_Wooden_Bucket.name=Ethanol Wooden Bucket
+item.Creosote_Wooden_Bucket.name=Creosote Wooden Bucket
+
+item.Biodiesel_Ceramic_Bucket.name=Biodiesel Ceramic Bucket
+item.Plant_Oil_Ceramic_Bucket.name=Plant Oil Ceramic Bucket
+item.Ethanol_Ceramic_Bucket.name=Ethanol Ceramic Bucket
+item.Creosote_Ceramic_Bucket.name=Creosote Ceramic Bucket
+
+item.Olive_Oil_Bottle.name=Olive Oil Bottle
+item.Olive_Oil_Wooden_Bucket.name=Olive Oil Wooden Bucket
+item.Olive_Oil_Ceramic_Bucket.name=Olive Oil Ceramic Bucket
+item.Ammonium_Chloride_Bottle.name=Ammonium Chloride Bottle
+item.Ammonium_Chloride_Wooden_Bucket.name=Ammonium Chloride Wooden Bucket
+item.Ammonium_Chloride_Ceramic_Bucket.name=Ammonium Chloride Ceramic Bucket
+item.Distilled_Water_Bottle.name=Distilled Water Bottle
+item.Distilled_Water_Wooden_Bucket.name=Distilled Water Wooden Bucket
+item.Distilled_Water_Ceramic_Bucket.name=Distilled Water Ceramic Bucket
+item.Limewater_Bottle.name=Limewater Bottle
+item.Limewater_Wooden_Bucket.name=Limewater Wooden Bucket
+item.Limewater_Ceramic_Bucket.name=Limewater Ceramic Bucket
+item.Tannin_Bottle.name=Tannin Bottle
+item.Tannin_Wooden_Bucket.name=Tannin Wooden Bucket
+item.Tannin_Ceramic_Bucket.name=Tannin Ceramic Bucket
+item.Wax_Bottle.name=Wax Bottle
+item.Wax_Wooden_Bucket.name=Wax Wooden Bucket
+item.Wax_Ceramic_Bucket.name=Wax Ceramic Bucket
+item.Barley_Water_Bottle.name=Barley Water Bottle
+item.Corn_Water_Bottle.name=Corn Water Bottle
+item.Honeywater_Bottle.name=Honeywater Bottle
+item.Potato_Water_Bottle.name=Potato Water Bottle
+item.Rice_Water_Bottle.name=Rice Water Bottle
+item.Rye_Water_Bottle.name=Rye Water Bottle
+item.Wheat_Water_Bottle.name=Wheat Water Bottle
+
+item.Hotspring_Red_Steel_Bucket.name=Hotspring Red Steel Bucket
+item.Compound_Bow.name=Compound Bow
+item.Compound_Bow_Riser.name=Compound Bow Riser
+item.Compound_Bow_Limbs.name=Compound Bow Limbs
+item.Compound_Bow_Frame.name=Compound Bow Frame
+item.Chainsaw.name=Chainsaw
+item.Chainsaw_Blade.name=Chainsaw Bar
+item.Chainsaw_Chain.name=Chainsaw Chain
+item.Chainsaw_Housing.name=Chainsaw Housing
+item.Blue_Steel_Chainsaw_Chain_Link.name=Blue Steel Chainsaw Chain Link
+item.Red_Steel_Chainsaw_Chain_Link.name=Red Steel Chainsaw Chain Link
+
+fluid.hydrofluoricacid=Hydrofluoric Acid
+fluid.nitricacid=Nitric Acid
+fluid.glycerol=Glycerol
+fluid.nitroglycerin=Nitroglycerin
+fluid.telocreosote=Creosote Oil
+
+tile.bauxiteOre.name=Bauxite
+tile.windmillBearing.name=Windmill Bearing
+
+gui.metal.Aluminum=Aluminum
+
+death.attack.teloChainsaw=%s was chainsawed in half
+death.attack.teloChainsaw=%1$s was chainsawed in half by %2$s

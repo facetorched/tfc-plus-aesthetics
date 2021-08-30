@@ -1,0 +1,16 @@
+[
+{
+  "modid": "tfc-plus-aesthetics",
+  "name": "TFC+ Aesthetics",
+  "description": "World generated decoration blocks to TFC+ to make the world prettier",
+  "version": "${version}",
+  "mcversion": "1.7.10-10.13.4.1614-1.7.10",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["FaceTorched","Yeahminecraft16"],
+  "credits": "Thank you big chungus for being wholesome 100",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
