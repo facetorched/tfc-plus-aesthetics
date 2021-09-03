@@ -5,6 +5,7 @@ import java.io.File;
 import com.facetorched.tfcaths.WorldGen.Generators.PlantSpawnData;
 
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.oredict.OreDictionary;
 
 import com.dunk.tfc.Reference;
 import com.dunk.tfc.api.Enums.EnumRegion;
@@ -16,6 +17,7 @@ public class Config {
 	public static Configuration config;
 	
 	//define config fields here
+	public static String[] soilBlocks;
 	
 	public static void preInit(File configDir)
 	{
@@ -25,22 +27,27 @@ public class Config {
 	public static void reload()
 	{
 		if (config == null) throw new IllegalStateException("Config reload attempt before preinit.");
-		Logger.info("Loading TFC+ Aesthetics Config");
+		AthsLogger.info("Loading TFC+ Aesthetics Config");
 		config.load();
 		// set configs here
+		String[] soilBlocks = new String[]{
+				Reference.MOD_ID+":Dirt",Reference.MOD_ID+":Dirt2",Reference.MOD_ID+":Grass",Reference.MOD_ID+":Grass2",
+				Reference.MOD_ID+":DryGrass",Reference.MOD_ID+":DryGrass2",Reference.MOD_ID+":Clay",Reference.MOD_ID+":Clay2",
+				Reference.MOD_ID+":ClayGrass",Reference.MOD_ID+":ClayGrass2",Reference.MOD_ID+":tilledSoil",Reference.MOD_ID+":tilledSoil2",
+				Reference.MOD_ID+":Peat"};
+		soilBlocks = config.get("_soil ore dict", "blockSoil", soilBlocks, "blocks to add to the ore dictionary 'blockSoil'. Leave empty to disable").getStringList();
+		
+		for(String soil : soilBlocks) {
+			OreDictionary.registerOre("blockSoil", AthsParser.getBlockFromName(soil));
+		}
+		
 		if (config.hasChanged()) config.save();
 	}
 	
 	//this must be run in the init phase (after blocks setup but before world gen)
 	public static void reloadPlants() {
-		String[] soilBlocks = new String[]{
-				Reference.MOD_ID+":Dirt",Reference.MOD_ID+":Dirt2",Reference.MOD_ID+":Grass",Reference.MOD_ID+":Grass2",
-				Reference.MOD_ID+":DryGrass",Reference.MOD_ID+":DryGrass2",Reference.MOD_ID+":Clay",Reference.MOD_ID+":Clay2",
-				Reference.MOD_ID+":ClayGrass",Reference.MOD_ID+":ClayGrass2",Reference.MOD_ID+":tilledSoil",Reference.MOD_ID+":tilledSoil2",
-				Reference.MOD_ID+":Peat"
-				};
 		
-		AthsWorldGenPlants.plantList.put("sageBrush", getPlantData("sage brush", AthsMod.MODID+":sageBrush", new int[] {0,1,2}, soilBlocks, new String[]{"Rolling Hills"}, new String[]{"Americas"}, 20, 4f, 20f, 100f, 1000f, 0f, 2f));
+		AthsWorldGenPlants.plantList.put("sageBrush", getPlantData("sage brush", AthsMod.MODID+":sageBrush", new int[] {0,1,2}, new String[] {"blockSoil", "blockSand"}, new String[]{"Rolling Hills"}, new String[]{"Americas"}, 20, 4f, 20f, 100f, 1000f, 0f, 2f));
 		if (config.hasChanged()) 
 			config.save();
 	}

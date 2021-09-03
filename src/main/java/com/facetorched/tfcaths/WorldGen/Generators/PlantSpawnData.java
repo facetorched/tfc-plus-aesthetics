@@ -1,14 +1,18 @@
 package com.facetorched.tfcaths.WorldGen.Generators;
+import java.util.ArrayList;
+
 import com.dunk.tfc.WorldGen.TFCBiome;
 import com.dunk.tfc.api.Enums.EnumRegion;
-import com.facetorched.tfcaths.util.Logger;
+import com.facetorched.tfcaths.util.AthsLogger;
+import com.facetorched.tfcaths.util.AthsParser;
 
 import net.minecraft.block.Block;
 
 public class PlantSpawnData {
 	public Block block;
 	public int[] metas;
-	public Block[] canGrowOn;
+	public ArrayList<Block> canGrowOn = new ArrayList<Block>();
+	public ArrayList<String> canGrowOnOreDict = new ArrayList<String>();
 	public TFCBiome[] biomes;
 	public EnumRegion[] region;
 	public int rarity;
@@ -16,13 +20,17 @@ public class PlantSpawnData {
 
 	public PlantSpawnData(String blockName, int[] metas, String[] canGrowOn, String[] biomes, EnumRegion[] region, int rarity,
 			float minTemp, float maxTemp, float minRainfall, float maxRainfall, float minEVT, float maxEVT){
-		block = getBlockFromName(blockName);
+		block = AthsParser.getBlockFromName(blockName);
 		this.metas = metas;
-		this.canGrowOn = new Block[canGrowOn.length];
 		for(int i = 0; i < canGrowOn.length; i++) {
-			this.canGrowOn[i] = getBlockFromName(canGrowOn[i]);
+			Block b = Block.getBlockFromName(canGrowOn[i]);
+			if(b != null)
+				this.canGrowOn.add(b);
+			else
+				this.canGrowOnOreDict.add(canGrowOn[i]);
 		}
 		this.biomes = new TFCBiome[biomes.length];
+		
 		for(int i = 0; i < biomes.length; i++) {
 			this.biomes[i] = TFCBiome.getBiomeByName(biomes[i]);
 		}
@@ -35,15 +43,4 @@ public class PlantSpawnData {
 		this.minEVT = minEVT;
 		this.maxEVT = maxEVT;
 	}
-	
-	public static Block getBlockFromName(String blockName) {
-		Block ret = Block.getBlockFromName(blockName);
-		
-		if (ret == null){
-			Logger.error("config unable to get block from block name " + blockName);
-			throw new java.lang.NullPointerException("invalid block name " + blockName);
-		}
-		return ret;
-	}
-
 }

@@ -5,7 +5,7 @@ import org.apache.logging.log4j.Level;
 import cpw.mods.fml.common.FMLLog;
 
 //basic class for logging information. I copied this from IE
-public class Logger {
+public class AthsLogger {
 	public static boolean debug = false;
 	  
 	  public static void log(Level logLevel, Object object) {

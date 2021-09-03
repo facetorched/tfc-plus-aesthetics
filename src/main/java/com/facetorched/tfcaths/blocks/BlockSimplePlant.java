@@ -20,11 +20,13 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class BlockSimplePlant extends BlockTerra{
 	public String[] plantNames;
@@ -53,6 +55,20 @@ public class BlockSimplePlant extends BlockTerra{
 		this.plantKey = plantKey;
 	}
 
+	@Override
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityplayer, int side, float hitX, float hitY, float hitZ)  
+	{
+		Block b = world.getBlock(x, y-1, z);
+		if(b!=null) {
+			int[] ids = OreDictionary.getOreIDs(new ItemStack(b.getItem(world, x, y, z), 1, this.getDamageValue(world, x, y, z)));
+			System.out.println(ids.length);
+			for(int id : ids)
+				System.out.println(OreDictionary.getOreName(id));
+		}
+		
+		return super.onBlockActivated(world, x, y, z, entityplayer, side, hitX, hitY, hitZ);
+	}
+	
 	public boolean canGrowConditions(World world, int x, int y, int z, int plantMeta)
 	{
 		PlantSpawnData data = AthsWorldGenPlants.plantList.get(this.plantKey);
@@ -135,11 +151,13 @@ public class BlockSimplePlant extends BlockTerra{
 		if( data == null) {
 			return false;
 		}
-		for(int i = 0; i < data.canGrowOn.length; i++) {
-			if(data.canGrowOn[i] == block) {
-				return true;
-			}
+		if(data.canGrowOn.contains(block)) {
+			return true;
 		}
+		int[] ids = OreDictionary.getOreIDs(new ItemStack(Item.getItemFromBlock(block), 1, 0)); //forced to do damage 0
+		for(int id : ids)
+			if(data.canGrowOnOreDict.contains(OreDictionary.getOreName(id)))
+				return true;
 		return false;
 	}
 
