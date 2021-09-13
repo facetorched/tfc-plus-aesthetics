@@ -2,7 +2,7 @@ package com.facetorched.tfcaths.items.itemblocks;
 
 import com.dunk.tfc.Items.ItemBlocks.ItemTerraBlock;
 import com.dunk.tfc.api.Enums.EnumWeight;
-import com.facetorched.tfcaths.blocks.BlockSimplePlant;
+import com.facetorched.tfcaths.blocks.BlockPlant;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -10,11 +10,11 @@ import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 
-public class ItemSimplePlant extends ItemTerraBlock{
-	public ItemSimplePlant(Block b)
+public class ItemPlant extends ItemTerraBlock{
+	public ItemPlant(Block b)
 	{
 		super(b);
-		metaNames = ((BlockSimplePlant)b).plantNames;
+		metaNames = ((BlockPlant)b).plantNames;
 	}
 
 	@Override

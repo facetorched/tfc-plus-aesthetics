@@ -1,5 +1,7 @@
 package com.facetorched.tfcaths;
 
+import com.dunk.tfc.WorldGen.Generators.WorldGenOre;
+import com.facetorched.tfcaths.WorldGen.Generators.AthsWorldGenPlants;
 import com.facetorched.tfcaths.proxy.IProxy;
 import com.facetorched.tfcaths.util.Config;
 
@@ -11,6 +13,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 @Mod(modid = AthsMod.MODID, version = AthsMod.VERSION, name = AthsMod.NAME, dependencies = "required-after:terrafirmacraftplus;")
 public class AthsMod
@@ -28,11 +31,13 @@ public class AthsMod
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) // register blocks, items etc
     {
+    	AthsItemSetup.setup();
+    	AthsBlockSetup.setup();
+    	
     	Config.preInit(event.getModConfigurationDirectory());
     	Config.reload();
-    	AthsItemSetup.setup();
-    	AthsBlockSetup.loadBlocks();
-    	AthsBlockSetup.registerBlocks();
+    	
+    	GameRegistry.registerWorldGenerator(new AthsWorldGenPlants(), 100);
     	proxy.preInit(event);
     }
 

@@ -3,12 +3,13 @@ package com.facetorched.tfcaths.blocks;
 import java.util.List;
 import java.util.Random;
 
-import com.dunk.tfc.Reference;
+import org.apache.commons.lang3.mutable.MutableInt;
+
 import com.dunk.tfc.Blocks.BlockTerra;
 import com.dunk.tfc.Core.TFCTabs;
 import com.dunk.tfc.Core.TFC_Climate;
-import com.dunk.tfc.Core.TFC_Core;
-import com.dunk.tfc.Render.Blocks.RenderFlora;
+import com.dunk.tfc.Core.TFC_Time;
+import com.dunk.tfc.api.TFCOptions;
 import com.facetorched.tfcaths.AthsBlockSetup;
 import com.facetorched.tfcaths.AthsMod;
 import com.facetorched.tfcaths.WorldGen.Generators.AthsWorldGenPlants;
@@ -28,62 +29,48 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 
-public class BlockSimplePlant extends BlockTerra{
+public class BlockPlant extends BlockTerra{
 	public String[] plantNames;
+	public String plantKey;
+	public float scale;
+	public int[] monthMetas;
+
 	@SideOnly(Side.CLIENT)
 	protected IIcon[] icons;
-	public String plantKey;
 	
-	public BlockSimplePlant(String plantName)
+	public BlockPlant()
 	{
 		super(Material.plants);
 		this.setTickRandomly(true);
 		float var4 = 0.2F;
 		this.setBlockBounds(0.5F - var4, 0.0F, 0.5F - var4, 0.5F + var4, var4 * 3.0F, 0.5F + var4);
 		this.setCreativeTab(TFCTabs.TFC_DECORATION);
-		plantNames = new String[]{plantName};
-		plantKey = plantName;
-	}
-	public BlockSimplePlant(String[] plantNames, String plantKey)
-	{
-		super(Material.plants);
-		this.setTickRandomly(true);
-		float var4 = 0.2F;
-		this.setBlockBounds(0.5F - var4, 0.0F, 0.5F - var4, 0.5F + var4, var4 * 3.0F, 0.5F + var4);
-		this.setCreativeTab(TFCTabs.TFC_DECORATION);
-		this.plantNames = plantNames;
-		this.plantKey = plantKey;
+		this.setBlockName(plantKey);
+		this.scale = 1.0F; //default
+		this.monthMetas = null;
+		this.setHardness(0.0F);
+		this.setStepSound(Block.soundTypeGrass);
 	}
 
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityplayer, int side, float hitX, float hitY, float hitZ)  
 	{
-		Block b = world.getBlock(x, y-1, z);
-		if(b!=null) {
-			int[] ids = OreDictionary.getOreIDs(new ItemStack(b.getItem(world, x, y, z), 1, this.getDamageValue(world, x, y, z)));
-			System.out.println(ids.length);
-			for(int id : ids)
-				System.out.println(OreDictionary.getOreName(id));
+		if(TFCOptions.enableDebugMode && world.isRemote){
+			Block b = world.getBlock(x, y-1, z);
+			if(b!=null) {
+				int[] ids = OreDictionary.getOreIDs(new ItemStack(b.getItem(world, x, y, z), 1, this.getDamageValue(world, x, y, z)));
+				System.out.println(ids.length);
+				for(int id : ids)
+					System.out.println(OreDictionary.getOreName(id));
+			}
 		}
+		
+		System.out.println(this.shouldGenerateAt(world, x, y, z));
 		
 		return super.onBlockActivated(world, x, y, z, entityplayer, side, hitX, hitY, hitZ);
 	}
-	
-	public boolean canGrowConditions(World world, int x, int y, int z, int plantMeta)
-	{
-		PlantSpawnData data = AthsWorldGenPlants.plantList.get(this.plantKey);
-		if( data == null) {
-			return false;
-		}
-		float evt = TFC_Climate.getCacheManager(world).getEVTLayerAt(x, z).floatdata1;
-		float rain = TFC_Climate.getRainfall(world, x, 144, z);
-		float bioTemp =TFC_Climate.getBioTemperatureHeight(world, x, y, z);
-		
-		return bioTemp >= data.minTemp && bioTemp <= data.maxTemp && 
-				rain >= data.minRainfall && rain <= data.maxRainfall && 
-				evt >= data.minEVT && evt <= data.maxEVT;
-	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@SideOnly(Side.CLIENT)
 	@Override
 	/**
@@ -134,7 +121,7 @@ public class BlockSimplePlant extends BlockTerra{
 	@Override
 	public boolean canBlockStay(World world, int x, int y, int z)
 	{
-		return /*(world.getFullBlockLightValue(x, y, z) >= 8 || world.canBlockSeeTheSky(x, y, z)) && */this.canThisPlantGrowOnThisBlock(world.getBlock(x, y - 1, z));
+		return this.canThisPlantGrowOnThisBlock(world.getBlock(x, y - 1, z));
 	}
 
 	@Override
@@ -146,7 +133,6 @@ public class BlockSimplePlant extends BlockTerra{
 
 	protected boolean canThisPlantGrowOnThisBlock(Block block)
 	{
-		//TODO change this to use defined blocks
 		PlantSpawnData data = AthsWorldGenPlants.plantList.get(this.plantKey);
 		if( data == null) {
 			return false;
@@ -160,6 +146,11 @@ public class BlockSimplePlant extends BlockTerra{
 				return true;
 		return false;
 	}
+	
+	// Besides habitat constraints, are there any other constraints to the generation of this block?
+	public boolean shouldGenerateAt(World world, int x, int y, int z) {
+		return true;
+	}
 
 	@Override
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z)
@@ -170,7 +161,7 @@ public class BlockSimplePlant extends BlockTerra{
 	@Override
 	public int getRenderType()
 	{
-		return AthsBlockSetup.simplePlantRenderID;
+		return AthsBlockSetup.plantCrossRenderID;
 	}
 
 	@Override
@@ -188,7 +179,31 @@ public class BlockSimplePlant extends BlockTerra{
 	@Override
 	public void updateTick(World world, int x, int y, int z, Random rand)
 	{
+		if(this.monthMetas != null) {
+			int month = TFC_Time.getSeasonAdjustedMonth(z);
+			world.setBlockMetadataWithNotify(x, y, z, monthMetas[month], 2);
+		}
 		this.checkAndDropBlock(world, x, y, z);
+	}
+	
+	// when placed
+	@Override
+	public void onPostBlockPlaced(World world, int x, int y, int z, int meta) {
+		//super.onPostBlockPlaced(world, x, y, z, meta);
+		if(this.monthMetas != null) {
+			int month = TFC_Time.getSeasonAdjustedMonth(z);
+			world.setBlockMetadataWithNotify(x, y, z, monthMetas[month], 2);
+		}
+	}
+	
+	// when generated
+	@Override
+	public void onBlockAdded(World world, int x, int y, int z) {
+		//super.onBlockAdded(world, x, y, z);
+		if(this.monthMetas != null) {
+			int month = TFC_Time.getSeasonAdjustedMonth(z);
+			world.setBlockMetadataWithNotify(x, y, z, monthMetas[month], 2);
+		}
 	}
 
 	@Override
@@ -204,5 +219,49 @@ public class BlockSimplePlant extends BlockTerra{
 			this.dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z), 0);
 			world.setBlock(x, y, z, getBlockById(0), 0, 2);
 		}
+	}
+	public float getScale() {
+		return scale;
+	}
+	public BlockPlant setScale(float scale) {
+		this.scale = scale;
+		return this;
+	}
+	public String getPlantKey() {
+		return plantKey;
+	}
+	public BlockPlant setPlantKey(String plantKey) {
+		this.plantKey = plantKey;
+		return this;
+	}
+	public int[] getMonthMetas() {
+		return monthMetas;
+	}
+	public BlockPlant setMonthMetas(int[] monthMetas) {
+		this.monthMetas = monthMetas;
+		return this;
+	}
+	public BlockPlant setNames(String name) {
+		this.plantNames = new String[] {name, name + "_Small", name + "_Large"};
+		this.plantKey = name;
+		return this;
+	}
+	public BlockPlant setNames(String[] names) {
+		this.plantNames = names;
+		return this;
+	}
+	public BlockPlant setName(String name) {
+		this.plantNames = new String[] {name};
+		this.plantKey = name;
+		return this;
+	}
+	public BlockPlant setKey(String key) {
+		this.plantKey = key;
+		return this;
+	}
+	@Override
+	public BlockPlant setLightOpacity(int level) {
+		super.setLightOpacity(level);
+		return this;
 	}
 }
