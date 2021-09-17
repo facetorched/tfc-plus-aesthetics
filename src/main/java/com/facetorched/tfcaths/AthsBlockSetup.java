@@ -2,6 +2,7 @@ package com.facetorched.tfcaths;
 
 import com.facetorched.tfcaths.blocks.BlockPlant;
 import com.facetorched.tfcaths.blocks.BlockPlantAlgae;
+import com.facetorched.tfcaths.blocks.BlockPlantFoliage;
 import com.facetorched.tfcaths.blocks.BlockPlantCrop;
 import com.facetorched.tfcaths.blocks.BlockPlantTree;
 import com.facetorched.tfcaths.blocks.BlockPlantTreeTrimmable;
@@ -73,7 +74,7 @@ public class AthsBlockSetup {
 	public static void setup() {
 		// plants with various sizes
 		sagebrush = plantRegistryHelper(new BlockPlant().setNames(Global.SAGEBRUSH).setScale(2.0F));
-		prarieGrass = plantRegistryHelper(new BlockPlant().setNames(Global.PRARIE_GRASS).setScale(2.0F)); // biome color??
+		prarieGrass = plantRegistryHelper(new BlockPlantFoliage().setNames(Global.PRARIE_GRASS).setScale(2.0F));
 		leafyUndergrowth = plantRegistryHelper(new BlockPlant().setNames(Global.LEAFY_UNDERGROWTH).setScale(2.0F));
 		mediumUndergrowth = plantRegistryHelper(new BlockPlantCrop().setNames(Global.MEDIUM_UNDERGROWTH).setScale(2.0F));
 
@@ -86,7 +87,7 @@ public class AthsBlockSetup {
 		indigoMilkCap = plantRegistryHelper(new BlockPlant().setName(Global.INDIGO_MILK_CAP));
 		lobsterClaws = plantRegistryHelper(new BlockPlant().setName(Global.LOBSTER_CLAWS).setScale(2.0F));
 		morel = plantRegistryHelper(new BlockPlant().setName(Global.MOREL));
-		pondGrass = plantRegistryHelper(new BlockPlant().setName(Global.PONDGRASS).setScale(2.0F)); // biome color???
+		pondGrass = plantRegistryHelper(new BlockPlantFoliage().setName(Global.PONDGRASS).setScale(2.0F));
 		thistle = plantRegistryHelper(new BlockPlant().setName(Global.THISTLE));
 		titanArum = plantRegistryHelper(new BlockPlant().setName(Global.TITAN_ARUM).setScale(2.0F));
 		voodooLily = plantRegistryHelper(new BlockPlant().setName(Global.VOODOO_LILY).setScale(2.0F));
@@ -99,13 +100,13 @@ public class AthsBlockSetup {
 		youngAspen = plantRegistryHelper(new BlockPlantTree().setNames(Global.YOUNG_ASPEN).setScale(6.0F).setMonthMetas(Global.DECIDUOUS_METAS));
 		youngBirch = plantRegistryHelper(new BlockPlantTree().setNames(Global.YOUNG_BIRCH).setScale(6.0F).setMonthMetas(Global.DECIDUOUS_METAS));
 		youngChestnut = plantRegistryHelper(new BlockPlantTree().setNames(Global.YOUNG_CHESTNUT).setScale(6.0F).setMonthMetas(Global.DECIDUOUS_METAS));
-		youngGinko = plantRegistryHelper(new BlockPlantTree().setNames(Global.YOUNG_GINKO).setScale(6.0F).setMonthMetas(Global.DECIDUOUS_METAS));;
-		youngHickory = plantRegistryHelper(new BlockPlantTree().setNames(Global.YOUNG_HICKORY).setScale(6.0F).setMonthMetas(Global.DECIDUOUS_METAS));;
-		youngMaple = plantRegistryHelper(new BlockPlantTree().setNames(Global.YOUNG_MAPLE).setScale(6.0F).setMonthMetas(Global.DECIDUOUS_METAS));;
-		youngOak = plantRegistryHelper(new BlockPlantTree().setNames(Global.YOUNG_OAK).setScale(6.0F).setMonthMetas(Global.DECIDUOUS_METAS));;
-		youngSycamore = plantRegistryHelper(new BlockPlantTree().setNames(Global.YOUNG_SYCAMORE).setScale(6.0F).setMonthMetas(Global.DECIDUOUS_METAS));;
-		youngWhiteElm = plantRegistryHelper(new BlockPlantTree().setNames(Global.YOUNG_WHITE_ELM).setScale(6.0F).setMonthMetas(Global.DECIDUOUS_METAS));;
-		youngWillow = plantRegistryHelper(new BlockPlantTree().setNames(Global.YOUNG_WILLOW).setScale(6.0F).setMonthMetas(Global.DECIDUOUS_METAS));;
+		youngGinko = plantRegistryHelper(new BlockPlantTree().setNames(Global.YOUNG_GINGKO).setScale(6.0F).setMonthMetas(Global.DECIDUOUS_METAS));
+		youngHickory = plantRegistryHelper(new BlockPlantTree().setNames(Global.YOUNG_HICKORY).setScale(6.0F).setMonthMetas(Global.DECIDUOUS_METAS));
+		youngMaple = plantRegistryHelper(new BlockPlantTree().setNames(Global.YOUNG_MAPLE).setScale(6.0F).setMonthMetas(Global.DECIDUOUS_METAS));
+		youngOak = plantRegistryHelper(new BlockPlantTree().setNames(Global.YOUNG_OAK).setScale(6.0F).setMonthMetas(Global.DECIDUOUS_METAS));
+		youngSycamore = plantRegistryHelper(new BlockPlantTree().setNames(Global.YOUNG_SYCAMORE).setScale(6.0F).setMonthMetas(Global.DECIDUOUS_METAS));
+		youngWhiteElm = plantRegistryHelper(new BlockPlantTree().setNames(Global.YOUNG_WHITE_ELM).setScale(6.0F).setMonthMetas(Global.DECIDUOUS_METAS));
+		youngWillow = plantRegistryHelper(new BlockPlantTree().setNames(Global.YOUNG_WILLOW).setScale(6.0F).setMonthMetas(Global.DECIDUOUS_METAS));
 		
 		// trees
 		youngAcacia = plantRegistryHelper(new BlockPlantTree().setName(Global.YOUNG_ACACIA).setScale(6.0F));
@@ -126,7 +127,7 @@ public class AthsBlockSetup {
 		youngYew = plantRegistryHelper(new BlockPlantTree().setName(Global.YOUNG_YEW).setScale(6.0F));
 		
 		//trimmable
-		youngWhiteCedar = plantRegistryHelper(new BlockPlantTreeTrimmable().setNames(Global.YOUNG_WHITE_CEDAR).setScale(6.0F));
+		youngWhiteCedar = plantRegistryHelper(new BlockPlantTreeTrimmable().setNames(Global.YOUNG_WHITE_CEDAR).setScale(5.0F));
 		
 	}
 	

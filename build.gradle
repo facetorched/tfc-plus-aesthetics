@@ -17,9 +17,9 @@ buildscript {
 
 apply plugin: 'forge'
 
-version = "1.0.6"
-group= "com.facetorched.teloaddon" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "TelomeraseAddon"
+version = "1.0.0"
+group= "com.facetorched.tfcaths" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = "TFC+ Aesthetics"
 
 minecraft {
     version = "1.7.10-10.13.4.1614-1.7.10"

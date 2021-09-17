@@ -35,7 +35,7 @@ public class Global {
 	public static final String YOUNG_EBONY = "Young_Ebony";
 	public static final String YOUNG_FEVER = "Young_Fever";
 	public static final String YOUNG_GHAF = "Young_Ghaf";
-	public static final String YOUNG_GINKO = "Young_Ginko";
+	public static final String YOUNG_GINGKO = "Young_Gingko"; //match dunk's spelling
 	public static final String YOUNG_HICKORY = "Young_Hickory";
 	public static final String YOUNG_KAPOK = "Young_Kapok";
 	public static final String YOUNG_LAUREL = "Young_Laurel";
@@ -55,4 +55,7 @@ public class Global {
 	public static final String YOUNG_YEW = "Young_Yew";
 	
 	public static final int[] DECIDUOUS_METAS = new int[] {0,0,0,0,0,0,0,1,2,2,2,2};
+	
+	public static final float FALL_THRESHOLD = 14f;
+	public static final float WINTER_THRESHOLD = 8f;
 }

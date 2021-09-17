@@ -12,8 +12,10 @@ import com.dunk.tfc.Core.TFC_Time;
 import com.dunk.tfc.api.TFCOptions;
 import com.facetorched.tfcaths.AthsBlockSetup;
 import com.facetorched.tfcaths.AthsMod;
+import com.facetorched.tfcaths.Global;
 import com.facetorched.tfcaths.WorldGen.Generators.AthsWorldGenPlants;
 import com.facetorched.tfcaths.WorldGen.Generators.PlantSpawnData;
+import com.facetorched.tfcaths.util.AthsParser;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -45,7 +47,6 @@ public class BlockPlant extends BlockTerra{
 		float var4 = 0.2F;
 		this.setBlockBounds(0.5F - var4, 0.0F, 0.5F - var4, 0.5F + var4, var4 * 3.0F, 0.5F + var4);
 		this.setCreativeTab(TFCTabs.TFC_DECORATION);
-		this.setBlockName(plantKey);
 		this.scale = 1.0F; //default
 		this.monthMetas = null;
 		this.setHardness(0.0F);
@@ -65,7 +66,7 @@ public class BlockPlant extends BlockTerra{
 			}
 		}
 		
-		System.out.println(this.shouldGenerateAt(world, x, y, z));
+		System.out.println(AthsWorldGenPlants.plantList.get(Global.YOUNG_EBONY).rarity);
 		
 		return super.onBlockActivated(world, x, y, z, entityplayer, side, hitX, hitY, hitZ);
 	}
@@ -179,21 +180,24 @@ public class BlockPlant extends BlockTerra{
 	@Override
 	public void updateTick(World world, int x, int y, int z, Random rand)
 	{
-		if(this.monthMetas != null) {
-			int month = TFC_Time.getSeasonAdjustedMonth(z);
-			world.setBlockMetadataWithNotify(x, y, z, monthMetas[month], 2);
-		}
+		//if(this.monthMetas != null) {
+		//	int month = TFC_Time.getSeasonAdjustedMonth(z);
+		//	if(world.getBlockMetadata(x, y, z) != monthMetas[month])
+		//		world.setBlockMetadataWithNotify(x, y, z, monthMetas[month], 2);
+		//}
 		this.checkAndDropBlock(world, x, y, z);
 	}
 	
 	// when placed
 	@Override
 	public void onPostBlockPlaced(World world, int x, int y, int z, int meta) {
+		/* 
 		//super.onPostBlockPlaced(world, x, y, z, meta);
 		if(this.monthMetas != null) {
 			int month = TFC_Time.getSeasonAdjustedMonth(z);
 			world.setBlockMetadataWithNotify(x, y, z, monthMetas[month], 2);
 		}
+		*/
 	}
 	
 	// when generated
@@ -204,6 +208,12 @@ public class BlockPlant extends BlockTerra{
 			int month = TFC_Time.getSeasonAdjustedMonth(z);
 			world.setBlockMetadataWithNotify(x, y, z, monthMetas[month], 2);
 		}
+	}
+	
+	@Override
+	public void harvestBlock(World world, EntityPlayer player, int x, int y, int z, int meta) {
+		if(AthsParser.isHolding(world, player, "itemShovel"))
+			dropBlockAsItem(world, x, y, z, new ItemStack(this, 1, meta));
 	}
 
 	@Override
@@ -244,6 +254,7 @@ public class BlockPlant extends BlockTerra{
 	public BlockPlant setNames(String name) {
 		this.plantNames = new String[] {name, name + "_Small", name + "_Large"};
 		this.plantKey = name;
+		this.setBlockName(name);
 		return this;
 	}
 	public BlockPlant setNames(String[] names) {
@@ -253,6 +264,7 @@ public class BlockPlant extends BlockTerra{
 	public BlockPlant setName(String name) {
 		this.plantNames = new String[] {name};
 		this.plantKey = name;
+		this.setBlockName(name);
 		return this;
 	}
 	public BlockPlant setKey(String key) {

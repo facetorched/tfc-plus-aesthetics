@@ -1,10 +1,18 @@
 package com.facetorched.tfcaths.blocks;
 
+import java.util.Random;
+
+import com.facetorched.tfcaths.util.AthsParser;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class BlockPlantTree extends BlockPlant{
 
+	public ItemStack[] drops = new ItemStack[0];
 	public BlockPlantTree() {
 		super();
 		float var4 = 0.125F;
@@ -16,10 +24,24 @@ public class BlockPlantTree extends BlockPlant{
     {
         return AxisAlignedBB.getBoundingBox((double)x + this.minX, (double)y + this.minY, (double)z + this.minZ, (double)x + this.maxX, (double)y + this.maxY, (double)z + this.maxZ);
     }
-	@Override
-	public BlockPlant setNames(String name) {
-		this.plantNames = new String[] {name, name + "_Autumn", name + "_Winter"};
-		this.plantKey = name;
+	
+	public BlockPlantTree setDroppedItemStack(ItemStack[] drops) {
+		this.drops = drops;
 		return this;
+	}
+	
+	@Override
+	public void harvestBlock(World world, EntityPlayer player, int x, int y, int z, int meta) {
+		if(AthsParser.isHolding(world, player, "itemShovel"))
+			dropBlockAsItem(world, x, y, z, new ItemStack(this, 1, meta));
+		else {
+			Random random = new Random();
+			for(ItemStack drop : this.drops) {
+				dropBlockAsItem(world, x, y, z, drop);
+				if(random.nextBoolean()) {
+					dropBlockAsItem(world, x, y, z, drop);
+				}
+			}
+		}
 	}
 }

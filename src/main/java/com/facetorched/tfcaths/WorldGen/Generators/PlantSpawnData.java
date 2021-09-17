@@ -20,10 +20,10 @@ public class PlantSpawnData {
 	public ArrayList<TFCBiome> biomes = new ArrayList<TFCBiome>();
 	public ArrayList<EnumRegion> region;
 	public int size, dispersion, rarity, minAltitude, maxAltitude;
-	public float minTemp, maxTemp, minRainfall, maxRainfall, minEVT, maxEVT;
+	public float minTemp, maxTemp, minRainfall, maxRainfall, minEVT, maxEVT, forestGen;
 
 	public PlantSpawnData(String blockName, int[] metas, String[] canGrowOn, String[] biomes, EnumRegion[] region, int size, int dispersion, int rarity, int minAltitude, int maxAltitude,
-			float minTemp, float maxTemp, float minRainfall, float maxRainfall, float minEVT, float maxEVT){
+			float minTemp, float maxTemp, float minRainfall, float maxRainfall, float minEVT, float maxEVT, float forestGen){
 		block = AthsParser.getBlockFromName(blockName);
 		this.metas = metas;
 		for(int i = 0; i < canGrowOn.length; i++) {
@@ -49,6 +49,7 @@ public class PlantSpawnData {
 		this.maxRainfall = maxRainfall;
 		this.minEVT = minEVT;
 		this.maxEVT = maxEVT;
+		this.forestGen = forestGen;
 	}
 	
 	public boolean canGrowConditions(BiomeGenBase biome, EnumRegion region, float bioTemp, float rain, float evt, int blockY)
