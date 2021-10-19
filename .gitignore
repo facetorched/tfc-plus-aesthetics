@@ -7,3 +7,4 @@
 !build.gradle
 !/LICENSE.txt
 !/libs/
+!*.py
