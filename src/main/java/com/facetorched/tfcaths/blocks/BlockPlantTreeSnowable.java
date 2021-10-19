@@ -25,10 +25,10 @@ public class BlockPlantTreeSnowable extends BlockPlantTree{
 	}
 	
 	public boolean checkSnow(World world, int x, int y, int z, int meta, int month, float temp, int bareMeta, int snowMeta) {
-		if(meta == bareMeta && world.isRaining() && TFC_Climate.getHeightAdjustedBioTemp(world, TFC_Time.getTotalDays(), x, y, z) < 0f) {
+		if(meta == bareMeta && world.isRaining() && TFC_Climate.getHeightAdjustedTemp(world, x, y, z) <= 0f) {
 			world.setBlockMetadataWithNotify(x, y, z, snowMeta, 2);
 		}
-		else if(meta == snowMeta && TFC_Climate.getHeightAdjustedBioTemp(world, TFC_Time.getTotalDays(), x, y, z) > 0) {
+		else if(meta == snowMeta && TFC_Climate.getHeightAdjustedTemp(world, x, y, z) > 0f) {
 			world.setBlockMetadataWithNotify(x, y, z, bareMeta, 2);
 		}
 		else

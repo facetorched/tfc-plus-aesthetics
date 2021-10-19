@@ -3,8 +3,10 @@ package com.facetorched.tfcaths.render.blocks;
 import java.util.Random;
 
 import com.facetorched.tfcaths.AthsBlockSetup;
+import com.facetorched.tfcaths.AthsGlobal;
 import com.facetorched.tfcaths.blocks.BlockPlant;
 import com.facetorched.tfcaths.util.AthsLogger;
+import com.facetorched.tfcaths.util.AthsRandom;
 
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import net.minecraft.block.Block;
@@ -14,16 +16,12 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 
-public class RenderPlantCross implements ISimpleBlockRenderingHandler {
-	
-	@Override
-	public void renderInventoryBlock(Block block, int metadata, int modelId, RenderBlocks renderer) {
-		// TODO Auto-generated method stub
-	}
+public class RenderPlantCross extends AbstractRenderPlant {
 
 	@Override
-	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId,
-			RenderBlocks renderer) {
+	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
+		renderSnow(world, x, y, z, block, modelId, renderer);
+		renderLeaves(world, x, y, z, block, modelId, renderer);
 		Tessellator tessellator = Tessellator.instance;
         tessellator.setBrightness(block.getMixedBrightnessForBlock(world, x, y, z));
         int l = block.colorMultiplier(world, x, y, z);
@@ -38,27 +36,10 @@ public class RenderPlantCross implements ISimpleBlockRenderingHandler {
 		IIcon icon = block.getIcon(0, meta);
 		
 		//add a bit of x z variation based on coords
-		Random random = new Random(x * 1000 + z);
+		Random random = AthsRandom.getRandom(x, z);
 		
 		renderer.drawCrossedSquares(icon, x + random.nextDouble()/4.0, y, z + random.nextDouble()/4.0, getScale(block, random, meta));
 		return true;
-	}
-	
-	public float getScale(Block block, Random random, int meta) {
-		float scale = 1.0F;
-		try {
-			scale = ((BlockPlant)block).getScale();
-		}
-		catch(ClassCastException e) {
-			AthsLogger.error(e);
-		}
-		return scale;
-	}
-
-	@Override
-	public boolean shouldRender3DInInventory(int modelId) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 	@Override

@@ -1,6 +1,5 @@
 package com.facetorched.tfcaths;
 
-import com.dunk.tfc.WorldGen.Generators.WorldGenOre;
 import com.facetorched.tfcaths.WorldGen.Generators.AthsWorldGenPlants;
 import com.facetorched.tfcaths.proxy.IProxy;
 import com.facetorched.tfcaths.util.Config;
@@ -31,6 +30,8 @@ public class AthsMod
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) // register blocks, items etc
     {
+    	AthsGlobal.setConstants();
+    	
     	AthsItemSetup.setup();
     	AthsBlockSetup.setup();
     	

@@ -3,7 +3,9 @@ package com.facetorched.tfcaths.render.blocks;
 import java.util.Random;
 
 import com.facetorched.tfcaths.AthsBlockSetup;
+import com.facetorched.tfcaths.AthsGlobal;
 import com.facetorched.tfcaths.blocks.BlockPlant;
+import com.facetorched.tfcaths.util.AthsRandom;
 
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import net.minecraft.block.Block;
@@ -13,12 +15,12 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 
-public class RenderPlantCrop extends RenderPlantCross{
+public class RenderPlantCrop extends AbstractRenderPlant{
 
 	@Override
-	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId,
-			RenderBlocks renderer) {
-		// TODO Auto-generated method stub
+	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
+		renderSnow(world, x, y, z, block, modelId, renderer);
+		renderLeaves(world, x, y, z, block, modelId, renderer);
 		Tessellator tessellator = Tessellator.instance;
         tessellator.setBrightness(block.getMixedBrightnessForBlock(world, x, y, z));
         int l = block.colorMultiplier(world, x, y, z);
@@ -33,7 +35,7 @@ public class RenderPlantCrop extends RenderPlantCross{
 		IIcon icon = block.getIcon(0, meta);
 		
 		//add a bit of x z variation based on coords
-		Random random = new Random(x * 1000 + z);
+		Random random = AthsRandom.getRandom(x, z);
 		athsRenderBlockCrops(icon, x + random.nextDouble()/4.0, y, z + random.nextDouble()/4.0, getScale(block, random, meta));
 		return false;
 	}

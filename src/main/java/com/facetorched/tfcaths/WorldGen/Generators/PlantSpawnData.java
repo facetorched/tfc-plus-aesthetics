@@ -1,10 +1,12 @@
 package com.facetorched.tfcaths.WorldGen.Generators;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.NoSuchElementException;
 
 import com.dunk.tfc.Core.TFC_Climate;
 import com.dunk.tfc.WorldGen.TFCBiome;
 import com.dunk.tfc.api.Enums.EnumRegion;
+import com.facetorched.tfcaths.AthsGlobal;
 import com.facetorched.tfcaths.util.AthsLogger;
 import com.facetorched.tfcaths.util.AthsParser;
 
@@ -34,8 +36,18 @@ public class PlantSpawnData {
 				this.canGrowOnOreDict.add(canGrowOn[i]);
 		}
 		
-		for(int i = 0; i < biomes.length; i++) {
-			this.biomes.add(TFCBiome.getBiomeByName(biomes[i]));
+		for(String biome : biomes) {
+			if(biome.equals("All"))
+				for(String allBiome : AthsGlobal.ALL_BIOMES)
+					this.biomes.add(TFCBiome.getBiomeByName(allBiome)); // this is idiotic but the normal biome list contains nulls
+			else if(!biome.startsWith("!"))
+				this.biomes.add(TFCBiome.getBiomeByName(biome));
+		}
+		for(String biome : biomes) {
+			if(biome.startsWith("!")) {
+				if(!this.biomes.remove(TFCBiome.getBiomeByName(biome.substring(1))))
+					throw new NoSuchElementException();
+			}
 		}
 		this.region = new ArrayList<EnumRegion>(Arrays.asList(region));
 		this.size = size;
@@ -54,13 +66,8 @@ public class PlantSpawnData {
 	
 	public boolean canGrowConditions(BiomeGenBase biome, EnumRegion region, float bioTemp, float rain, float evt, int blockY)
 	{
-		/*System.out.println(this.biomes.contains(biome) && this.region.contains(region) &&
-				bioTemp >= minTemp && bioTemp <= maxTemp && 
-				rain >= minRainfall && rain <= maxRainfall && 
-				evt >= minEVT && evt <= maxEVT &&
-				blockY >= minAltitude && blockY <= maxAltitude);
-				*/
-		return this.biomes.contains(biome) && this.region.contains(region) &&
+		return this.metas.length > 0 &&
+				this.biomes.contains(biome) && this.region.contains(region) &&
 				bioTemp >= minTemp && bioTemp <= maxTemp && 
 				rain >= minRainfall && rain <= maxRainfall && 
 				evt >= minEVT && evt <= maxEVT &&

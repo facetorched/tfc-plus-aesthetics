@@ -1,6 +1,9 @@
 package com.facetorched.tfcaths.WorldGen.Generators;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -10,6 +13,7 @@ import com.dunk.tfc.WorldGen.Generators.WorldGenForests;
 import com.dunk.tfc.api.Enums.EnumRegion;
 import com.facetorched.tfcaths.blocks.BlockPlant;
 import com.facetorched.tfcaths.blocks.BlockPlantTree;
+import com.facetorched.tfcaths.util.Point3D;
 
 import cpw.mods.fml.common.IWorldGenerator;
 import net.minecraft.block.Block;
@@ -28,8 +32,7 @@ public class AthsWorldGenPlants implements IWorldGenerator{
 	@Override
 	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
 		
-		// convert chunk coord too block coord at center of spawn region
-		
+		// convert chunk coord too block coord at about the center of generation region
 		int blockX = chunkX * 16 + 15;
 		int blockZ = chunkZ * 16 + 15;
 		
@@ -41,31 +44,38 @@ public class AthsWorldGenPlants implements IWorldGenerator{
 		EnumRegion region = EnumRegion.values()[TFC_Climate.getRegionLayer(world, blockX, blockY, blockZ)];
 		BiomeGenBase biome = world.getBiomeGenForCoords(blockX, blockZ);
 		
+		// generation region should be centered on 4 chunks
 		blockX -= 7;
 		blockZ -= 7;
 		
-		// iterate over all keys and find valid plants based on habitat conditions
+		// iterate over all keys and find valid plants based on habitat conditions then plant them
+		// in theory the order matters since it will skew bias to the earliest plants in the set
+		// if effects are too noticeable, switch to a shuffled ArrayList
 		for(String key : plantList.keySet()) {
 			PlantSpawnData data = plantList.get(key);
 			Block plant = data.block;
 			if(data.canGrowConditions(biome, region, bioTemp, rain, evt, blockY)) {
-				// create an ArrayList of types of plants and add each entry a number of times determined by rarity (could be zero)
 				int rarity = data.rarity;
 				rarity *= Math.pow(getEnvironmentRarityScaling(world, blockX, blockY, blockZ, rain, evt), data.forestGen);
-				rarity = Math.max(rarity, 1); // a rarity of 1 is saturated
 				int numClusters = binoRNG(random, 16 * 16, rarity); // number of clusters for a given plant
 				for (int i = 0; i < numClusters; i++) {
-					int x = blockX + random.nextInt(16) + 8;
-					int z = blockZ + random.nextInt(16) + 8;
-					placePlant(random, plant, data, world, x, z); // plant at center of cluster
+					int x = blockX + random.nextInt(16);
+					int z = blockZ + random.nextInt(16);
+					// try to place plant at center of cluster. if it fails, skip the cluster
+					// this isn't ideal but it leads to better looking generation and better performance
+					if (placePlant(random, plant, data, world, x, z)) {
+						if(data.dispersion == 1) 
+							expandClusterOrganic(random, plant, data, world, x, z);
+						else
+							expandClusterSquare(random, plant, data, world, x, z);
 					
-					expandCluster(random, plant, data, world, x, z);
+					}
 				}
 			}
 		}
 	}
 	
-	public void expandCluster(Random random, Block plant, PlantSpawnData data, World world, int x, int z) {
+	public void expandClusterSquare(Random random, Block plant, PlantSpawnData data, World world, int x, int z) {
 		int numPlants = binoRNG(random, data.size - 1, 2) + 1; // matlab moment (dies from cringe)
 		int plantCount = 1; // we have already placed 1 plant
 		int size = 3;  // side length of square around the cluster
@@ -74,10 +84,10 @@ public class AthsWorldGenPlants implements IWorldGenerator{
 			while (r < size) {
 				int c = 0;
 				while (c < size) {
-					if(random.nextInt(data.dispersion - 1) == 0) {
+					if(random.nextInt(data.dispersion) == 0) {
 						placePlant(random, plant, data, world, x + c - size/2, z + r - size/2);
 						plantCount ++;
-						if(plantCount < numPlants) {
+						if(plantCount >= numPlants) {
 							return;
 						}
 					}
@@ -92,22 +102,88 @@ public class AthsWorldGenPlants implements IWorldGenerator{
 		}
 	}
 	
-	// place a plant and randomize it's meta
-	public void placePlant(Random random, Block plant, PlantSpawnData data, World world, int x, int z) {
+	public void expandClusterOrganic(Random random, Block plant, PlantSpawnData data, World world, int x, int z) {
+		int numPlants = binoRNG(random, data.size - 1, 2) + 1; // matlab moment (dies from cringe)
+		if(numPlants < 2)
+			return;
+		int plantCount = 1; // we have already placed 1 plant
+		ArrayList<Point3D> pointList= new ArrayList<Point3D>();
 		int y = getTopSolidOrLiquidBlock(world, x, z);
-		if(plant.canPlaceBlockAt(world, x, y, z) && ( !(plant instanceof BlockPlant) || ((BlockPlant)plant).shouldGenerateAt(world, x, y, z) )) {
-			world.setBlock(x, y, z, plant, random.nextInt(data.metas.length), 2);
-			//world.setBlock(x, y, z, plant);
+		Point3D origin = new Point3D(x, y, z);
+		pointList.add(origin); // add the origin plant
+		int n; // how many plants back should be considered as possible seeds for cluster growth
+		
+		
+		while(plantCount < numPlants) {
+			n = (int) (Math.sqrt(plantCount) * 2.0); // the hard coded value determines organic versus circular shape. Larger value = more circular
+			n = Math.min(n, plantCount); // avoid index out of bounds
+			
+			ArrayList<Integer> recentIndexes = new ArrayList<Integer>(n);
+			for(int i = plantCount - n; i < plantCount; i++){
+			    recentIndexes.add(i);
+			}
+			
+			boolean hasPlaced = false;
+			
+			while (recentIndexes.size() > 0 && !hasPlaced){
+				int seedIndex = recentIndexes.remove(random.nextInt(recentIndexes.size()));
+				Point3D seed = pointList.get(seedIndex);
+				Point3D newPoint3D = getNearestTo(getNeighbors(seed, world), origin, plant, data, world, random);
+				
+				if(newPoint3D != null ) { //&& random.nextInt(data.dispersion) == 0) {
+					placePlant(random, plant, data, world, newPoint3D.x, newPoint3D.y, newPoint3D.z);
+					pointList.add(newPoint3D);
+					plantCount ++;
+					if(plantCount >= numPlants) {
+						return;
+					}
+					hasPlaced = true;
+				}
+			}
+			if(!hasPlaced) {
+				System.out.println("failure");
+				return;
+			}
 		}
+	}
+	
+	// place a plant and randomize it's meta
+	public boolean placePlant(Random random, Block plant, PlantSpawnData data, World world, int x, int z) {
+		int y = getTopSolidOrLiquidBlock(world, x, z);
+		if(canPlacePlantAt(plant, data, world, x, y, z)) {
+			world.setBlock(x, y, z, plant, data.metas[random.nextInt(data.metas.length)], 2);
+			return true;
+		}
+		return false;
+	}
+	
+	// place a plant and randomize it's meta
+		public boolean placePlant(Random random, Block plant, PlantSpawnData data, World world, int x, int y, int z) {
+			if(canPlacePlantAt(plant, data, world, x, y, z)) {
+				world.setBlock(x, y, z, plant, data.metas[random.nextInt(data.metas.length)], 2);
+				return true;
+			}
+			return false;
+		}
+	
+	public boolean canPlacePlantAt(Block plant, PlantSpawnData data, World world, int x, int y, int z) {
+		if(plant.canPlaceBlockAt(world, x, y, z)){
+			if (plant instanceof BlockPlant) {
+				if (((BlockPlant)plant).shouldGenerateAt(world, x, y, z)) {
+					return true;
+				}
+			}
+			else
+				return true;
+		}
+		return false;
 	}
 	
 	// simulate binomial distribution using reciprocal of p
 	public static int binoRNG(Random random, int n, int recip_p) {
 		int x = 0;
 		for(int i = 0; i < n; i++) {
-			if(recip_p <= 0)
-				x++;
-			else if(random.nextInt(recip_p - 1) == 0)
+			if(random.nextInt(recip_p) == 0)
 				x++;
 		}
 		return x;
@@ -151,5 +227,48 @@ public class AthsWorldGenPlants implements IWorldGenerator{
         }
 
         return -1;
+    }
+    
+    public Point3D[] getNeighbors(Point3D point, World world) {
+    	Point3D[] neighbors = new Point3D[4];
+    	neighbors[0] = getPointFromXZ(point.x + 1, point.z, world);
+    	neighbors[1] = getPointFromXZ(point.x - 1, point.z, world);
+    	neighbors[2] = getPointFromXZ(point.x, point.z + 1, world);
+    	neighbors[3] = getPointFromXZ(point.x, point.z - 1, world);
+    	return neighbors;
+    }
+    
+    public Point3D getPointFromXZ(int x, int z, World world) {
+    	int y = getTopSolidOrLiquidBlock(world, x, z);
+    	return new Point3D(x, y, z);
+    }
+    
+    public Point3D getNearestTo(Point3D[] candidates, Point3D origin, Block plant, PlantSpawnData data, World world, Random random) {
+    	int size = 0;
+    	for(int i = 0; i < candidates.length; i++) {
+    		if(canPlacePlantAt(plant, data, world, candidates[i].x, candidates[i].y, candidates[i].z)) {
+	    		if(size == 0) {
+	    			candidates[0] = candidates[i];
+	    			size = 1;
+	    		}
+	    		else {
+	    			int newDist = candidates[i].getDistSq(origin);
+	    			int oldDist = candidates[0].getDistSq(origin);
+	    		
+		    		if(newDist < oldDist) {
+		    			candidates[0] = candidates[i];
+		    			size = 1;
+		    		}
+		    		else if (newDist == oldDist) {
+		    			candidates[size] = candidates[i];
+		    			size ++;
+		    		}
+		    	}
+	    	}
+    	}
+    	if (size < 1) { // no valid placement was found
+    		return null;
+    	}
+    	return candidates[random.nextInt(size)];
     }
 }
