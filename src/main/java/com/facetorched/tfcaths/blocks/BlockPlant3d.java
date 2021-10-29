@@ -4,8 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ArrayList;
 
+import com.dunk.tfc.BlockSetup;
+import com.facetorched.tfcaths.AthsBlockSetup;
 import com.facetorched.tfcaths.AthsMod;
 import com.facetorched.tfcaths.WorldGen.Generators.PlantSpawnData;
+import com.facetorched.tfcaths.enums.EnumVary;
 import com.facetorched.tfcaths.tileentities.TEPlant3d;
 import com.facetorched.tfcaths.util.ObjPart;
 
@@ -35,7 +38,7 @@ public class BlockPlant3d extends BlockPlant implements ITileEntityProvider{
 	
 	@Override
 	public int getRenderType() {
-		return -1;
+		return AthsBlockSetup.plant3dRenderID;
 	}
 	
 	@Override
@@ -59,25 +62,79 @@ public class BlockPlant3d extends BlockPlant implements ITileEntityProvider{
 		return this.modelParts.get(meta);
 	}
 	
-	public BlockPlant3d setPart(String partName, int[] metas) {
-		if(this.plantKey == null) {
-			throw new IllegalStateException("cannot name plant parts before plantKey");
+
+	
+	//set part for all metas of a given vary
+	public BlockPlant3d setVaryPart(EnumVary vary, String plantName, String partName) {
+		for(int i = 0; i < numBaseMetas; i++) {
+			int meta = varyStartIndexes[vary.index] + i;
+			setPart(meta, plantName, partName);
 		}
-		for(int meta : metas) {
-			setPart(meta, this.plantKey, partName);
+		return this;
+	}
+	//set part for all metas of a given vary. use plantkey as name
+	public BlockPlant3d setVaryPart(EnumVary vary, String partName) {
+		return setVaryPart(vary, plantKey, partName);
+	}
+	//set part for all metas of a given vary. use the varyStartIndex's name
+	public BlockPlant3d setNamedVaryPart(EnumVary vary, String partName) {
+		return setVaryPart(vary, plantNames[varyStartIndexes[vary.index]], partName);
+	}
+	//set part for all metas of the given varys
+	public BlockPlant3d setVaryPart(EnumVary[] varys, String plantName, String partName) {
+		for(EnumVary vary : varys) {
+			setVaryPart(vary, plantName, partName);
+		}
+		return this;
+	}
+	//set part for all metas of the given varys. use plantkey as name
+	public BlockPlant3d setVaryPart(EnumVary[] varys, String partName) {
+		return setVaryPart(varys, plantKey, partName); //default is plantKey
+	}
+	//set part for all metas of the given varys. use each of the varyStartIndex's names
+	public BlockPlant3d setNamedVaryPart(EnumVary[] varys, String partName) {
+		for(EnumVary vary : varys) {
+			setNamedVaryPart(vary, partName);
 		}
 		return this;
 	}
 	
-	public BlockPlant3d setPart(String partName, int meta) {
-		if(this.plantKey == null) {
-			throw new IllegalStateException("cannot name plant parts before plantNames");
+	public BlockPlant3d setBaseMetaPart(int baseMeta, String plantName, String partName) {
+		for(int meta = baseMeta; meta < plantNames.length; meta += numBaseMetas) {
+			setPart(meta, plantName, partName);
 		}
-		setPart(meta, this.plantNames[meta], partName);
+		return this;
+	}
+	public BlockPlant3d setBaseMetaPart(int baseMeta, String partName) {
+		return setBaseMetaPart(baseMeta, plantKey, partName);
+	}
+	public BlockPlant3d setNamedBaseMetaPart(int baseMeta, String partName) {
+		return setBaseMetaPart(baseMeta, plantNames[baseMeta], partName);
+	}
+	public BlockPlant3d setBaseMetaPart(int[] baseMetas, String plantName, String partName) {
+		for(int baseMeta : baseMetas) {
+			setBaseMetaPart(baseMeta, plantName, partName);
+		}
+		return this;
+	}
+	public BlockPlant3d setBaseMetaPart(int[] baseMetas, String partName) {
+		return setBaseMetaPart(baseMetas, plantKey, partName); //default is plantKey
+	}
+	public BlockPlant3d setNamedBaseMetaPart(int[] baseMetas, String partName) {
+		for(int baseMeta : baseMetas) {
+			setNamedBaseMetaPart(baseMeta, partName);
+		}
 		return this;
 	}
 	
-	public void setPart(int meta, String plantName, String partName) {
+	//set part for only one specific meta given a vary and baseMeta. use that meta's name
+	public BlockPlant3d setPart(EnumVary vary, int baseMeta, String partName) {
+		int meta = varyStartIndexes[vary.index] + baseMeta;
+		return setNamedPart(meta, partName);
+	}
+	
+	// the most basic way to set a part. only use this externally if brute force is needed
+	public BlockPlant3d setPart(int meta, String plantName, String partName) {
 		ObjPart part =  new ObjPart(new ResourceLocation(AthsMod.MODID, 
 				"textures/blocks/plants/" + plantName + "_" + partName + ".png"), partName);
 		if (this.modelParts.containsKey(meta)) {
@@ -88,13 +145,46 @@ public class BlockPlant3d extends BlockPlant implements ITileEntityProvider{
 			obj.add(part);
 			this.modelParts.put(meta, obj);
 		}
+		return this;
 	}
 	
+	//set part for only one specific meta using that meta's name
+	public BlockPlant3d setNamedPart(int meta, String partName) {
+		return setPart(meta, plantNames[meta], partName);
+	}
+	//set part for only one specific meta using plantkey as name
+	public BlockPlant3d setPart(int meta, String partName) {
+		return setPart(meta, plantKey, partName);
+	}
+	// set part for all provided metas using plantkey as name
+	public BlockPlant3d setPart(int[] metas, String partName) {
+		for(int meta : metas) {
+			setPart(meta, partName);
+		}
+		return this;
+	}
+	// set part for all possible metas using plantkey as name
+	public BlockPlant3d setPart(String partName) {
+		for(int meta = 0; meta < plantNames.length; meta++) {
+			setPart(meta, partName);
+		}
+		return this;
+	}
+	
+	// it's nice to have these return BlockPlant3d
+	@Override
+	public BlockPlant3d addVarys(EnumVary[] varys) {
+		super.addVarys(varys);
+		return this;
+	}
+	@Override
+	public BlockPlant3d addVary(EnumVary vary) {
+		super.addVary(vary);
+		return this;
+	}
 	@Override
 	public BlockPlant3d setName(String name) {
-		this.plantNames = new String[] {name};
-		this.plantKey = name;
-		this.setBlockName(name);
-		return this;
+		super.setName(name);
+		return this; 
 	}
 }

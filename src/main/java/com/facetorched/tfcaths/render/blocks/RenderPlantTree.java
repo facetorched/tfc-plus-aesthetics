@@ -2,6 +2,7 @@ package com.facetorched.tfcaths.render.blocks;
 
 import java.util.Random;
 
+import com.facetorched.tfcaths.AthsGlobal;
 import com.facetorched.tfcaths.blocks.BlockPlant;
 import com.facetorched.tfcaths.util.AthsLogger;
 
@@ -9,8 +10,10 @@ import net.minecraft.block.Block;
 
 public class RenderPlantTree extends RenderPlantCross{
 	@Override
-	public float getScale(Block block, Random random, int meta){
-		float scale = 6.0F;
+	public float getRenderScale(Block block, Random random, int meta){
+		
+		float scale = AthsGlobal.TREE_SCALE;
+		
 		try {
 			scale = ((BlockPlant)block).getScale();
 		}

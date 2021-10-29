@@ -14,26 +14,15 @@ import net.minecraft.world.IBlockAccess;
 public class RenderPlantLilyPad extends AbstractRenderPlant{
 
 	@Override
-	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId,
-			RenderBlocks renderer) {
-
-		Tessellator tessellator = Tessellator.instance;
-        tessellator.setBrightness(block.getMixedBrightnessForBlock(world, x, y, z));
-        int rgb = block.colorMultiplier(world, x, y, z);
-
-        tessellator.setColorOpaque_I(rgb);
-		//well this is stupid. might want to make this special eventually
-		//renderer.renderBlockLilyPad(block, x, y, z);
-        
-        int meta = world.getBlockMetadata(x, y, z);
-        
-		IIcon iicon = block.getIcon(0, meta);
-
+	public boolean renderPlantBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId,
+			RenderBlocks renderer, Tessellator tessellator, int rgb, int meta, float scale, IIcon icon, Random random) {
+		
+		renderer.renderBlockLilyPad(block, x, y, z);
         float f = 0.015625F;
-        double d0 = (double)iicon.getMinU();
-        double d1 = (double)iicon.getMinV();
-        double d2 = (double)iicon.getMaxU();
-        double d3 = (double)iicon.getMaxV();
+        double d0 = (double)icon.getMinU();
+        double d1 = (double)icon.getMinV();
+        double d2 = (double)icon.getMaxU();
+        double d3 = (double)icon.getMaxV();
         long l = (long)(x * 3129871) ^ (long)z * 116129781L ^ (long)y;
         l = l * l * 42317861L + l * 11L;
         int i1 = (int)(l >> 16 & 3L);
@@ -61,5 +50,4 @@ public class RenderPlantLilyPad extends AbstractRenderPlant{
 	public int getRenderId() {
 		return AthsBlockSetup.plantLilyPadRenderID;
 	}
-	
 }

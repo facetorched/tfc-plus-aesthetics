@@ -14,6 +14,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class BlockPlantTree extends BlockPlant{
 
@@ -73,6 +74,17 @@ public class BlockPlantTree extends BlockPlant{
 			world.setBlock(x, y, z, getBlockById(0), 0, 2);
 		}
 	}
+	
+	@Override
+	public boolean shouldGenerateAt(World world, int x, int y, int z) {
+		for(int i = 1; i < (int)scale; i++) {
+			if(!world.isAirBlock(x, y + i, z)) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
 	@Override
 	public int getRenderType() {
 		return AthsBlockSetup.plantTreeRenderID;

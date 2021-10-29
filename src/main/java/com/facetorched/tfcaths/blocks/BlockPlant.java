@@ -8,13 +8,14 @@ import com.dunk.tfc.Core.TFCTabs;
 import com.dunk.tfc.Core.TFC_Climate;
 import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Core.TFC_Time;
+import com.dunk.tfc.Entities.Mobs.EntityWolfTFC;
+import com.dunk.tfc.api.TFCItems;
 import com.facetorched.tfcaths.AthsBlockSetup;
-import com.facetorched.tfcaths.AthsGlobal;
 import com.facetorched.tfcaths.AthsMod;
 import com.facetorched.tfcaths.WorldGen.Generators.AthsWorldGenPlants;
 import com.facetorched.tfcaths.WorldGen.Generators.PlantSpawnData;
 import com.facetorched.tfcaths.enums.EnumVary;
-import com.facetorched.tfcaths.util.AthsMath;
+import com.facetorched.tfcaths.items.itemblocks.ItemPlant;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -22,9 +23,11 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
@@ -40,6 +43,7 @@ public class BlockPlant extends BlockTerra{
 	public Integer[] varyStartIndexes;
 	public boolean hasVarys;
 	public EnumVary[] monthVarys;
+	public Class<? extends ItemBlock> itemBlock;
 
 	@SideOnly(Side.CLIENT)
 	protected IIcon[] icons;
@@ -55,6 +59,7 @@ public class BlockPlant extends BlockTerra{
 		this.varyStartIndexes = new Integer[EnumVary.values().length]; // will default to false for all
 		this.setHardness(0.0F);
 		this.setStepSound(Block.soundTypeGrass);
+		this.setItemBlock(ItemPlant.class);
 	}
 
 	@Override
@@ -105,12 +110,9 @@ public class BlockPlant extends BlockTerra{
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister register)
-	{
+	public void registerBlockIcons(IIconRegister register){
 		this.icons = new IIcon[plantNames.length];
-
-		for (int i = 0; i < this.icons.length; ++i)
-		{
+		for (int i = 0; i < this.icons.length; ++i){
 			this.icons[i] = register.registerIcon(AthsMod.MODID+":plants/"+plantNames[i]);
 		}
 	}
@@ -182,11 +184,10 @@ public class BlockPlant extends BlockTerra{
 		return false;
 	}
 	
-	// when generated
+	// when placed or generated
 	@Override
 	public void onBlockAdded(World world, int x, int y, int z) {
-		//super.onBlockAdded(world, x, y, z);
-		this.updateTick(world, x, y, z, null);
+		//this.updateTick(world, x, y, z, null);
 	}
 	
 	@Override
@@ -207,57 +208,15 @@ public class BlockPlant extends BlockTerra{
 		}
 	}
 	
-	/*
-	public int getSafeItemMeta(int blockMeta) {
-		int itemMeta = getItemMeta(blockMeta);
-		return this.plantNames == null || itemMeta >= this.plantNames.length ? 0 : itemMeta;
-	}
-	
-	public static int getItemMeta(int blockMeta) {
-		return blockMeta & AthsGlobal.ITEM_META_BITMASK; // first 8 bits store item meta
-	}
-	public static int getBlockFlags(int blockMeta) {
-		return blockMeta ^ getItemMeta(blockMeta);
-	}
-	public static boolean hasSnowLayer(int meta) {
-		return AthsMath.isKthBit(meta, AthsGlobal.ITEM_META_BITS);
-	}
-	public static boolean hasSnowLayerAt(World world, int x, int y, int z) {
-		return hasSnowLayer(world.getBlockMetadata(x, y, z));
-	}
-	public static int toggleSnowLayer(int meta) {
-		return AthsMath.toggleKthBit(meta, AthsGlobal.ITEM_META_BITS);
-	}
-	public static void toggleSnowLayerAt(World world, int x, int y, int z) {
-		System.out.println(world.setBlockMetadataWithNotify(x, y, z, toggleSnowLayer(world.getBlockMetadata(x, y, z)), 2));
-	}
-	*/
 	@Override
 	public void updateTick(World world, int x, int y, int z, Random rand){
-		updateVary(world, x, y, z);
+		updateVary(world, x, y, z, rand);
 		checkAndDropBlock(world, x, y, z);
 	}
 	
-	/*
-	public void updateSnowLayer(World world, int x, int y, int z) {
-		float temp = TFC_Climate.getHeightAdjustedTemp(world, x, y, z);
-		boolean inRain =  TFC_Core.isExposedToRain(world, x, y, z);
-		boolean hasSnow = hasSnowLayerAt(world, x, y, z);
-		//System.out.println(hasSnow);
-		//System.out.println(inRain);
-		if (temp <= 0 && inRain && !hasSnow) {
-			toggleSnowLayerAt(world, x, y, z);
-			//System.out.println(hasSnowLayerAt(world, x, y, z));
-		}
-		else if (temp > 0 && hasSnow) {
-			toggleSnowLayerAt(world, x, y, z);
-		}
-	}
-	*/
-	
-	public void updateVary(World world, int x, int y, int z) {
+	public void updateVary(World world, int x, int y, int z, Random random) {
 		if (this.hasVarys) {
-			int blockMeta = world.getBlockMetadata(x, y, z);
+			int meta = world.getBlockMetadata(x, y, z);
 			int month = TFC_Time.getSeasonAdjustedMonth(z);
 			//float temp = TFC_Climate.getHeightAdjustedBioTemp(world, TFC_Time.getTotalDays(), x, y, z);
 			float temp = TFC_Climate.getHeightAdjustedTemp(world, x, y, z);
@@ -268,20 +227,26 @@ public class BlockPlant extends BlockTerra{
 			if(hasVary(EnumVary.SNOW)) {
 				boolean inRain =  TFC_Core.isExposedToRain(world, x, y, z);
 				if(inRain && temp <= 0) {
-					shiftToVary(world, x, y, z, blockMeta, EnumVary.SNOW);
+					shiftToVary(world, x, y, z, meta, EnumVary.SNOW);
+					return;
 				}
 			}
 			// flowers fruits etc based on month!
 			if (monthVarys != null) {
 				EnumVary monthVary =  monthVarys[month];
 				if(monthVary != null && hasVary(monthVary)) {
-					shiftToVary(world, x, y, z, blockMeta, monthVary);
+					shiftToVary(world, x, y, z, meta, monthVary);
 					return; // success
 				}
 			}
+			
+			if (isVary(meta, EnumVary.SNOW) && temp<0) {
+				return;
+			}
+			
 			// default
-			if (month < TFC_Time.OCTOBER && temp >= 0) {
-				shiftToVary(world, x, y, z, blockMeta, EnumVary.DEFAULT);
+			if (month < TFC_Time.OCTOBER && temp > 0) {
+				shiftToVary(world, x, y, z, meta, EnumVary.DEFAULT);
 				return; // success
 			}
 			
@@ -289,35 +254,43 @@ public class BlockPlant extends BlockTerra{
 			if(hasVary(EnumVary.WINTER)) {
 				if ((month >= TFC_Time.OCTOBER && temp <= 0f) ||
 					(month >= TFC_Time.NOVEMBER && temp <= 10f)) {
-					shiftToVary(world, x, y, z, blockMeta, EnumVary.WINTER);
+					shiftToVary(world, x, y, z, meta, EnumVary.WINTER);
 					return; // success
 				}
 			}
 			// autumn
 			if(hasVary(EnumVary.AUTUMN)) {
-				if (month >= TFC_Time.OCTOBER && temp <= 10) {
-					shiftToVary(world, x, y, z, blockMeta, EnumVary.AUTUMN);
+				if (month >= TFC_Time.OCTOBER && temp <= 10 ) {//&& random.nextInt(10) == 0) {
+					shiftToVary(world, x, y, z, meta, EnumVary.AUTUMN);
 					return; // success
 				}
 			}
+			shiftToVary(world, x, y, z, meta, EnumVary.DEFAULT);
 		}
 	}
 	
 	public void shiftToVary(World world, int x, int y, int z, int meta, EnumVary vary) {
-		int newMeta = varyStartIndexes[vary.index] + (meta % numBaseMetas);
+		int newMeta = varyStartIndexes[vary.index] + getBaseMeta(meta);
 		if(meta != newMeta) {
 			world.setBlockMetadataWithNotify(x, y, z, newMeta, 2);
 		}
 	}
 	
-	public boolean shiftMetaBy(World world, int x, int y, int z, int meta, int delta) {
-		int testMeta = (meta % numBaseMetas) + delta;
+	// useful for growing or trimming plants
+	public boolean shiftMeta(World world, int x, int y, int z, int meta, int delta) {
+		int testMeta = getBaseMeta(meta) + delta;
 		if (testMeta >= 0 && testMeta < numBaseMetas) {
 			return world.setBlockMetadataWithNotify(x, y, z, meta + delta, 2);
 		}
 		return false;
 	}
 	
+	public EnumVary getVary(int meta) {
+		return EnumVary.getEnum(meta / numBaseMetas);
+	}
+	public int getBaseMeta(int meta) {
+		return meta % numBaseMetas;
+	}
 	public BlockPlant addVarys(EnumVary[] varys) {
 		for(EnumVary vary : varys) {
 			addVary(vary);
@@ -371,6 +344,11 @@ public class BlockPlant extends BlockTerra{
 		setKeyName(name);
 		return this;
 	}
+	public BlockPlant setNames(String name, String suffix) {
+		setNames(new String[] {name, name + "_" + suffix});
+		setKeyName(name);
+		return this;
+	}
 	public BlockPlant setName(String name) {
 		setNames(new String[] {name});
 		setKeyName(name);
@@ -387,6 +365,15 @@ public class BlockPlant extends BlockTerra{
 		this.numBaseMetas = names.length;
 		return this;
 	}
+	public BlockPlant setNames(String name, String[] suffixes) {
+		String[] names = new String[suffixes.length];
+		for(int i = 0; i < suffixes.length; i++) {
+			names[i] = name + "_" + suffixes[i];
+		}
+		setNames(names);
+		setKeyName(name);
+		return this;
+	}
 	public void setPlantKey(String plantKey) {
 		this.plantKey = plantKey;
 	}
@@ -400,7 +387,6 @@ public class BlockPlant extends BlockTerra{
 		this.scale = scale;
 		return this;
 	}
-	
 	public BlockPlant setMonthVary(int month, EnumVary vary) {
 		if (!hasVary(vary)) {
 			throw new IllegalStateException("plant does not have variation: " + vary.toString());
@@ -418,14 +404,22 @@ public class BlockPlant extends BlockTerra{
 		return this;
 	}
 	public BlockPlant setFlowerMonthRange(int startMonth, int endMonth) {
-		for(int month = startMonth; month <= endMonth; month++) {
+		for(int month = startMonth; month != endMonth; month = (month + 1) % 12) {
 			setMonthVary(month, EnumVary.FLOWER);
 		}
+		setMonthVary(endMonth, EnumVary.FLOWER); // I guess this should be inclusive :/
 		return this;
 	}
 	public BlockPlant setFlowerMonth(int month) {
 		setMonthVary(month, EnumVary.FLOWER);
 		return this;
+	}
+	public BlockPlant setItemBlock(Class<? extends ItemBlock> itemBlock) {
+		this.itemBlock = itemBlock;
+		return this;
+	}
+	public Class<? extends ItemBlock> getItemBlock(){
+		return this.itemBlock;
 	}
 	
 	public boolean dropItemStacks(World world, int x, int y, int z, ItemStack is, int min, int max, Random random) {
@@ -433,5 +427,23 @@ public class BlockPlant extends BlockTerra{
 		is.stackSize = numDrops;
 		dropBlockAsItem(world, x, y, z, is);
 		return numDrops > 0;
+	}
+	@Override
+	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity)
+	{
+		if (isVary(world.getBlockMetadata(x, y, z), EnumVary.SNOW)) {
+			if (entity instanceof EntityPlayer){
+				ItemStack bootsI = ((EntityPlayer) entity).getCurrentArmor(0);
+				if (bootsI != null && (bootsI.getItem() == TFCItems.wolfFurBoots || bootsI.getItem() == TFCItems.bearFurBoots || bootsI.getItem() == TFCItems.furBoots)){
+					return;
+				}
+			}
+			double speed = 0.98;
+			speed = Math.max(speed, 0);
+			if (!(entity instanceof EntityWolfTFC)){
+				entity.motionX *= speed;
+				entity.motionZ *= speed;
+			}
+		}
 	}
 }

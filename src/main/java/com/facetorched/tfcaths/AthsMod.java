@@ -35,8 +35,8 @@ public class AthsMod
     	AthsItemSetup.setup();
     	AthsBlockSetup.setup();
     	
-    	Config.preInit(event.getModConfigurationDirectory());
-    	Config.reload();
+    	//Config.preInit(event.getModConfigurationDirectory());
+    	//Config.reload();
     	
     	GameRegistry.registerWorldGenerator(new AthsWorldGenPlants(), 100);
     	proxy.preInit(event);
@@ -45,7 +45,7 @@ public class AthsMod
     @EventHandler
     public void init(FMLInitializationEvent event) //build data structures and register network handlers
     {
-    	Config.reloadPlants();
+    	//Config.reloadPlants();
     	proxy.init(event);
     }
     

@@ -3,38 +3,28 @@ package com.facetorched.tfcaths.blocks;
 import java.util.Random;
 
 import com.dunk.tfc.Core.TFC_Time;
+import com.facetorched.tfcaths.AthsMod;
+import com.facetorched.tfcaths.enums.EnumVary;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
 public class BlockPlantFlower extends BlockPlant{
-	public int[] monthMetas;
-	
+
 	@Override
-	public BlockPlant setNames(String name) {
-		this.plantNames = new String[] {name + "_No_Flower", name};
-		this.plantKey = name;
-		this.setBlockName(name);
-		return this;
-	}
-	
-	@Override
-	public void updateTick(World world, int x, int y, int z, Random rand)
-	{
-		if(this.monthMetas != null) {
-			int month = TFC_Time.getSeasonAdjustedMonth(z);
-			int meta = monthMetas[month];
-			// negative values in monthMetas means ignore!
-			if(meta >= 0 && world.getBlockMetadata(x, y, z) != meta) 
-				world.setBlockMetadataWithNotify(x, y, z, monthMetas[month], 2);
+	@SideOnly(Side.CLIENT)
+	public void registerBlockIcons(IIconRegister register){
+		this.icons = new IIcon[plantNames.length];
+		for (int i = 0; i < this.icons.length; ++i){
+			if(this.isVary(i, EnumVary.FLOWER)) {
+				this.icons[i] = register.registerIcon(AthsMod.MODID+":plants/"+plantNames[i]);
+			}
+			else {
+				this.icons[i] = register.registerIcon(AthsMod.MODID+":plants/"+plantKey + getVary(i).suffix);
+			}
 		}
-		this.checkAndDropBlock(world, x, y, z);
-	}
-	
-	public int[] getMonthMetas() {
-		return monthMetas;
-	}
-	public BlockPlant setMonthMetas(int[] monthMetas) {
-		this.monthMetas = monthMetas;
-		return this;
 	}
 }

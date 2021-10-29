@@ -25,7 +25,7 @@ public class BlockPlantStraw extends BlockPlant implements IShearable{
 		if(AthsParser.isHolding(world, player, "itemShovel"))
 			dropBlockAsItem(world, x, y, z, new ItemStack(this, 1, meta));
 		else if(AthsParser.isHolding(world, player, "itemKnife")) {
-			dropItemStacks(world, x, y, z, new ItemStack(ItemSetup.straw), 1, meta + 2, new Random());
+			dropItemStacks(world, x, y, z, new ItemStack(ItemSetup.straw), 1, getBaseMeta(meta) + 2, new Random());
 		}
 	}
 	@Override

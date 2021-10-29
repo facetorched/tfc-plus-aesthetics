@@ -8,14 +8,19 @@ import com.dunk.tfc.api.TFCBlocks;
 import com.facetorched.tfcaths.blocks.BlockPlant;
 import com.facetorched.tfcaths.enums.EnumVary;
 import com.facetorched.tfcaths.util.AthsLogger;
+import com.facetorched.tfcaths.util.AthsRandom;
 
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 
 public abstract class AbstractRenderPlant implements ISimpleBlockRenderingHandler{
+	public abstract boolean renderPlantBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer, Tessellator tessellator, int rgb, int meta, float scale, IIcon icon, Random random);
+	
 	public void renderSnow(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
 		int meta = world.getBlockMetadata(x, y, z);
 		if(block instanceof BlockPlant) {
@@ -29,6 +34,7 @@ public abstract class AbstractRenderPlant implements ISimpleBlockRenderingHandle
 		}
 	}
 	
+	@SuppressWarnings("deprecation")
 	public void renderLeaves(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
 		Block left = world.getBlock(x - 1, y, z);
         if (left instanceof BlockLeafLitter)
@@ -37,10 +43,30 @@ public abstract class AbstractRenderPlant implements ISimpleBlockRenderingHandle
         }
 	}
 	
+	@Override
+	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
+		renderSnow(world, x, y, z, block, modelId, renderer);
+		renderLeaves(world, x, y, z, block, modelId, renderer);
+		
+		Tessellator tessellator = Tessellator.instance;
+        tessellator.setBrightness(block.getMixedBrightnessForBlock(world, x, y, z));
+        int rgb = block.colorMultiplier(world, x, y, z);
+        tessellator.setColorOpaque_I(rgb);
+
+        int meta = world.getBlockMetadata(x, y, z);
+		IIcon icon = block.getIcon(0, meta);
+		
+		//add a bit of x z variation based on coords
+		Random random = AthsRandom.getRandom(x, z);
+		float scale = getRenderScale(block, random, meta);
+		
+		return renderPlantBlock(world, x, y, z, block, modelId, renderer, tessellator, rgb, meta, scale, icon, random);
+	}
+	
 	/*
 	 * random passed is supposed to have the same seed for each block
 	 */
-	public float getScale(Block block, Random random, int meta) {
+	public float getRenderScale(Block block, Random random, int meta) {
 		float scale = 1.0F;
 		try {
 			scale = ((BlockPlant)block).getScale();

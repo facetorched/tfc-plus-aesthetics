@@ -1,6 +1,7 @@
 package com.facetorched.tfcaths.blocks;
 
 import com.facetorched.tfcaths.AthsBlockSetup;
+import com.facetorched.tfcaths.items.itemblocks.ItemPlantLilyPad;
 
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
@@ -11,6 +12,7 @@ public class BlockPlantLilyPad extends BlockPlant{
 		super();
 		float var4 = 0.1F;
 		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, var4, 1.0F);
+		setItemBlock(ItemPlantLilyPad.class);
 	}
 	
 	@Override

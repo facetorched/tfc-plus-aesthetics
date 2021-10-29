@@ -7,16 +7,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class BlockPlantLilyPad3d extends BlockPlant3d{
-	
-	public BlockPlantLilyPad3d() {
-		super();
-		float var4 = 0.1F;
-		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, var4, 1.0F);
-	}
-	
+	// player can stand on this block!
 	@Override
-	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z)
-    {
+	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z){
         return AxisAlignedBB.getBoundingBox((double)x + this.minX, (double)y + this.minY, (double)z + this.minZ, (double)x + this.maxX, (double)y + this.maxY, (double)z + this.maxZ);
     }
 	

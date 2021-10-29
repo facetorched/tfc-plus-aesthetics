@@ -18,7 +18,7 @@ public class BlockPlantTreeTrimmable extends BlockPlantTree{
 		if (player.getHeldItem() != null && 
 			(player.getHeldItem().getItem() instanceof ItemCustomSaw || player.getHeldItem().getItem() instanceof ItemShears)) {
 			int meta = world.getBlockMetadata(x, y, z);
-			shiftMetaBy(world, x, y, z, meta, 1); // add 1 to the meta
+			shiftMeta(world, x, y, z, meta, 1); // add 1 to the meta
 		}
 		return super.onBlockActivated(world, x, y, z, player, side, hitX, hitY, hitZ);
 	}

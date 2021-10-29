@@ -13,6 +13,7 @@ import com.dunk.tfc.WorldGen.Generators.WorldGenForests;
 import com.dunk.tfc.api.Enums.EnumRegion;
 import com.facetorched.tfcaths.blocks.BlockPlant;
 import com.facetorched.tfcaths.blocks.BlockPlantTree;
+import com.facetorched.tfcaths.enums.EnumVary;
 import com.facetorched.tfcaths.util.Point3D;
 
 import cpw.mods.fml.common.IWorldGenerator;
@@ -56,8 +57,8 @@ public class AthsWorldGenPlants implements IWorldGenerator{
 			Block plant = data.block;
 			if(data.canGrowConditions(biome, region, bioTemp, rain, evt, blockY)) {
 				int rarity = data.rarity;
-				rarity *= Math.pow(getEnvironmentRarityScaling(world, blockX, blockY, blockZ, rain, evt), data.forestGen);
-				int numClusters = binoRNG(random, 16 * 16, rarity); // number of clusters for a given plant
+				rarity *= Math.pow(getEnvironmentRarityScaling(world, blockX, blockY, blockZ, rain, evt), data.forestGen); //ignores this effect if forestGen is 0
+				int numClusters = binoRNG(random, 16 * 16, rarity); // number of clusters for a given plant. Is this slow??
 				for (int i = 0; i < numClusters; i++) {
 					int x = blockX + random.nextInt(16);
 					int z = blockZ + random.nextInt(16);
@@ -65,7 +66,8 @@ public class AthsWorldGenPlants implements IWorldGenerator{
 					// this isn't ideal but it leads to better looking generation and better performance
 					if (placePlant(random, plant, data, world, x, z)) {
 						if(data.dispersion == 1) 
-							expandClusterOrganic(random, plant, data, world, x, z);
+							//eventually I might make organic generation work with other dispersions but it's diminishing returns for loss of performance
+							expandClusterOrganic(random, plant, data, world, x, z); 
 						else
 							expandClusterSquare(random, plant, data, world, x, z);
 					
@@ -150,17 +152,22 @@ public class AthsWorldGenPlants implements IWorldGenerator{
 	// place a plant and randomize it's meta
 	public boolean placePlant(Random random, Block plant, PlantSpawnData data, World world, int x, int z) {
 		int y = getTopSolidOrLiquidBlock(world, x, z);
-		if(canPlacePlantAt(plant, data, world, x, y, z)) {
-			world.setBlock(x, y, z, plant, data.metas[random.nextInt(data.metas.length)], 2);
-			return true;
-		}
-		return false;
+		return placePlant(random, plant, data, world, x, y, z);
 	}
 	
 	// place a plant and randomize it's meta
 		public boolean placePlant(Random random, Block plant, PlantSpawnData data, World world, int x, int y, int z) {
 			if(canPlacePlantAt(plant, data, world, x, y, z)) {
 				world.setBlock(x, y, z, plant, data.metas[random.nextInt(data.metas.length)], 2);
+				// if it's below freezing during world generation, add snow!
+				if(plant instanceof BlockPlant) {
+					if(((BlockPlant)plant).hasVary(EnumVary.SNOW)) {
+						if(TFC_Climate.getHeightAdjustedTemp(world, x, y, z) <= 0) {
+							((BlockPlant)plant).shiftToVary(world, x, y, z, world.getBlockMetadata(x, y, z), EnumVary.SNOW);
+						}
+					}
+					plant.updateTick(world, x, y, z, random);
+				}
 				return true;
 			}
 			return false;
@@ -169,9 +176,7 @@ public class AthsWorldGenPlants implements IWorldGenerator{
 	public boolean canPlacePlantAt(Block plant, PlantSpawnData data, World world, int x, int y, int z) {
 		if(plant.canPlaceBlockAt(world, x, y, z)){
 			if (plant instanceof BlockPlant) {
-				if (((BlockPlant)plant).shouldGenerateAt(world, x, y, z)) {
-					return true;
-				}
+				return ((BlockPlant)plant).shouldGenerateAt(world, x, y, z);
 			}
 			else
 				return true;

@@ -2,18 +2,61 @@ package com.facetorched.tfcaths;
 
 import com.facetorched.tfcaths.util.AthsParser;
 
+import net.minecraft.block.Block;
+
 public class AthsGlobal {
 	public static final String SAGEBRUSH = "Sagebrush";
-	public static final String PRARIE_GRASS = "Prarie_Grass";
+	public static final String PRAIRIE_GRASS = "Prairie_Grass";
 	public static final String LEAFY_UNDERGROWTH = "Leafy_Undergrowth";
 	public static final String MEDIUM_UNDERGROWTH = "Medium_Undergrowth";
+	
+	public static final String ALOE_VERA = "Aloe_Vera";
+	public static final String ANGELS_TRUMPET = "Angels_Trumpet";
+	public static final String ANGEL_WING_CACTUS = "Angel_Wing_Cactus";
+	public static final String BLUE_CEREUS_CACTUS = "Blue_Cereus_Cactus";
+	public static final String CAMAS_FLOWER = "Camas_Flower";
+	public static final String CHIVES = "Chives";
+	public static final String CLOVER = "Clover";
+	public static final String COMMON_REEDS = "Common_Reeds";
+	public static final String CREEPING_CHARLIE = "Creeping_Charlie";
+	public static final String CUP_PLANT = "Cup_Plant";
+	public static final String DAFFODIL = "Daffodil";
+	public static final String ELEPHANT_GRASS = "Elephant_Grass";
+	public static final String FIREWEED = "Fireweed";
+	public static final String GIANT_HOGWEED = "Giant_Hogweed";
+	public static final String HEATHER = "Heather";
+	public static final String HIBISCUS = "Hibiscus";
+	public static final String FIELD_HORSETAIL = "Field_Horsetail";
+	public static final String ROUGH_HORSETAIL = "Rough_Horsetail";
+	public static final String INDIAN_PIPES = "Indian_Pipes";
+	public static final String IRIS = "Iris";
+	public static final String JACK_IN_THE_PULPIT = "Jack_In_The_Pulpit";
+	public static final String LAVENDER = "Lavender";
+	public static final String LEAFY_LOW_UNDERGROWTH = "Leafy_Low_Undergrowth";
+	public static final String LUPINE = "Lupine";
+	public static final String MARIGOLD = "Marigold";
+	public static final String OCOTILLO = "Ocotillo";
+	public static final String ORGAN_PIPE_CACTUS = "Organ_Pipe_Cactus";
+	public static final String POKEWEED = "Pokeweed";
+	public static final String PRICKLY_PEAR = "Prickly_Pear";
+	public static final String ROSEBUSH = "Rosebush";
+	public static final String SAGUARO = "Saguaro";
+	public static final String SCALY_TREE_FERN = "Scaly_Tree_Fern";
+	public static final String SENSITIVE_FERN = "Sensitive_Fern";
+	public static final String SORBUS = "Sorbus";
+	public static final String SUNDEW = "Sundew";
+	public static final String SUNFLOWER = "Sunflower";
+	public static final String VENUS_FLY_TRAP = "Venus_Fly_Trap";
+	public static final String WATER_HYACINTH = "Water_Hyacinth";
+	public static final String YARROW = "Yarrow";
+	public static final String DUCKWEED = "Duckweed";
+	public static final String DEVILS_FINGERS = "Devils_Fingers";
 	
 	public static final String BIRD_OF_PARADISE = "Bird_of_Paradise";
 	public static final String BOLETUS = "Boletus";
 	public static final String CHANTERELLE = "Chanterelle";
 	public static final String DEVILS_TOUNGE = "Devils_Tongue";
 	public static final String DUNE_GRASS = "Dune_Grass";
-	public static final String HORSETAIL = "Horsetail";
 	public static final String INDIGO_MILK_CAP = "Indigo_Milk_Cap";
 	public static final String LOBSTER_CLAWS = "Lobster_Claws";
 	public static final String MOREL = "Morel";
@@ -67,17 +110,16 @@ public class AthsGlobal {
 	public static final String SUMAC_SHORT = "Sumac_Short";
 	public static final String SUMAC_TALL = "Sumac_Tall";
 	public static final String HOSTA_HALCYON = "Hosta_Halcyon";
-	public static final String HOSTA_PARIOT = "Hosta_Patriot";
+	public static final String HOSTA_PATRIOT = "Hosta_Patriot";
 	public static final String HOSTA_VULCAN = "Hosta_Vulcan";
 	public static final String BRACKEN_FERN = "Bracken_Fern";
-	public static final String CYCAD = "Cycad";
 	public static final String LADY_FERN = "Lady_Fern";
 	public static final String OSTRICH_FERN = "Ostrich_Fern";
 	public static final String PAINTED_FERN = "Painted_Fern";
 	public static final String SWORD_FERN = "Sword_Fern";
 	public static final String WOOD_FERN = "Wood_Fern";
 	public static final String DEVILS_CLUB = "Devils_Club";
-	public static final String BURRDOCK = "Burrdock";
+	public static final String BURDOCK = "Burdock";
 	
 	public static final String[] SHALLOW_WATER_BIOMES = new String[]{"River","Beach","Gravel Beach","Swamp","Lake","Shore","Salt Swamp","Lakeshore","Riverbank","Estuary"};
 	public static final String[] LAND_BIOMES = new String[] {"All","!Ocean","!Hell","!Deep Ocean"};

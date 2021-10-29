@@ -1,11 +1,14 @@
 package com.facetorched.tfcaths.render.tileentities;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
 
 import com.facetorched.tfcaths.AthsMod;
 import com.facetorched.tfcaths.blocks.BlockPlant3d;
+import com.facetorched.tfcaths.util.AthsLogger;
 import com.facetorched.tfcaths.util.AthsRandom;
 import com.facetorched.tfcaths.util.ObjPart;
 
@@ -25,19 +28,30 @@ public class TESRPlant3d extends TileEntitySpecialRenderer{
 		int x = te.xCoord;
 		int y = te.yCoord;
 		int z = te.zCoord;
-		BlockPlant3d block = ((BlockPlant3d)te.getWorldObj().getBlock(x, y, z));
-		int meta = te.getWorldObj().getBlockMetadata(x, y, z);
-		WavefrontObject model = block.getModelObj();
+		if(!te.hasWorldObj()) {
+			AthsLogger.error("tile entity missing world reference!");
+			return;
+		}
+		World world = te.getWorldObj();
+		if(!(world.getBlock(x, y, z) instanceof BlockPlant3d)) {
+			AthsLogger.error("BlockPlant3d not found during render call");
+			return;
+		}
+		BlockPlant3d block = ((BlockPlant3d)world.getBlock(x, y, z));
+		int meta = world.getBlockMetadata(x, y, z);
 		ArrayList<ObjPart> objParts = block.getModelParts(meta);
 		if(!objParts.isEmpty()) {
+			WavefrontObject model = block.getModelObj();
 			
 			GL11.glPushMatrix();
-			GL11.glTranslated(d0 + 0.5, d1+.00001337, d2 + 0.5); //prevent some z fighting
-			GL11.glRotatef(AthsRandom.getRandom(x, z).nextFloat() * 360f, 0, 1, 0); 
-			GL11.glScalef(2.0f, 2.0f, 2.0f);
 			GL11.glDisable(GL11.GL_CULL_FACE);
-			//Tessellator tessellator = Tessellator.instance;
-			//tessellator.setNormal(0, 1, 0);
+			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+			
+			Random random = AthsRandom.getRandom(x, z);
+			GL11.glTranslated(d0 + 0.25 + random.nextDouble()*0.5, d1+.00001337, d2 + 0.25 + random.nextDouble()*0.5); //prevent some z fighting
+			GL11.glRotatef(AthsRandom.getRandom(x, z).nextFloat() * 360f, 0, 1, 0); 
+			GL11.glScalef(block.scale, block.scale, block.scale);
+			
 			Minecraft mc = Minecraft.getMinecraft();
 			
 			for(ObjPart part : objParts) {

@@ -3,6 +3,7 @@ package com.facetorched.tfcaths.blocks;
 import java.util.Random;
 
 import com.facetorched.tfcaths.AthsGlobal;
+import com.facetorched.tfcaths.items.itemblocks.ItemPlantAlgae;
 import com.facetorched.tfcaths.util.AthsParser;
 import com.facetorched.tfcaths.util.AthsRandom;
 
@@ -20,6 +21,10 @@ public class BlockPlantAlgae extends BlockPlantLilyPad{
 	public float blueMult;
 	public int blueShift;
 	
+	public BlockPlantAlgae() {
+		super();
+		setItemBlock(ItemPlantAlgae.class);
+	}
 	
 	@Override
 	public int colorMultiplier(IBlockAccess bAccess, int x, int y, int z)
@@ -27,6 +32,7 @@ public class BlockPlantAlgae extends BlockPlantLilyPad{
 		Random random = AthsRandom.getRandom(x, z);
 		int rgb = 2 * random.nextInt(256);
 		
+		// compute average of deterministic colors of surrounding algae color (poor man's convolution)
 		random = AthsRandom.getRandom(x+1, z);
 		rgb += random.nextInt(256);
 		
