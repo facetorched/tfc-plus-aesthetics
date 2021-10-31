@@ -12,6 +12,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
+@Deprecated
 public class BlockPlantFlower extends BlockPlant{
 
 	@Override
@@ -19,7 +20,7 @@ public class BlockPlantFlower extends BlockPlant{
 	public void registerBlockIcons(IIconRegister register){
 		this.icons = new IIcon[plantNames.length];
 		for (int i = 0; i < this.icons.length; ++i){
-			if(this.isVary(i, EnumVary.FLOWER)) {
+			if(isVary(i, EnumVary.FLOWER)) {
 				this.icons[i] = register.registerIcon(AthsMod.MODID+":plants/"+plantNames[i]);
 			}
 			else {

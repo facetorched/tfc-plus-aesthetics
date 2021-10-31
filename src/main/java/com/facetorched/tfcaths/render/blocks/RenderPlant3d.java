@@ -33,13 +33,13 @@ public class RenderPlant3d implements ISimpleBlockRenderingHandler {
 		BlockPlant3d block3d = (BlockPlant3d)block;
 		ArrayList<ObjPart> objParts = block3d.getModelParts(meta);
 		if(!objParts.isEmpty()) {
-			WavefrontObject model = block3d.getModelObj();
+			WavefrontObject model = block3d.getModelObj(meta);
 			
 			GL11.glPushMatrix();
 			GL11.glDisable(GL11.GL_CULL_FACE);
 			
 			GL11.glTranslatef(-0.5F, -1.0F, -0.5F);
-			float invScale = 0.7f/block3d.scale;
+			float invScale = 0.6f;
 			GL11.glScalef(invScale, invScale, invScale);
 			
 			Minecraft mc = Minecraft.getMinecraft();

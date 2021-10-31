@@ -23,7 +23,7 @@ public enum EnumVary {
 		    if(e.index == index) {
 		      return e;
 		    }
-		  }
-		  return null;// not found
+		}
+		return null;// not found
 	}
 }

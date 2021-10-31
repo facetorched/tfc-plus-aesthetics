@@ -1,5 +1,7 @@
 package com.facetorched.tfcaths.blocks;
 
+import com.facetorched.tfcaths.items.itemblocks.ItemPlantLilyPad;
+
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.AxisAlignedBB;
@@ -7,9 +9,21 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class BlockPlantLilyPad3d extends BlockPlant3d{
+	
+	public int overcrowdRadius = 0;
+	
+	public BlockPlantLilyPad3d() {
+		super();
+		float var4 = 0.1F;
+		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, var4, 1.0F);
+		setItemBlock(ItemPlantLilyPad.class);
+	}
+	
 	// player can stand on this block!
 	@Override
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z){
+		if(scale <= 1f)
+			return null;
         return AxisAlignedBB.getBoundingBox((double)x + this.minX, (double)y + this.minY, (double)z + this.minZ, (double)x + this.maxX, (double)y + this.maxY, (double)z + this.maxZ);
     }
 	
@@ -17,8 +31,8 @@ public class BlockPlantLilyPad3d extends BlockPlant3d{
 	public boolean shouldGenerateAt(World world, int x, int y, int z) {
 		
 		if(world.isSideSolid(x, y-2, z, ForgeDirection.UP) || world.isSideSolid(x, y-3, z, ForgeDirection.UP)) {
-			for (int i = x-1; i <= x+1; i++) {
-				for (int j = y-1; j <= y+1; j++) {
+			for (int i = x-overcrowdRadius; i <= x+overcrowdRadius; i++) {
+				for (int j = y-overcrowdRadius; j <= y+overcrowdRadius; j++) {
 					if (world.getBlock(i, y, j) != Blocks.air)
 						return false;
 				}
@@ -26,5 +40,9 @@ public class BlockPlantLilyPad3d extends BlockPlant3d{
 			return true;
 		}
 		return false;
+	}
+	public BlockPlantLilyPad3d setOvercrowdRadius(int radius) {
+		this.overcrowdRadius = radius;
+		return this;
 	}
 }

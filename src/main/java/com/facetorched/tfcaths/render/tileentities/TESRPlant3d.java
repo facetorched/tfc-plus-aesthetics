@@ -41,14 +41,14 @@ public class TESRPlant3d extends TileEntitySpecialRenderer{
 		int meta = world.getBlockMetadata(x, y, z);
 		ArrayList<ObjPart> objParts = block.getModelParts(meta);
 		if(!objParts.isEmpty()) {
-			WavefrontObject model = block.getModelObj();
+			WavefrontObject model = block.getModelObj(meta);
 			
 			GL11.glPushMatrix();
 			GL11.glDisable(GL11.GL_CULL_FACE);
 			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 			
 			Random random = AthsRandom.getRandom(x, z);
-			GL11.glTranslated(d0 + 0.25 + random.nextDouble()*0.5, d1+.00001337, d2 + 0.25 + random.nextDouble()*0.5); //prevent some z fighting
+			GL11.glTranslated(d0 + 0.25 + random.nextDouble()*0.5, d1+random.nextDouble()*.001337, d2 + 0.25 + random.nextDouble()*0.5); //prevent some z fighting
 			GL11.glRotatef(AthsRandom.getRandom(x, z).nextFloat() * 360f, 0, 1, 0); 
 			GL11.glScalef(block.scale, block.scale, block.scale);
 			

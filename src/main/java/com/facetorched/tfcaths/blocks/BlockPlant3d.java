@@ -21,19 +21,41 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.AdvancedModelLoader;
+import net.minecraftforge.client.model.ModelFormatException;
 import net.minecraftforge.client.model.obj.WavefrontObject;
 import scala.actors.threadpool.Arrays;
 
 public class BlockPlant3d extends BlockPlant implements ITileEntityProvider{
-	public WavefrontObject modelObj;
+	public WavefrontObject modelObjs[];
 	public HashMap<Integer, ArrayList<ObjPart>> modelParts = new HashMap<Integer, ArrayList<ObjPart>>();
+	public String overrideModelName;
 	
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister register)
-	{
+	public void registerBlockIcons(IIconRegister register){
 		//super.registerBlockIcons(register);
-		modelObj = (WavefrontObject)AdvancedModelLoader.loadModel(new ResourceLocation(AthsMod.MODID + ":models/blocks/plants/" + this.plantKey + ".obj"));
+		modelObjs = new WavefrontObject[numBaseMetas];
+		for(int i = 0; i < numBaseMetas; i++) {
+			if(overrideModelName == null)
+				try {
+					modelObjs[i] = (WavefrontObject)AdvancedModelLoader.loadModel(new ResourceLocation(AthsMod.MODID + ":models/blocks/plants/" + plantNames[i] + ".obj"));
+				}
+				catch (ModelFormatException e) {
+					System.out.println(AthsMod.MODID + ":models/blocks/plants/" + plantNames[i] + ".obj");
+				}
+			else {
+				modelObjs[i] = (WavefrontObject)AdvancedModelLoader.loadModel(new ResourceLocation(AthsMod.MODID + ":models/blocks/plants/" + overrideModelName + ".obj"));
+			}
+		}
+	}
+	
+	public BlockPlant3d setOverrideModelName(String name) {
+		this.overrideModelName = name;
+		return this;
+	}
+	public BlockPlant3d setOverrideModelName() {
+		this.overrideModelName = plantKey;
+		return this;
 	}
 	
 	@Override
@@ -54,15 +76,13 @@ public class BlockPlant3d extends BlockPlant implements ITileEntityProvider{
 		return null;
 	}
 	
-	public WavefrontObject getModelObj() {
-		return modelObj;
+	public WavefrontObject getModelObj(int meta) {
+		return modelObjs[getBaseMeta(meta)];
 	}
 	
 	public ArrayList<ObjPart> getModelParts(int meta) {
 		return this.modelParts.get(meta);
 	}
-	
-
 	
 	//set part for all metas of a given vary
 	public BlockPlant3d setVaryPart(EnumVary vary, String plantName, String partName) {
@@ -152,6 +172,13 @@ public class BlockPlant3d extends BlockPlant implements ITileEntityProvider{
 	public BlockPlant3d setNamedPart(int meta, String partName) {
 		return setPart(meta, plantNames[meta], partName);
 	}
+	// set part for all possible metas using that meta's name
+	public BlockPlant3d setNamedPart(String partName) {
+		for(int meta = 0; meta < plantNames.length; meta++) {
+			setNamedPart(meta, partName);
+		}
+		return this;
+	}
 	//set part for only one specific meta using plantkey as name
 	public BlockPlant3d setPart(int meta, String partName) {
 		return setPart(meta, plantKey, partName);
@@ -171,6 +198,7 @@ public class BlockPlant3d extends BlockPlant implements ITileEntityProvider{
 		return this;
 	}
 	
+	
 	// it's nice to have these return BlockPlant3d
 	@Override
 	public BlockPlant3d addVarys(EnumVary[] varys) {
@@ -186,5 +214,10 @@ public class BlockPlant3d extends BlockPlant implements ITileEntityProvider{
 	public BlockPlant3d setName(String name) {
 		super.setName(name);
 		return this; 
+	}
+	@Override
+	public BlockPlant3d setNames(String name, String suffix) {
+		super.setNames(name, suffix);
+		return this;
 	}
 }

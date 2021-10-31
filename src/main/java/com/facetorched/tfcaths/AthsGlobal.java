@@ -28,7 +28,7 @@ public class AthsGlobal {
 	public static final String HIBISCUS = "Hibiscus";
 	public static final String FIELD_HORSETAIL = "Field_Horsetail";
 	public static final String ROUGH_HORSETAIL = "Rough_Horsetail";
-	public static final String INDIAN_PIPES = "Indian_Pipes";
+	public static final String INDIAN_PIPE = "Indian_Pipe";
 	public static final String IRIS = "Iris";
 	public static final String JACK_IN_THE_PULPIT = "Jack_In_The_Pulpit";
 	public static final String LAVENDER = "Lavender";
@@ -46,7 +46,7 @@ public class AthsGlobal {
 	public static final String SORBUS = "Sorbus";
 	public static final String SUNDEW = "Sundew";
 	public static final String SUNFLOWER = "Sunflower";
-	public static final String VENUS_FLY_TRAP = "Venus_Fly_Trap";
+	public static final String VENUS_FLYTRAP = "Venus_Flytrap";
 	public static final String WATER_HYACINTH = "Water_Hyacinth";
 	public static final String YARROW = "Yarrow";
 	public static final String DUCKWEED = "Duckweed";
@@ -107,8 +107,7 @@ public class AthsGlobal {
 	
 	public static final String VICTORIA_LILY_PAD = "Victoria_Lily_Pad";
 	public static final String YUCCA = "Yucca";
-	public static final String SUMAC_SHORT = "Sumac_Short";
-	public static final String SUMAC_TALL = "Sumac_Tall";
+	public static final String SUMAC = "Sumac";
 	public static final String HOSTA_HALCYON = "Hosta_Halcyon";
 	public static final String HOSTA_PATRIOT = "Hosta_Patriot";
 	public static final String HOSTA_VULCAN = "Hosta_Vulcan";
