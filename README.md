@@ -10,7 +10,7 @@ The name of the block to generate. For example `terrafirmacraftplus:undergrowth`
 ### dispersion
 The rarity of plants within a given generated cluster. If `dispersion=n` every `n` blocks will have a plant. If `dispersion=1`, every block within a cluster will contain a plant.
 ### forestGen
-The weight associated with forest generation. This parameter directly modifies `rarity` in a way that mimics how TFC+ tree generation occurs. The higher this number the more likely this plant will generate alongside trees. If `forestGen=0.0` the plant's rarity will not be affected. If `forestGen=1.0` the plant will generate in similar locations to trees.
+The weight associated with forest generation. This parameter directly modifies `rarity` in a way that mimics how TFC+ tree generation occurs. The higher this number the more likely this plant will generate alongside trees. If `forestGen=0.0` the plant's rarity will not be affected. If `forestGen=1.0` the plant will generate in similar locations to trees. Negative values will make plants generate away from trees.
 ### growOnBlocks
 The blocks or OreDictionaries that the plant can generate on. For example, `terrafirmacraftplus:Dirt` or `stoneBricks`. For plants added by this mod, this parameter will control what blocks the plant can be placed on.
 ### maxAltitude
