@@ -29,6 +29,7 @@ public class BlockPlant3d extends BlockPlant implements ITileEntityProvider{
 	public WavefrontObject modelObjs[];
 	public HashMap<Integer, ArrayList<ObjPart>> modelParts = new HashMap<Integer, ArrayList<ObjPart>>();
 	public String overrideModelName;
+	public boolean isAxisAligned;
 	
 	@Override
 	@SideOnly(Side.CLIENT)
@@ -74,6 +75,11 @@ public class BlockPlant3d extends BlockPlant implements ITileEntityProvider{
 	public IIcon getIcon(int side, int meta)
 	{
 		return null;
+	}
+	
+	public BlockPlant3d setIsAxisAligned() {
+		this.isAxisAligned = true;
+		return this;
 	}
 	
 	public WavefrontObject getModelObj(int meta) {

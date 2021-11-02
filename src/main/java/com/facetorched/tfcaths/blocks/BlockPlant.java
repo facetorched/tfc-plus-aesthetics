@@ -309,7 +309,7 @@ public class BlockPlant extends BlockTerra{
 		return getVarys()[meta / numBaseMetas];
 	}
 	public int getNumVarys() {
-		return plantNames.length/numBaseMetas + 1;
+		return plantNames.length/numBaseMetas;
 	}
 	public int getBaseMeta(int meta) {
 		return meta % numBaseMetas;

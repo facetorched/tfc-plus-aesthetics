@@ -17,7 +17,7 @@ public class RenderPlantLilyPad extends AbstractRenderPlant{
 	public boolean renderPlantBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId,
 			RenderBlocks renderer, Tessellator tessellator, int rgb, int meta, float scale, IIcon icon, Random random) {
 		
-		renderer.renderBlockLilyPad(block, x, y, z);
+		//renderer.renderBlockLilyPad(block, x, y, z);
         float f = 0.015625F;
         double d0 = (double)icon.getMinU();
         double d1 = (double)icon.getMinV();

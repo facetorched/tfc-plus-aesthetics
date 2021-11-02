@@ -49,8 +49,16 @@ public class TESRPlant3d extends TileEntitySpecialRenderer{
 			
 			Random random = AthsRandom.getRandom(x, z);
 			GL11.glTranslated(d0 + 0.25 + random.nextDouble()*0.5, d1+random.nextDouble()*.001337, d2 + 0.25 + random.nextDouble()*0.5); //prevent some z fighting
-			GL11.glRotatef(AthsRandom.getRandom(x, z).nextFloat() * 360f, 0, 1, 0); 
-			GL11.glScalef(block.scale, block.scale, block.scale);
+			
+			if(block.isAxisAligned)
+				GL11.glRotatef(random.nextInt(4) * 90f, 0, 1, 0);
+			else
+				GL11.glRotatef(random.nextFloat() * 360f, 0, 1, 0); 
+			
+			float scale = block.getScale();
+			scale *= 1 - .4 * random.nextFloat();
+			
+			GL11.glScalef(scale, scale, scale);
 			
 			Minecraft mc = Minecraft.getMinecraft();
 			

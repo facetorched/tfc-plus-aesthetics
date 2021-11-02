@@ -12,15 +12,13 @@ import net.minecraft.block.Block;
 public class RenderPlantTreeTrimmable extends RenderPlantCross{
 	@Override
 	public float getRenderScale(Block block, Random random, int meta){
-		float scale = AthsGlobal.TREE_SCALE;
 		try {
-			scale = ((BlockPlantTreeTrimmable)block).getScale();
-			if(((BlockPlantTreeTrimmable)block).getBaseMeta(meta) != 1) //trimmed
-				scale += random.nextFloat()*2.0F;
+			if(((BlockPlantTreeTrimmable)block).getBaseMeta(meta) == 1) //trimmed
+				return ((BlockPlantTreeTrimmable)block).getScale();
 		}
 		catch(ClassCastException e) {
 			AthsLogger.error(e);
 		}
-		return scale;
+		return super.getRenderScale(block, random, meta);
 	}
 }

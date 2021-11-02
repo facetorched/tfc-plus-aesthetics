@@ -17,9 +17,10 @@ public class ItemPlantFoliage extends ItemPlant{
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public int getColorFromItemStack(ItemStack is, int meta)
+	public int getColorFromItemStack(ItemStack is, int renderPass)
 	{
 		BlockPlant block = (BlockPlant)this.field_150939_a;
+		int meta = is.getItemDamage();
 		if(block.isVary(meta, EnumVary.SNOW) || block.isVary(meta, EnumVary.WINTER)){
 			return super.getColorFromItemStack(is, meta);
 		}

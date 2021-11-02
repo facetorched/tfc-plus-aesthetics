@@ -57,9 +57,8 @@ public class BlockPlantAlgae extends BlockPlantLilyPad{
 	
 	@Override
 	public BlockPlant setNames(String name) {
-		this.plantNames = new String[] {AthsGlobal.ALGAE_MAT, AthsGlobal.ALGAE_MAT + "_Thick", AthsGlobal.ALGAE_MAT + "_Sparse"};
-		this.plantKey = name;
-		this.setBlockName(name);
+		setNames(new String[] {AthsGlobal.ALGAE_MAT, AthsGlobal.ALGAE_MAT + "_Thick", AthsGlobal.ALGAE_MAT + "_Sparse"});
+		setKeyName(name);
 		return this;
 	}
 	

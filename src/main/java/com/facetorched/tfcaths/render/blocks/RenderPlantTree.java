@@ -20,7 +20,8 @@ public class RenderPlantTree extends RenderPlantCross{
 		catch(ClassCastException e) {
 			AthsLogger.error(e);
 		}
-		scale += random.nextFloat()*2.0F;
+		float f = .5f;
+		scale *= (random.nextFloat() - 0.5f) * f/2 + 1f;
 		return scale;
 	}
 }

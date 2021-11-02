@@ -15,6 +15,7 @@ import cpw.mods.fml.client.registry.RenderingRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 
@@ -28,7 +29,7 @@ public abstract class AbstractRenderPlant implements ISimpleBlockRenderingHandle
 			if( plant.isVary(meta, EnumVary.SNOW)){
 				renderer.setOverrideBlockTexture(BlockSetup.snow.getIcon(1, 0));
 				renderer.setRenderBounds(0.0f, 0.0f, 0.0f, 1.0f, 0.125f, 1.0f);
-				renderer.renderStandardBlock(block, x, y, z);
+				renderer.renderStandardBlockWithColorMultiplier(block, x, y, z, 1f, 1f, 1f);
 				renderer.clearOverrideBlockTexture();
 			}
 		}
