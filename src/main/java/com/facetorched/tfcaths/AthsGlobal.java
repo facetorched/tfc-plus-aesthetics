@@ -133,7 +133,7 @@ public class AthsGlobal {
 	public static final int ITEM_META_BITS = 3;
 	public static final int ITEM_META_BITMASK = (1 << ITEM_META_BITS) - 1;
 	
-	public static final float TREE_SCALE = 5.0f;
+	public static final float TREE_SCALE = 4.0f;
 	
 	public static void setConstants() {
 		ALL_BIOMES = AthsParser.getBiomeStringList();

@@ -8,16 +8,11 @@ public class BitMap {
 	int height;
 	
 	public BitMap(int x, int z, int width, int height) {
-		this.width = width;
-		this.height = height;
-		this.x = x;
-		this.z = z;
-		this.map = new boolean[width * height];
-		for(boolean b : this.map) {
-			if(b) {
-				throw new IllegalStateException();
-			}
-		}
+		this.width = width; // number of columns
+		this.height = height; // number of rows
+		this.x = x; // upper left corner
+		this.z = z; // upper left corner
+		this.map = new boolean[width * height]; //initializes as false
 	}
 	
 	public boolean get(int x, int z) {
@@ -38,6 +33,8 @@ public class BitMap {
 	}
 	
 	public void zero() {
-		this.map = new boolean[this.width * this.height];
+		for(int i = 0; i<map.length;i ++) {
+			map[i] = false;
+		}
 	}
 }

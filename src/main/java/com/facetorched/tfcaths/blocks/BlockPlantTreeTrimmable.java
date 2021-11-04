@@ -30,6 +30,11 @@ public class BlockPlantTreeTrimmable extends BlockPlantTree{
 	}
 	
 	@Override
+	public BlockPlant setName(String name) {
+		return setNames(name);
+	}
+	
+	@Override
 	public int getRenderType() {
 		return AthsBlockSetup.plantTreeTrimmableRenderID;
 	}

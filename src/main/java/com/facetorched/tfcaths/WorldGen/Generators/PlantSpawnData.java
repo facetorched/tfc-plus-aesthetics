@@ -11,8 +11,11 @@ import com.facetorched.tfcaths.util.AthsLogger;
 import com.facetorched.tfcaths.util.AthsParser;
 
 import net.minecraft.block.Block;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class PlantSpawnData {
 	public Block block;
@@ -72,5 +75,16 @@ public class PlantSpawnData {
 				rain >= minRainfall && rain <= maxRainfall && 
 				evt >= minEVT && evt <= maxEVT &&
 				blockY >= minAltitude && blockY <= maxAltitude;
+	}
+	
+	public boolean canGrowOnBlock(Block block) {
+		if(canGrowOn.contains(block)) {
+			return true;
+		}
+		int[] ids = OreDictionary.getOreIDs(new ItemStack(Item.getItemFromBlock(block), 1, 0)); //forced to do damage 0
+		for(int id : ids)
+			if(canGrowOnOreDict.contains(OreDictionary.getOreName(id)))
+				return true;
+		return false;
 	}
 }

@@ -9,6 +9,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 
+@Deprecated
 public class ItemPlantFoliage extends ItemPlant{
 	public ItemPlantFoliage(Block b) {
 		super(b);

@@ -3,6 +3,7 @@ package com.facetorched.tfcaths.blocks;
 import java.util.List;
 import java.util.Random;
 
+import com.dunk.tfc.TerraFirmaCraft;
 import com.dunk.tfc.Blocks.BlockTerra;
 import com.dunk.tfc.Core.TFCTabs;
 import com.dunk.tfc.Core.TFC_Climate;
@@ -32,6 +33,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.Explosion;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -45,6 +47,7 @@ public class BlockPlant extends BlockTerra{
 	public EnumVary[] monthVarys; // for flowers and fruits
 	public EnumVary[] iconVarys; // varys that have unique icons
 	public Class<? extends ItemBlock> itemBlock;
+	public boolean isFoliageColor;
 
 	@SideOnly(Side.CLIENT)
 	protected IIcon[] icons;
@@ -155,14 +158,7 @@ public class BlockPlant extends BlockTerra{
 		if( data == null) {
 			return false;
 		}
-		if(data.canGrowOn.contains(block)) {
-			return true;
-		}
-		int[] ids = OreDictionary.getOreIDs(new ItemStack(Item.getItemFromBlock(block), 1, 0)); //forced to do damage 0
-		for(int id : ids)
-			if(data.canGrowOnOreDict.contains(OreDictionary.getOreName(id)))
-				return true;
-		return false;
+		return data.canGrowOnBlock(block);
 	}
 	
 	// Besides habitat constraints, are there any other constraints to the generation of this block?
@@ -319,6 +315,24 @@ public class BlockPlant extends BlockTerra{
 			addVary(vary);
 		}
 		return this;
+	}
+	
+	public BlockPlant setIsFoliageColor() {
+		this.isFoliageColor = true;
+		return this;
+	}
+	
+	@SideOnly(Side.CLIENT)
+	@Override
+	public int colorMultiplier(IBlockAccess world, int x, int y, int z) {
+		if(isFoliageColor) {
+			int meta = world.getBlockMetadata(x, y, z);
+			if(this.isVary(meta, EnumVary.SNOW) || this.isVary(meta, EnumVary.WINTER)){
+				return super.colorMultiplier(world, x, y, z);
+			}
+			return TerraFirmaCraft.proxy.grassColorMultiplier(world, x, y, z);
+		}
+		return super.colorMultiplier(world, x, y, z);
 	}
 	
 	public BlockPlant addVary(EnumVary vary) {
