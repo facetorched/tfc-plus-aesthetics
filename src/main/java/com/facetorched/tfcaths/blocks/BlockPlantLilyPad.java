@@ -10,8 +10,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 public class BlockPlantLilyPad extends BlockPlant{
 	public BlockPlantLilyPad() {
 		super();
-		float var4 = 0.1F;
-		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, var4, 1.0F);
+		setLayerBounds(.1f);
 		setItemBlock(ItemPlantLilyPad.class);
 	}
 	

@@ -6,8 +6,7 @@ public class BlockPlantCrop extends BlockPlantStraw{
 
 	public BlockPlantCrop() {
 		super();
-		float var4 = 0.4F;
-		this.setBlockBounds(0.5F - var4, 0.0F, 0.5F - var4, 0.5F + var4, var4 * 2.0F, 0.5F + var4);
+		setGrassBounds();
 	}
 	@Override
 	public int getRenderType() {

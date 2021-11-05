@@ -14,8 +14,7 @@ public class BlockPlantLilyPad3d extends BlockPlant3d{
 	
 	public BlockPlantLilyPad3d() {
 		super();
-		float var4 = 0.1F;
-		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, var4, 1.0F);
+		setLayerBounds(.1f);
 		setItemBlock(ItemPlantLilyPad.class);
 	}
 	

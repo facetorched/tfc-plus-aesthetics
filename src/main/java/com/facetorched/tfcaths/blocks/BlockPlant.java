@@ -48,6 +48,7 @@ public class BlockPlant extends BlockTerra{
 	public EnumVary[] iconVarys; // varys that have unique icons
 	public Class<? extends ItemBlock> itemBlock;
 	public boolean isFoliageColor;
+	public boolean hasCollision;
 
 	@SideOnly(Side.CLIENT)
 	protected IIcon[] icons;
@@ -101,6 +102,21 @@ public class BlockPlant extends BlockTerra{
 			for(int i = 0; i < plantNames.length; i++)
 				list.add(new ItemStack(item, 1, i));
 		}
+	}
+	
+	public BlockPlant setGrassBounds() {
+		float var4 = 0.4F;
+		this.setBlockBounds(0.5F - var4, 0.0F, 0.5F - var4, 0.5F + var4, var4 * 2.0F, 0.5F + var4);
+		return this;
+	}
+	public BlockPlant setTreeBounds() {
+		float var4 = 0.25F;
+		this.setBlockBounds(0.5F - var4, 0.0F, 0.5F - var4, 0.5F + var4, 1.5F, 0.5F + var4);
+		return this;
+	}
+	public BlockPlant setLayerBounds(float h) {
+		this.setBlockBounds(0F, 0F, 0F, 1F, h, 1F);
+		return this;
 	}
 
 	@Override
@@ -169,6 +185,9 @@ public class BlockPlant extends BlockTerra{
 	@Override
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z)
 	{
+		if(hasCollision) {
+			return AxisAlignedBB.getBoundingBox((double)x + this.minX, (double)y + this.minY, (double)z + this.minZ, (double)x + this.maxX, (double)y + this.maxY, (double)z + this.maxZ);
+		}
 		return null;
 	}
 
@@ -321,6 +340,10 @@ public class BlockPlant extends BlockTerra{
 		this.isFoliageColor = true;
 		return this;
 	}
+	public BlockPlant setHasCollision() {
+		this.hasCollision = true;
+		return this;
+	}
 	
 	@SideOnly(Side.CLIENT)
 	@Override
@@ -447,6 +470,9 @@ public class BlockPlant extends BlockTerra{
 	}
 	public BlockPlant setScale(float scale) {
 		this.scale = scale;
+		if(scale > 1f) {
+			setGrassBounds();
+		}
 		return this;
 	}
 	public BlockPlant setMonthVary(int month, EnumVary vary) {

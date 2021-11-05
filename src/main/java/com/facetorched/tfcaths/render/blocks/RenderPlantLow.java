@@ -21,7 +21,8 @@ public class RenderPlantLow extends AbstractRenderPlant{
 		}
 		BlockPlantLow plantLow = (BlockPlantLow)block;
 		renderer.drawCrossedSquares(plantLow.sideIcons[meta], x, y, z, scale);
-		
+		int i1 = 0;
+		// render each layer
 		for(int i = 0; i < 2; i++) {
 			float f = 0.251f - (0.125f * (float)i);
 			
@@ -29,7 +30,8 @@ public class RenderPlantLow extends AbstractRenderPlant{
 	        double d1 = (double)icon.getMinV();
 	        double d2 = (double)icon.getMaxU();
 	        double d3 = (double)icon.getMaxV();
-	        int i1 = random.nextInt(4);
+	        // randomly rotate (and make sure layers never line up)
+	        i1 = (i1 + random.nextInt(4 - i)) % 4;
 	        float f1 = (float)x + 0.5F;
 	        float f2 = (float)z + 0.5F;
 	        float f3 = (float)(i1 & 1) * 0.5F * (float)(1 - i1 / 2 % 2 * 2);
@@ -48,6 +50,7 @@ public class RenderPlantLow extends AbstractRenderPlant{
 	        rgb = (int)((rgb & 0xff0000)*shade) & 0xff0000 | 
 	        	  (int)((rgb & 0x00ff00)*shade) & 0x00ff00|
 	        	  (int)((rgb & 0x0000ff)*shade) & 0x0000ff;
+	        i1 ++;
 		}
 		return false;
 	}

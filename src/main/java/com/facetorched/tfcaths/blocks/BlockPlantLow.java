@@ -13,8 +13,7 @@ public class BlockPlantLow extends BlockPlant{
 	public IIcon[] sideIcons;
 	public BlockPlantLow() {
 		super();
-		float h = 0.25F;
-		this.setBlockBounds(0F, 0F, 0F, 1F, h, 1F);
+		setLayerBounds(.25f);
 	}
 	@Override
 	public int getRenderType() {

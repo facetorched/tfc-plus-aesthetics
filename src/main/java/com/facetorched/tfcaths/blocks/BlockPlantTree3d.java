@@ -14,17 +14,12 @@ import net.minecraft.world.World;
 public class BlockPlantTree3d extends BlockPlant3d{
 	public BlockPlantTree3d() {
 		super();
-		float var4 = 0.25F;
-		this.setBlockBounds(0.5F - var4, 0.0F, 0.5F - var4, 0.5F + var4, 1.5F, 0.5F + var4);
+		setTreeBounds();
 		this.setHardness(1.0F);
 		this.setStepSound(Block.soundTypeWood);
 		this.setHarvestLevel("axe", 0);
+		setHasCollision();
 	}
-	@Override
-	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z)
-    {
-		return AxisAlignedBB.getBoundingBox((double)x + this.minX, (double)y + this.minY, (double)z + this.minZ, (double)x + this.maxX, (double)y + this.maxY, (double)z + this.maxZ);
-    }
 	@Override
 	public void harvestBlock(World world, EntityPlayer player, int x, int y, int z, int meta) {
 		if(AthsParser.isHolding(world, player, "itemShovel"))
