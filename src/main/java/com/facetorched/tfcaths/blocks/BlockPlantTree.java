@@ -21,7 +21,7 @@ public class BlockPlantTree extends BlockPlant{
 	public ItemStack sapling;
 	public BlockPlantTree() {
 		super();
-		float var4 = 0.125F;
+		float var4 = 0.25F;
 		this.setBlockBounds(0.5F - var4, 0.0F, 0.5F - var4, 0.5F + var4, 1.5F, 0.5F + var4);
 		this.setHardness(1.0F);
 		this.setStepSound(Block.soundTypeWood);

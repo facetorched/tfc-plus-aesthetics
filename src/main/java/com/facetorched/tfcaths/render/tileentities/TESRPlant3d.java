@@ -24,7 +24,6 @@ public class TESRPlant3d extends TileEntitySpecialRenderer{
 
 	@Override
 	public void renderTileEntityAt(TileEntity te, double d0, double d1, double d2, float pticks) {
-		// TODO Auto-generated method stub
 		int x = te.xCoord;
 		int y = te.yCoord;
 		int z = te.zCoord;
