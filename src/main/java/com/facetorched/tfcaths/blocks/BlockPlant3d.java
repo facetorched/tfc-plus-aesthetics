@@ -31,6 +31,11 @@ public class BlockPlant3d extends BlockPlant implements ITileEntityProvider{
 	public String overrideModelName;
 	public boolean isAxisAligned;
 	
+	public BlockPlant3d() {
+		super();
+		this.renderId = AthsBlockSetup.plant3dRenderID;
+	}
+	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister register){
@@ -57,11 +62,6 @@ public class BlockPlant3d extends BlockPlant implements ITileEntityProvider{
 	public BlockPlant3d setOverrideModelName() {
 		this.overrideModelName = plantKey;
 		return this;
-	}
-	
-	@Override
-	public int getRenderType() {
-		return AthsBlockSetup.plant3dRenderID;
 	}
 	
 	@Override

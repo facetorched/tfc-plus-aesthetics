@@ -14,10 +14,7 @@ public class BlockPlantLow extends BlockPlant{
 	public BlockPlantLow() {
 		super();
 		setLayerBounds(.25f);
-	}
-	@Override
-	public int getRenderType() {
-		return AthsBlockSetup.plantLowRenderID;
+		this.renderId = AthsBlockSetup.plantLowRenderID;
 	}
 	@Override
 	@SideOnly(Side.CLIENT)

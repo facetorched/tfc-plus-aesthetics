@@ -17,6 +17,7 @@ import com.facetorched.tfcaths.WorldGen.Generators.AthsWorldGenPlants;
 import com.facetorched.tfcaths.WorldGen.Generators.PlantSpawnData;
 import com.facetorched.tfcaths.enums.EnumVary;
 import com.facetorched.tfcaths.items.itemblocks.ItemPlant;
+import com.facetorched.tfcaths.util.AthsParser;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -49,6 +50,8 @@ public class BlockPlant extends BlockTerra{
 	public Class<? extends ItemBlock> itemBlock;
 	public boolean isFoliageColor;
 	public boolean hasCollision;
+	public boolean hasNoDrops;
+	public int renderId;
 
 	@SideOnly(Side.CLIENT)
 	protected IIcon[] icons;
@@ -65,6 +68,7 @@ public class BlockPlant extends BlockTerra{
 		this.setHardness(0.0F);
 		this.setStepSound(Block.soundTypeGrass);
 		this.setItemBlock(ItemPlant.class);
+		this.renderId = AthsBlockSetup.plantCrossRenderID;
 	}
 
 	@Override
@@ -118,6 +122,25 @@ public class BlockPlant extends BlockTerra{
 		this.setBlockBounds(0F, 0F, 0F, 1F, h, 1F);
 		return this;
 	}
+	public BlockPlant setHasNoDrops() {
+		hasNoDrops = true;
+		return this;
+	}
+	@Override
+	public void harvestBlock(World world, EntityPlayer player, int x, int y, int z, int meta) {
+		if(hasNoDrops) {
+			if(AthsParser.isHolding(world, player, "itemShovel")) {
+				super.harvestBlock(world, player, x, y, z, meta);
+			}
+			return;
+		}
+		super.harvestBlock(world, player, x, y, z, meta);
+	}
+	public BlockPlant setRenderID(int id) {
+		this.renderId = id;
+		return this;
+	}
+	
 
 	@Override
 	@SideOnly(Side.CLIENT)
@@ -194,7 +217,7 @@ public class BlockPlant extends BlockTerra{
 	@Override
 	public int getRenderType()
 	{
-		return AthsBlockSetup.plantCrossRenderID;
+		return this.renderId;
 	}
 
 	@Override
@@ -470,7 +493,7 @@ public class BlockPlant extends BlockTerra{
 	}
 	public BlockPlant setScale(float scale) {
 		this.scale = scale;
-		if(scale > 1f) {
+		if(this.getClass() == BlockPlant.class && scale > 1f) {
 			setGrassBounds();
 		}
 		return this;

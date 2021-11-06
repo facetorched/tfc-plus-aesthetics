@@ -34,6 +34,12 @@ public class AthsParser {
 		return false;
 	}
 	
+	public static void damageItem(EntityPlayer player, ItemStack is) {
+		is.damageItem(1, player);
+		if (is.stackSize == 0)
+			player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
+	}
+	
 	public static String[] getBiomeStringList()
 	{
 		TFCBiome[] biomeList = TFCBiome.getBiomeGenArray();

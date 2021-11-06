@@ -12,6 +12,7 @@ public class BlockPlantLilyPad extends BlockPlant{
 		super();
 		setLayerBounds(.1f);
 		setItemBlock(ItemPlantLilyPad.class);
+		this.renderId = AthsBlockSetup.plantLilyPadRenderID;
 	}
 	
 	@Override
@@ -19,11 +20,6 @@ public class BlockPlantLilyPad extends BlockPlant{
 		setNames(new String[] {name + "_Small", name + "_Small_Cluster", name + "_Tiny_Cluster"});
 		setKeyName(name);
 		return this;
-	}
-	
-	@Override
-	public int getRenderType() {
-		return AthsBlockSetup.plantLilyPadRenderID;
 	}
 	
 	@Override

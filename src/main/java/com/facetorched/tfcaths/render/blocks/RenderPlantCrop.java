@@ -19,21 +19,30 @@ public class RenderPlantCrop extends AbstractRenderPlant{
 
 	public boolean renderPlantBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId,
 			RenderBlocks renderer, Tessellator tesselator, int rgb, int meta, float scale, IIcon icon, Random random) {
-		athsRenderBlockCrops(icon, x + random.nextDouble()/4.0, y, z + random.nextDouble()/4.0, scale);
+		athsRenderBlockCrops(icon, x + random.nextDouble()/4.0, y, z + random.nextDouble()/4.0, scale, random);
 		return false;
 	}
 	
 	/**
      * Custom Implementation of Render block crops implementation (modified cpw's code)
      */
-    public static void athsRenderBlockCrops(IIcon iicon, double x, double y, double z, float scale)
+    public static void athsRenderBlockCrops(IIcon icon, double x, double y, double z, float scale, Random random)
     {
         Tessellator tessellator = Tessellator.instance;
-
-        double d3 = (double)iicon.getMinU();
-        double d4 = (double)iicon.getMinV();
-        double d5 = (double)iicon.getMaxU();
-        double d6 = (double)iicon.getMaxV();
+        
+        double d3;
+        double d5;
+        // randomly mirror the texture!
+        if(random.nextBoolean()) {
+        	d3 = (double)icon.getMinU();
+            d5 = (double)icon.getMaxU();
+        }
+        else {
+        	d3 = (double)icon.getMaxU();
+            d5 = (double)icon.getMinU();
+        }
+        double d4 = (double)icon.getMinV();
+        double d6 = (double)icon.getMaxV();
         double d7 = x + 0.5D - 0.25D;
         double d8 = x + 0.5D + 0.25D;
         double d9 = z + 0.5D - 0.5D * (double)scale;

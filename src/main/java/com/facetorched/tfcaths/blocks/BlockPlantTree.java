@@ -27,7 +27,7 @@ public class BlockPlantTree extends BlockPlant{
 		this.setHarvestLevel("axe", 0);
 		this.scale = AthsGlobal.TREE_SCALE;
 		setHasCollision();
-		// TODO Auto-generated constructor stub
+		this.renderId = AthsBlockSetup.plantTreeRenderID;
 	}
 	
 	public BlockPlantTree setSapling(ItemStack sapling) {
@@ -78,10 +78,5 @@ public class BlockPlantTree extends BlockPlant{
 			}
 		}
 		return true;
-	}
-	
-	@Override
-	public int getRenderType() {
-		return AthsBlockSetup.plantTreeRenderID;
 	}
 }

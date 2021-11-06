@@ -6,9 +6,6 @@ public class BlockPlantLayer extends BlockPlant{
 	public BlockPlantLayer() {
 		super();
 		setLayerBounds(.01f);
-	}
-	@Override
-	public int getRenderType() {
-		return AthsBlockSetup.plantLilyPadRenderID;
+		this.renderId = AthsBlockSetup.plantLilyPadRenderID;
 	}
 }

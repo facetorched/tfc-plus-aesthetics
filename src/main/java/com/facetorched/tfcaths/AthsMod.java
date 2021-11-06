@@ -32,6 +32,8 @@ public class AthsMod
     {
     	AthsGlobal.setConstants();
     	
+    	proxy.preInit(event); // must happen before block setup
+    	
     	AthsItemSetup.setup();
     	AthsBlockSetup.setup();
     	
@@ -39,7 +41,7 @@ public class AthsMod
     	Config.reload();
     	
     	GameRegistry.registerWorldGenerator(new AthsWorldGenPlants(), 100);
-    	proxy.preInit(event);
+    	
     }
 
     @EventHandler
