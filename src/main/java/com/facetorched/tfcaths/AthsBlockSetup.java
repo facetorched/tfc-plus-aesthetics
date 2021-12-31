@@ -1,7 +1,10 @@
 package com.facetorched.tfcaths;
 
+import com.dunk.tfc.ItemSetup;
 import com.dunk.tfc.Core.TFC_Time;
 import com.dunk.tfc.api.Enums.EnumTree;
+import com.facetorched.tfcaths.blocks.BlockCrystal;
+import com.facetorched.tfcaths.blocks.BlockCrystalCluster;
 import com.facetorched.tfcaths.blocks.BlockPlant;
 import com.facetorched.tfcaths.blocks.BlockPlant3d;
 import com.facetorched.tfcaths.blocks.BlockPlantAlgae;
@@ -15,6 +18,7 @@ import com.facetorched.tfcaths.blocks.BlockPlantTree;
 import com.facetorched.tfcaths.blocks.BlockPlantTree3d;
 import com.facetorched.tfcaths.blocks.BlockPlantTreeTrimmable;
 import com.facetorched.tfcaths.enums.EnumVary;
+import com.facetorched.tfcaths.items.itemblocks.ItemCrystal;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
@@ -139,6 +143,29 @@ public class AthsBlockSetup {
 	public static Block devilsClub;
 	public static Block burdock;
 	
+	public static Block agate;
+	public static Block amethyst;
+	public static Block amethystCluster;
+	public static Block beryl;
+	public static Block berylCluster;
+	public static Block diamond;
+	public static Block diamondCluster;
+	public static Block emerald;
+	public static Block emeraldCluster;
+	public static Block garnet;
+	public static Block garnetCluster;
+	public static Block jade;
+	public static Block jasper;
+	public static Block opal;
+	public static Block ruby;
+	public static Block rubyCluster;
+	public static Block sapphire;
+	public static Block sapphireCluster;
+	public static Block topaz;
+	public static Block topazCluster;
+	public static Block tourmaline;
+	public static Block tourmalineCluster;
+	
 	public static int plantCrossRenderID;
 	public static int plantCropRenderID;
 	public static int plantLilyPadRenderID;
@@ -147,8 +174,33 @@ public class AthsBlockSetup {
 	public static int plant3dRenderID;
 	public static int plantLowRenderID;
 	public static int plantLayerRenderID;
+	public static int directionalLayerRenderID;
+	public static int directionalCrossRenderID;
 	
 	public static void setup() {
+		agate = crystalRegistryHelper(new BlockCrystal().setItemRare(ItemSetup.gemAgate), AthsGlobal.AGATE);
+		amethyst = crystalRegistryHelper(new BlockCrystal().setItemCommon(ItemSetup.gemAmethyst), AthsGlobal.AMETHYST);
+		amethystCluster = crystalClusterRegistryHelper(amethyst);
+		beryl = crystalRegistryHelper(new BlockCrystal().setItemCommon(ItemSetup.gemBeryl), AthsGlobal.BERYL);
+		berylCluster = crystalClusterRegistryHelper(beryl);
+		diamond = crystalRegistryHelper(new BlockCrystal().setItemCommon(ItemSetup.gemDiamond), AthsGlobal.DIAMOND);
+		diamondCluster = crystalClusterRegistryHelper(diamond);
+		emerald = crystalRegistryHelper(new BlockCrystal().setItemCommon(ItemSetup.gemEmerald), AthsGlobal.EMERALD);
+		emeraldCluster = crystalClusterRegistryHelper(emerald);
+		garnet = crystalRegistryHelper(new BlockCrystal().setItemCommon(ItemSetup.gemGarnet), AthsGlobal.GARNET);
+		garnetCluster = crystalClusterRegistryHelper(garnet);
+		jade = crystalRegistryHelper(new BlockCrystal().setItemRare(ItemSetup.gemJade), AthsGlobal.JADE);
+		jasper = crystalRegistryHelper(new BlockCrystal().setItemRare(ItemSetup.gemJasper), AthsGlobal.JASPER);
+		opal = crystalRegistryHelper(new BlockCrystal().setItemRare(ItemSetup.gemOpal), AthsGlobal.OPAL);
+		ruby = crystalRegistryHelper(new BlockCrystal().setItemRare(ItemSetup.gemRuby), AthsGlobal.RUBY);
+		rubyCluster = crystalClusterRegistryHelper(ruby);
+		sapphire = crystalRegistryHelper(new BlockCrystal().setItemRare(ItemSetup.gemSapphire), AthsGlobal.SAPPHIRE);
+		sapphireCluster = crystalClusterRegistryHelper(sapphire);
+		topaz = crystalRegistryHelper(new BlockCrystal().setItemRare(ItemSetup.gemTopaz), AthsGlobal.TOPAZ);
+		topazCluster = crystalClusterRegistryHelper(topaz);
+		tourmaline = crystalRegistryHelper(new BlockCrystal().setItemRare(ItemSetup.gemTourmaline), AthsGlobal.TOURMALINE);
+		tourmalineCluster = crystalClusterRegistryHelper(tourmaline);
+		
 		// plants with various sizes
 		sagebrush = plantRegistryHelper(new BlockPlant().setNames(AthsGlobal.SAGEBRUSH).addVary(EnumVary.SNOW).setHasNoDrops().setScale(2.0F));
 		prairieGrass = plantRegistryHelper(new BlockPlantStraw().setNames(AthsGlobal.PRAIRIE_GRASS).addVarys(new EnumVary[] {EnumVary.WINTER, EnumVary.SNOW}).setIsFoliageColor().setRenderID(plantCropRenderID).setScale(2.0F));
@@ -287,5 +339,14 @@ public class AthsBlockSetup {
 		GameRegistry.registerBlock(block, block.getItemBlock(), block.getPlantKey());
 		Blocks.fire.setFireInfo(block, 5, 5);
 		return block;
+	}
+	public static BlockCrystal crystalRegistryHelper(BlockCrystal block, String name) {
+		block.setName(name);
+		GameRegistry.registerBlock(block, ItemCrystal.class, block.crystalName);
+		return block;
+	}
+	
+	public static BlockCrystal crystalClusterRegistryHelper(Block crust) {
+		return crystalRegistryHelper(new BlockCrystalCluster().setItemRare(((BlockCrystal)crust).crystalItem), ((BlockCrystal)crust).crystalName);
 	}
 }

@@ -30,8 +30,6 @@ public class AthsMod
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) // register blocks, items etc
     {
-    	AthsGlobal.setConstants();
-    	
     	proxy.preInit(event); // must happen before block setup
     	
     	AthsItemSetup.setup();

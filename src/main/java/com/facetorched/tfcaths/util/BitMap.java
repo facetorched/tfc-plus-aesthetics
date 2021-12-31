@@ -2,14 +2,15 @@ package com.facetorched.tfcaths.util;
 
 public class BitMap {
 	public boolean[] map;
-	int x;
-	int z;
-	int width;
-	int height;
+	private int x;
+	private int z;
+	private int width;
+	//private int height;
+	private boolean zeroed;
 	
 	public BitMap(int x, int z, int width, int height) {
 		this.width = width; // number of columns
-		this.height = height; // number of rows
+		//this.height = height; // number of rows
 		this.x = x; // upper left corner
 		this.z = z; // upper left corner
 		this.map = new boolean[width * height]; //initializes as false

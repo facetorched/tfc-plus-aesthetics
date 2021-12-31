@@ -14,6 +14,7 @@ import com.dunk.tfc.api.Enums.EnumRegion;
 import com.facetorched.tfcaths.blocks.BlockPlant;
 import com.facetorched.tfcaths.blocks.BlockPlantTree;
 import com.facetorched.tfcaths.enums.EnumVary;
+import com.facetorched.tfcaths.util.AthsMath;
 import com.facetorched.tfcaths.util.BitMap;
 import com.facetorched.tfcaths.util.Point3D;
 
@@ -52,22 +53,29 @@ public class AthsWorldGenPlants implements IWorldGenerator{
 		// iterate over all keys and find valid plants based on habitat conditions then plant them
 		// in theory the order matters since it will skew bias to the earliest plants in the set
 		// if effects are too noticeable, switch to a shuffled ArrayList
-		BitMap bmp = new BitMap(cornerX, cornerZ, 32, 32);
+		BitMap bmp = new BitMap(cornerX, cornerZ, 32, 32); // TODO should this be expanded? (and risk chunk overflow)
+		boolean firstPass = true;
 		
-		for(String key : plantList.keySet()) {
+		ArrayList<String> keys = new ArrayList<String>(plantList.keySet());
+		Collections.shuffle(keys);
+		
+		for(String key : keys) {
 			PlantSpawnData data = plantList.get(key);
 			Block plant = data.block;
 			if(data.canGrowConditions(biome, region, bioTemp, rain, evt, centerY)) {
 				int rarity = data.rarity;
 				rarity *= Math.pow(getEnvironmentRarityScaling(world, centerX, centerY, centerZ, rain, evt), data.forestGen); //ignores this effect if forestGen is 0
-				int numClusters = binoRNG(random, 16 * 16, rarity); // number of clusters for a given plant. Is this slow??
+				int numClusters = AthsMath.binoRNG(random, 16 * 16, rarity); // number of clusters for a given plant. Is this slow??
 				for (int i = 0; i < numClusters; i++) {
 					int x = cornerX + random.nextInt(16) + 8;
 					int z = cornerZ + random.nextInt(16) + 8;
 					// try to place plant at center of cluster. if it fails, skip the cluster
 					// this isn't ideal but it leads to better looking generation and better performance
 					if (placePlant(random, plant, data, world, x, z)) {
-						bmp.zero();
+						if(firstPass) // avoid zeroing twice (bitmap is initialized as zeros)
+							firstPass = false;
+						else
+							bmp.zero();
 						bmp.set(x, z);
 						expandClusterOrganic(random, plant, data, world, x, z, bmp); 
 					
@@ -77,80 +85,8 @@ public class AthsWorldGenPlants implements IWorldGenerator{
 		}
 	}
 	
-	public void expandClusterSquare(Random random, Block plant, PlantSpawnData data, World world, int x, int z) {
-		int numPlants = binoRNG(random, data.size - 1, 2) + 1; // matlab moment (dies from cringe)
-		int plantCount = 1; // we have already placed 1 plant
-		int size = 3;  // side length of square around the cluster
-		while(plantCount < numPlants) {
-			int r = 0;
-			while (r < size) {
-				int c = 0;
-				while (c < size) {
-					if(random.nextInt(data.dispersion) == 0) {
-						placePlant(random, plant, data, world, x + c - size/2, z + r - size/2);
-						plantCount ++;
-						if(plantCount >= numPlants) {
-							return;
-						}
-					}
-					if(r == 0 || r == size - 1)
-						c++;
-					else
-						c += size - 1; // skip interior blocks of square region
-				}
-				r++;
-			}
-			size++; // expand the radius of placement
-		}
-	}
-	
-	public void expandClusterOrganic(Random random, Block plant, PlantSpawnData data, World world, int x, int z) {
-		int numPlants = binoRNG(random, data.size - 1, 2) + 1; // matlab moment (dies from cringe)
-		if(numPlants < 2)
-			return;
-		int plantCount = 1; // we have already placed 1 plant
-		ArrayList<Point3D> pointList= new ArrayList<Point3D>();
-		int y = getTopSolidOrLiquidBlock(world, x, z);
-		Point3D origin = new Point3D(x, y, z);
-		pointList.add(origin); // add the origin plant
-		int n; // how many plants back should be considered as possible seeds for cluster growth
-		
-		
-		while(plantCount < numPlants) {
-			n = (int) (Math.sqrt(plantCount) * 2.0); // the hard coded value determines organic versus circular shape. Larger value = more circular
-			n = Math.min(n, plantCount); // avoid index out of bounds
-			
-			ArrayList<Integer> recentIndexes = new ArrayList<Integer>(n);
-			for(int i = plantCount - n; i < plantCount; i++){
-			    recentIndexes.add(i);
-			}
-			
-			boolean hasPlaced = false;
-			
-			while (recentIndexes.size() > 0 && !hasPlaced){
-				int seedIndex = recentIndexes.remove(random.nextInt(recentIndexes.size()));
-				Point3D seed = pointList.get(seedIndex);
-				Point3D newPoint3D = getNearestTo(getNeighbors(seed, world), origin, plant, data, world, random, null);
-				
-				if(newPoint3D != null ) { //&& random.nextInt(data.dispersion) == 0) {
-					placePlant(random, plant, data, world, newPoint3D.x, newPoint3D.y, newPoint3D.z);
-					pointList.add(newPoint3D);
-					plantCount ++;
-					if(plantCount >= numPlants) {
-						return;
-					}
-					hasPlaced = true;
-				}
-			}
-			if(!hasPlaced) {
-				System.out.println("failure");
-				return;
-			}
-		}
-	}
-	
 	public void expandClusterOrganic(Random random, Block plant, PlantSpawnData data, World world, int x, int z, BitMap bmp) {
-		int numPlants = binoRNG(random, data.size - 1, 2) + 1; // matlab moment (dies from cringe)
+		int numPlants = AthsMath.binoRNG(random, data.size - 1, 2) + 1; // matlab moment (dies from cringe)
 		if(numPlants < 2)
 			return;
 		int plantCount = 1; // we have already placed 1 plant
@@ -160,8 +96,10 @@ public class AthsWorldGenPlants implements IWorldGenerator{
 		pointList.add(origin); // add the origin plant
 		int n; // how many plants back should be considered as possible seeds for cluster growth
 		
+		final float f = 2.0f; // determines organic versus circular shape. Larger value = more circular
+		
 		while(plantCount < numPlants) {
-			n = (int) (Math.sqrt(pointList.size()) * 2.0); // the hard coded value determines organic versus circular shape. Larger value = more circular
+			n = (int) (Math.sqrt(pointList.size()) * f); 
 			n = Math.min(n, pointList.size()); // avoid index out of bounds
 			
 			ArrayList<Integer> recentIndexes = new ArrayList<Integer>(n);
@@ -190,19 +128,23 @@ public class AthsWorldGenPlants implements IWorldGenerator{
 				}
 			}
 			if(!hasPlaced) {
-				System.out.println("failure");
+				//System.out.println("failure");
 				return;
 			}
 		}
 	}
 	
-	// place a plant and randomize it's meta
+	/**
+	 *  place a plant and randomize it's meta
+	 */
 	public boolean placePlant(Random random, Block plant, PlantSpawnData data, World world, int x, int z) {
 		int y = getTopSolidOrLiquidBlock(world, x, z);
 		return placePlant(random, plant, data, world, x, y, z);
 	}
 	
-	// place a plant and randomize it's meta
+	/**
+	 *  place a plant and randomize it's meta
+	 */
 	public boolean placePlant(Random random, Block plant, PlantSpawnData data, World world, int x, int y, int z) {
 		if(canPlacePlantAt(plant, data, world, x, y, z)) {
 			world.setBlock(x, y, z, plant, data.metas[random.nextInt(data.metas.length)], 2);
@@ -231,16 +173,6 @@ public class AthsWorldGenPlants implements IWorldGenerator{
 		return false;
 	}
 	
-	// simulate binomial distribution using reciprocal of p
-	public static int binoRNG(Random random, int n, int recip_p) {
-		int x = 0;
-		for(int i = 0; i < n; i++) {
-			if(random.nextInt(recip_p) == 0)
-				x++;
-		}
-		return x;
-	}
-	
 	public static float getEnvironmentRarityScaling(World world, int x, int y, int z, float rainfall, float evt) {
 		if (genForests.getNearWater(world, x, y, z)){
 			rainfall = Math.max(rainfall * 2, 400);
@@ -252,7 +184,7 @@ public class AthsWorldGenPlants implements IWorldGenerator{
 		float numTreesCalc = (float)(30f * (rainfall / 2000f) * Math.sqrt((Math.min(Math.max(0.1f, evt), 1f))));
 		numTreesCalc = (numTreesCalc * (Math.min(2000f, rainfall) / 2000f));
 		
-		if (numTreesCalc <= 0.0001f)
+		if (numTreesCalc <= 0.0001f) // avoid divide by 0
 			return 10000f; // big number I guess
 		if (numTreesCalc >= 5)
 			return 0.2f;
@@ -300,8 +232,8 @@ public class AthsWorldGenPlants implements IWorldGenerator{
     	int size = 0;
     	for(int i = 0; i < candidates.length; i++) {
     		boolean isTaken = false;
-    		if(bmp != null) {
-    			isTaken = bmp.get(candidates[i].x, candidates[i].z);
+    		if(bmp != null) { 
+    			isTaken = bmp.get(candidates[i].x, candidates[i].z); // has this block already been considered?
     		}
     		if(!isTaken && canPlacePlantAt(plant, data, world, candidates[i].x, candidates[i].y, candidates[i].z)) {
 	    		if(size == 0) {

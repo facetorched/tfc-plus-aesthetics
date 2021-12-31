@@ -5,7 +5,7 @@ import com.facetorched.tfcaths.AthsBlockSetup;
 public class BlockPlantLayer extends BlockPlant{
 	public BlockPlantLayer() {
 		super();
-		setLayerBounds(.01f);
-		this.renderId = AthsBlockSetup.plantLilyPadRenderID;
+		setLayerBounds(.0625f);
+		this.renderId = AthsBlockSetup.plantLayerRenderID;
 	}
 }

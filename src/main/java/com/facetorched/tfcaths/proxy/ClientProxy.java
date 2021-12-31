@@ -2,6 +2,8 @@ package com.facetorched.tfcaths.proxy;
 
 import com.facetorched.tfcaths.AthsBlockSetup;
 import com.facetorched.tfcaths.AthsMod;
+import com.facetorched.tfcaths.render.blocks.RenderDirectionalCross;
+import com.facetorched.tfcaths.render.blocks.RenderDirectionalLayer;
 import com.facetorched.tfcaths.render.blocks.RenderPlant3d;
 import com.facetorched.tfcaths.render.blocks.RenderPlantCrop;
 import com.facetorched.tfcaths.render.blocks.RenderPlantCross;
@@ -36,6 +38,8 @@ public class ClientProxy implements IProxy {
     	RenderingRegistry.registerBlockHandler(AthsBlockSetup.plant3dRenderID = RenderingRegistry.getNextAvailableRenderId(), new RenderPlant3d());
     	RenderingRegistry.registerBlockHandler(AthsBlockSetup.plantLowRenderID = RenderingRegistry.getNextAvailableRenderId(), new RenderPlantLow());
     	RenderingRegistry.registerBlockHandler(AthsBlockSetup.plantLayerRenderID = RenderingRegistry.getNextAvailableRenderId(), new RenderPlantLayer());
+    	RenderingRegistry.registerBlockHandler(AthsBlockSetup.directionalLayerRenderID = RenderingRegistry.getNextAvailableRenderId(), new RenderDirectionalLayer());
+    	RenderingRegistry.registerBlockHandler(AthsBlockSetup.directionalCrossRenderID = RenderingRegistry.getNextAvailableRenderId(), new RenderDirectionalCross());
     	
     	ClientRegistry.registerTileEntity(TEPlant3d.class, AthsMod.MODID + ":TEPlant3d", new TESRPlant3d());
     	//ClientRegistry.bindTileEntitySpecialRenderer(TEPlant3d.class, new TESRPlant3d());

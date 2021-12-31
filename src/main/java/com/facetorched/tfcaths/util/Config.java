@@ -3,19 +3,15 @@ package com.facetorched.tfcaths.util;
 import java.io.File;
 
 import com.dunk.tfc.Reference;
-import com.dunk.tfc.WorldGen.TFCBiome;
 import com.dunk.tfc.api.TFCBlocks;
-import com.dunk.tfc.api.Enums.EnumRegion;
 import com.dunk.tfc.api.Enums.EnumTree;
-import com.facetorched.tfcaths.AthsMod;
 import com.facetorched.tfcaths.AthsGlobal;
+import com.facetorched.tfcaths.AthsMod;
 import com.facetorched.tfcaths.WorldGen.Generators.AthsWorldGenPlants;
 import com.facetorched.tfcaths.WorldGen.Generators.PlantSpawnData;
 
-import net.minecraft.block.Block;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.oredict.OreDictionary;
-import java.util.Arrays;
 
 public class Config {
 	//configuration object
@@ -23,12 +19,9 @@ public class Config {
 	
 	//define configuration fields here
 	public static int numCustomGenerators;
-	
-	public static final int TREE_BASE_RARITY = 1000;
-	
-	private static final String[] ALLOWED_REGIONS = new String[] {"Americas","Europe","Africa","Asia"};
-	
+
 	private static String[] ALLOWED_BIOMES;
+	private static String[] ALLOWED_ROCKTYPES;
 	
 	public static void preInit(File configDir)
 	{
@@ -41,11 +34,7 @@ public class Config {
 		AthsLogger.info("Loading TFC+ Aesthetics Config");
 		config.load();
 		// set configs here
-		String[] soilBlocks = new String[]{
-				Reference.MOD_ID+":Dirt",Reference.MOD_ID+":Dirt2",Reference.MOD_ID+":Grass",Reference.MOD_ID+":Grass2",
-				Reference.MOD_ID+":DryGrass",Reference.MOD_ID+":DryGrass2",Reference.MOD_ID+":Clay",Reference.MOD_ID+":Clay2",
-				Reference.MOD_ID+":ClayGrass",Reference.MOD_ID+":ClayGrass2",Reference.MOD_ID+":tilledSoil",Reference.MOD_ID+":tilledSoil2",
-				Reference.MOD_ID+":Peat"};
+		String[] soilBlocks = AthsParser.prefix(new String[] {"Dirt", "Dirt2", "Grass", "Grass2", "DryGrass", "DryGrass2", "Clay", "Clay2", "ClayGrass", "ClayGrass2", "tilledSoil", "tilledSoil2", "Peat"}, Reference.MOD_ID + ":");
 		soilBlocks = config.get("_soil_ore_dict", "blockSoil", soilBlocks, "blocks to add to the ore dictionary 'blockSoil'. Leave empty to disable").getStringList();
 		
 		for(String soil : soilBlocks) {
@@ -57,21 +46,18 @@ public class Config {
 		if (config.hasChanged()) config.save();
 	}
 	
+	public static void reloadCrystals() {
+		
+	}
+	
 	//this must be run in the init phase (after blocks setup but before world gen)
 	public static void reloadPlants() {
-		System.out.println(Arrays.toString(AthsParser.getBiomeStringList()));
-		int[] p = new int[AthsParser.getBiomeStringList().length];
-		for(int i = 0; i < AthsParser.getBiomeStringList().length; i++)
-			p[i] = TFCBiome.getBiomeByName(AthsParser.getBiomeStringList()[i]).biomeID;
-		System.out.println(Arrays.toString(p));
+		//System.out.println(Arrays.toString(AthsParser.getBiomeStringList()));
 		
-		ALLOWED_BIOMES = AthsParser.add(AthsParser.append(AthsParser.getBiomeStringList(), AthsParser.prefix(AthsParser.getBiomeStringList(), "!")), "All");
-		if(ALLOWED_BIOMES.length == 0)
-			throw new IllegalStateException(); // something terrible has occurred
-		
-		
-		
-		
+		//int[] p = new int[AthsParser.getBiomeStringList().length];
+		//for(int i = 0; i < AthsParser.getBiomeStringList().length; i++)
+		//	p[i] = TFCBiome.getBiomeByName(AthsParser.getBiomeStringList()[i]).biomeID;
+		//System.out.println(Arrays.toString(p));
 		
 		athsPlantHelper(AthsGlobal.ALGAE_MAT_CYANOBACTERIA, new int[] {0,1,2}, new String[] {"terrafirmacraftplus:FreshWaterStationary","terrafirmacraftplus:SaltWaterStationary","terrafirmacraftplus:Ice"}, AthsGlobal.SHALLOW_WATER_BIOMES, new String[]{"Americas", "Asia","Europe","Africa"},
 				/*size*/64, /*dispersion*/1, /*rarity*/2968, /*minAltitude*/144, /*maxAltitude*/160, /*minTemp*/-20f, /*maxTemp*/40f, /*minRain*/80f, /*maxRain*/16000f, /*minEVT*/0f, /*maxEVT*/10f);
@@ -150,11 +136,11 @@ public class Config {
 		athsPlantHelper(AthsGlobal.HIBISCUS + "_White", AthsGlobal.HIBISCUS, new int[] {3}, new String[] {"blockSoil"}, new String[]{"High Hills","Plains","High Hills Edge","Rolling Hills","High Plains","Lakeshore","Riverbank","Swamp"}, new String[]{"Americas"},
 				/*size*/7, /*dispersion*/7, /*rarity*/6484, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/12f, /*maxTemp*/17f, /*minRain*/650f, /*maxRain*/1000f, /*minEVT*/0f, /*maxEVT*/10f);
 		athsPlantHelper(AthsGlobal.HOSTA_HALCYON, new int[] {0}, new String[] {"blockSoil"}, AthsGlobal.LAND_BIOMES, new String[]{"Asia"},
-				/*size*/8, /*dispersion*/4, /*rarity*/7368, /*minAltitude*/144, /*maxAltitude*/165, /*minTemp*/8f, /*maxTemp*/18f, /*minRain*/800f, /*maxRain*/3000f, /*minEVT*/0.5f, /*maxEVT*/10f,/*forestGen*/1.0f);
+				/*size*/8, /*dispersion*/4, /*rarity*/3628, /*minAltitude*/144, /*maxAltitude*/255, /*minTemp*/6f, /*maxTemp*/18f, /*minRain*/750f, /*maxRain*/4000f, /*minEVT*/0.5f, /*maxEVT*/10f,/*forestGen*/1.0f);
 		athsPlantHelper(AthsGlobal.HOSTA_PATRIOT, new int[] {0}, new String[] {"blockSoil"}, AthsGlobal.LAND_BIOMES, new String[]{"Asia"},
-				/*size*/8, /*dispersion*/4, /*rarity*/7028, /*minAltitude*/144, /*maxAltitude*/160, /*minTemp*/8f, /*maxTemp*/18f, /*minRain*/800f, /*maxRain*/3000f, /*minEVT*/0.5f, /*maxEVT*/10f,/*forestGen*/1.0f);
+				/*size*/8, /*dispersion*/4, /*rarity*/3528, /*minAltitude*/144, /*maxAltitude*/255, /*minTemp*/6f, /*maxTemp*/18f, /*minRain*/750f, /*maxRain*/4000f, /*minEVT*/0.5f, /*maxEVT*/10f,/*forestGen*/1.0f);
 		athsPlantHelper(AthsGlobal.HOSTA_VULCAN, new int[] {0}, new String[] {"blockSoil"}, AthsGlobal.LAND_BIOMES, new String[]{"Asia"},
-				/*size*/8, /*dispersion*/4, /*rarity*/7688, /*minAltitude*/144, /*maxAltitude*/170, /*minTemp*/8f, /*maxTemp*/18f, /*minRain*/800f, /*maxRain*/3000f, /*minEVT*/0.5f, /*maxEVT*/10f,/*forestGen*/1.0f);
+				/*size*/8, /*dispersion*/4, /*rarity*/3828, /*minAltitude*/144, /*maxAltitude*/255, /*minTemp*/6f, /*maxTemp*/18f, /*minRain*/750f, /*maxRain*/4000f, /*minEVT*/0.5f, /*maxEVT*/10f,/*forestGen*/1.0f);
 		athsPlantHelper(AthsGlobal.INDIAN_PIPE, new int[] {0}, new String[] {"blockSoil"}, AthsGlobal.LAND_BIOMES, new String[]{"Asia","Americas"},
 				/*size*/3, /*dispersion*/1, /*rarity*/13384, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/6f, /*maxTemp*/13f, /*minRain*/870f, /*maxRain*/10000f, /*minEVT*/3f, /*maxEVT*/10f,/*forestGen*/1.0f);
 		athsPlantHelper(AthsGlobal.INDIGO_MILK_CAP, new int[] {0}, new String[] {"blockSoil"}, new String[]{"High Hills","Plains","High Hills Edge","Rolling Hills","High Plains","Lake","Foothills","Lakeshore","Riverbank","Swamp"}, new String[]{"Americas"},
@@ -320,16 +306,6 @@ public class Config {
 			config.save();
 	}
 	
-	private static EnumRegion[] getRegionEnumFromName(String[] names) {
-		EnumRegion[] ret = new EnumRegion[names.length];
-		for(int n = 0; n < names.length; n++) {
-			for(int r = 0; r < ALLOWED_REGIONS.length; r++) {
-				if(names[n].equals(ALLOWED_REGIONS[r]))
-					ret[n] = EnumRegion.values()[r];
-			}
-		}
-		return ret;
-	}
 	
 	private static PlantSpawnData getPlantData(String category, String blockName, int[] metas, String[] growOnBlocks, String[] biomes, String[] regions, int size, int dispersion,
 			int rarity, int minAltitude, int maxAltitude, float minTemp, float maxTemp, float minRainfall, float maxRainfall, float minEVT, float maxEVT, float forestGen)
@@ -339,7 +315,7 @@ public class Config {
 				config.get(category, "metas", metas).getIntList(),
 				config.get(category, "growOnBlocks", growOnBlocks).getStringList(),
 				config.get(category, "biomes", biomes).setValidValues(ALLOWED_BIOMES).getStringList(),
-				getRegionEnumFromName(config.get(category, "regions", regions).getStringList()),
+				config.get(category, "regions", regions).getStringList(),
 				config.get(category, "size", size).setMinValue(1).getInt(),
 				config.get(category, "dispersion", dispersion).setMinValue(1).getInt(),
 				config.get(category, "rarity", rarity).setMinValue(1).getInt(),
@@ -377,13 +353,13 @@ public class Config {
 	public static void athsTreeHelper(String name, int[] metas, String[] growOnBlocks, String[] biomes, String[] regions, int size, int dispersion,
 			int minAltitude, int maxAltitude, EnumTree tree) {
 		AthsWorldGenPlants.plantList.put(name, getPlantData(name, AthsMod.MODID+":"+name, metas, growOnBlocks, biomes, regions, size, dispersion,
-				(int)(TREE_BASE_RARITY / tree.rarity), minAltitude, maxAltitude, tree.minTemp, tree.maxTemp, tree.minRain, tree.maxRain, tree.minEVT, tree.maxEVT, 1.0f));
+				(int)(AthsGlobal.TREE_BASE_RARITY / tree.rarity), minAltitude, maxAltitude, tree.minTemp, tree.maxTemp, tree.minRain, tree.maxRain, tree.minEVT, tree.maxEVT, 1.0f));
 	}
 	
 	/* alternate spawn parameters for same tree*/
 	public static void athsTreeHelper(String category, String name, int[] metas, String[] growOnBlocks, String[] biomes, String[] regions, int size, int dispersion,
 			int minAltitude, int maxAltitude, EnumTree tree) {
 		AthsWorldGenPlants.plantList.put(name, getPlantData(category, AthsMod.MODID+":"+name, metas, growOnBlocks, biomes, regions, size, dispersion,
-				(int)(TREE_BASE_RARITY / tree.rarity), minAltitude, maxAltitude, tree.minTemp, tree.maxTemp, tree.minRain, tree.maxRain, tree.minEVT, tree.maxEVT, 1.0f));
+				(int)(AthsGlobal.TREE_BASE_RARITY / tree.rarity), minAltitude, maxAltitude, tree.minTemp, tree.maxTemp, tree.minRain, tree.maxRain, tree.minEVT, tree.maxEVT, 1.0f));
 	}
 }

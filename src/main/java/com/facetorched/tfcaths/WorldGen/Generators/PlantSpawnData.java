@@ -23,11 +23,11 @@ public class PlantSpawnData {
 	public ArrayList<Block> canGrowOn = new ArrayList<Block>();
 	public ArrayList<String> canGrowOnOreDict = new ArrayList<String>();
 	public ArrayList<TFCBiome> biomes = new ArrayList<TFCBiome>();
-	public ArrayList<EnumRegion> region;
+	public ArrayList<EnumRegion> region = new ArrayList<EnumRegion>();
 	public int size, dispersion, rarity, minAltitude, maxAltitude;
 	public float minTemp, maxTemp, minRainfall, maxRainfall, minEVT, maxEVT, forestGen;
 
-	public PlantSpawnData(String blockName, int[] metas, String[] canGrowOn, String[] biomes, EnumRegion[] region, int size, int dispersion, int rarity, int minAltitude, int maxAltitude,
+	public PlantSpawnData(String blockName, int[] metas, String[] canGrowOn, String[] biomes, String[] region, int size, int dispersion, int rarity, int minAltitude, int maxAltitude,
 			float minTemp, float maxTemp, float minRainfall, float maxRainfall, float minEVT, float maxEVT, float forestGen){
 		block = AthsParser.getBlockFromName(blockName);
 		this.metas = metas;
@@ -41,7 +41,7 @@ public class PlantSpawnData {
 		
 		for(String biome : biomes) {
 			if(biome.equals("All"))
-				for(String allBiome : AthsGlobal.ALL_BIOMES)
+				for(String allBiome : AthsParser.getBiomes())
 					this.biomes.add(TFCBiome.getBiomeByName(allBiome)); // this is idiotic but the normal biome list contains nulls
 			else if(!biome.startsWith("!"))
 				this.biomes.add(TFCBiome.getBiomeByName(biome));
@@ -52,7 +52,14 @@ public class PlantSpawnData {
 					throw new NoSuchElementException();
 			}
 		}
-		this.region = new ArrayList<EnumRegion>(Arrays.asList(region));
+		
+		for(int n = 0; n < region.length; n++) {
+			for(int r = 0; r < AthsGlobal.ALLOWED_REGIONS.length; r++) {
+				if(region[n].equals(AthsGlobal.ALLOWED_REGIONS[r]))
+					this.region.add(EnumRegion.values()[r]);
+			}
+		}
+
 		this.size = size;
 		this.dispersion = dispersion;
 		this.rarity = rarity;

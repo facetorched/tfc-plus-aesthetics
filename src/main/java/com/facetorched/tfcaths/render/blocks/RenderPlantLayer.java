@@ -16,8 +16,7 @@ public class RenderPlantLayer extends AbstractRenderPlant{
 			RenderBlocks renderer, Tessellator tessellator, int rgb, int meta, float scale, IIcon icon, Random random) {
 		if (world.isSideSolid(x, y-1, z, ForgeDirection.UP, false))
 		{
-			renderer.setRenderBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.01F, 1.0F);
-			renderer.renderStandardBlock(block, x, y, z);
+			AthsRenderBlocks.drawGroundLayer(icon, x, y, z, .0625f, random.nextInt(4), rgb);
 			return true;
 		}
 		return false;

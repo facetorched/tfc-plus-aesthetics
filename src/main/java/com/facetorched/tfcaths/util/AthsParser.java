@@ -1,11 +1,13 @@
 package com.facetorched.tfcaths.util;
 
 import com.dunk.tfc.WorldGen.TFCBiome;
+import com.facetorched.tfcaths.AthsGlobal;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class AthsParser {
@@ -40,7 +42,7 @@ public class AthsParser {
 			player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
 	}
 	
-	public static String[] getBiomeStringList()
+	public static String[] getBiomes()
 	{
 		TFCBiome[] biomeList = TFCBiome.getBiomeGenArray();
 		if(biomeList.length == 0)
@@ -62,6 +64,14 @@ public class AthsParser {
 		return biomeNames;
 	}
 	
+	public static String[] getRocks() {
+		String[] temp = new String[AthsGlobal.ROCKS.length];
+		for(int i = 0; i < AthsGlobal.ROCKS.length; i++) {
+			temp[i] = AthsGlobal.ROCKS[i].getName();
+		}
+		return temp;
+	}
+	
 	public static String[] add(String[] src, String str) {
 		String[] dest = new String[src.length + 1];
 		for(int i = 0; i < src.length; i++) {
@@ -81,6 +91,25 @@ public class AthsParser {
 		}
 		return dest;
 	}
+	public static String[] append(String[][] srcs) {
+		String[] dest = srcs[1];
+		for(int i = 1; i < srcs.length; i++) {
+			dest = append(dest, srcs[i]);
+		}
+		return dest;
+	}
+	
+	public static int[] add(int[] src, int value) {
+		if(src == null) {
+			return new int[] {value};
+		}
+		int[] dest = new int[src.length + 1];
+		for(int i = 0; i < src.length; i++) {
+			dest[i] = src[i];
+		}
+		dest[src.length] = value;
+		return dest;
+	}
 	
 	public static String[] prefix(String[] src, String str) {
 		String[] dest = new String[src.length];
@@ -88,5 +117,33 @@ public class AthsParser {
 			dest[i] = str + src[i];
 		}
 		return dest;
+	}
+	
+	public static String[] suffix(String[] src, String str) {
+		String[] dest = new String[src.length];
+		for(int i = 0; i < src.length; i++) {
+			dest[i] = src[i] + str;
+		}
+		return dest;
+	}
+	
+	public static boolean isNegativeDirection(ForgeDirection d) {
+		return d.equals(ForgeDirection.DOWN) || d.equals(ForgeDirection.NORTH) || d.equals(ForgeDirection.WEST);
+	}
+	
+	public static boolean contains(String[] collection, String key) {
+		for(String str : collection) {
+			if(str.equals(key))
+				return true;
+		}
+		return false;
+	}
+	
+	public static int find(String[] collection, String key) {
+		for(int i = 0; i < collection.length; i++) {
+			if(collection[i].equals(key))
+				return i;
+		}
+		return -1;
 	}
 }

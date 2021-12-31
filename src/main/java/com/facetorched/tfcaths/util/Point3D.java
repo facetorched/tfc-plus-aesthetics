@@ -17,5 +17,27 @@ public class Point3D {
     			(this.y - point.y) * (this.y - point.y) + 
     			(this.z - point.z) * (this.z - point.z);
     }
+    
+    public Point3D invert() {
+    	this.x *= -1;
+    	this.y *= -1;
+    	this.z *= -1;
+    	return this;
+    }
+    
+    public Point3D step(Point3D dof, int direction){
+		switch(direction){
+		case 1: 
+			this.x += dof.x;
+			break;
+		case 2: 
+			this.y += dof.y;
+			break;
+		case 3: 
+			this.z += dof.z;
+			break;
+		}
+		return this;
+	}
 
 }
