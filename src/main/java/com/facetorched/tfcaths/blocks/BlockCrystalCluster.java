@@ -23,7 +23,7 @@ public class BlockCrystalCluster extends BlockCrystal{
 	
 	public BlockCrystalCluster setName(String name) {
 		crystalName = name + "_Cluster";
-		setBlockName(name);
+		setBlockName(crystalName);
 		setBlockTextureName(AthsMod.MODID + ":crystals/" + crystalName);
 		return this;
 	}

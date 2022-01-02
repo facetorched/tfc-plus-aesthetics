@@ -144,7 +144,7 @@ public class AthsGlobal {
 	
 	public static final String[] ALLOWED_REGIONS = new String[] {"Americas","Europe","Africa","Asia"};
 	public static final String[] ALLOWED_BIOMES = AthsParser.add(AthsParser.append(AthsParser.getBiomes(), AthsParser.prefix(AthsParser.getBiomes(), "!")), "All");
-	//public static final String[] ALLOWED_ROCKS = AthsParser.add(AthsParser.append(new String[][] {Global.STONE_ALL, AthsParser.prefix(Global.STONE_ALL, "!"), ROCKTYPES}), "All");
+	public static final String[] ALLOWED_ROCKS = AthsParser.add(AthsParser.append(Global.STONE_ALL, ROCKTYPES), "All");
 	
 	// some large prime numbers
 	public static final int PRIME_1 = 83;

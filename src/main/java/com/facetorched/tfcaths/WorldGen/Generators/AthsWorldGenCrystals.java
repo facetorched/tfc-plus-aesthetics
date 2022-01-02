@@ -7,21 +7,13 @@ import java.util.Map;
 import java.util.Random;
 
 import com.dunk.tfc.Blocks.Terrain.BlockStone;
-import com.dunk.tfc.Core.TFC_Climate;
-import com.dunk.tfc.WorldGen.DataLayer;
 import com.facetorched.tfcaths.AthsGlobal;
-import com.facetorched.tfcaths.blocks.BlockCrystal;
-import com.facetorched.tfcaths.blocks.BlockPlant;
-import com.facetorched.tfcaths.enums.EnumVary;
-import com.facetorched.tfcaths.util.AthsLogger;
 import com.facetorched.tfcaths.util.AthsMath;
 import com.facetorched.tfcaths.util.AthsParser;
-import com.facetorched.tfcaths.util.BlockMetaPair;
 import com.facetorched.tfcaths.util.Point3D;
 
 import cpw.mods.fml.common.IWorldGenerator;
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -29,7 +21,8 @@ import net.minecraftforge.common.util.ForgeDirection;
 public class AthsWorldGenCrystals implements IWorldGenerator{
 	
 	private static final int NUM_PROBES = 5;
-	private static final int NUM_RAYS = 3;
+	private static final int NUM_RAYS = 1;
+	private static final float CIRCULARITY = 2.0f; // determines organic versus circular shape. Larger value = more circular
 	// <name of crystal, crystal generation parameters>
 	public static Map<String, CrystalSpawnData> crystalList = new HashMap<String, CrystalSpawnData>();
 	
@@ -55,7 +48,7 @@ public class AthsWorldGenCrystals implements IWorldGenerator{
 					}
 					
 					for(int j = 0; j < NUM_RAYS; j++) { // send out some rays
-						int innerY = y - random.nextInt(roofY - y); // can't think of any edge cases where this errors
+						int innerY = roofY - random.nextInt(roofY - y); // can't think of any edge cases where this errors
 						
 						// randomly select degrees of freedom (this is to prevent backtracking of ray)
 						Point3D dof = new Point3D(
@@ -89,23 +82,67 @@ public class AthsWorldGenCrystals implements IWorldGenerator{
 		// loop over crystals
 		for(String key : keys) {
 			CrystalSpawnData data = crystalList.get(key);
+			if(data.size < 1) {
+				continue;
+			}
 			ArrayList<Integer> surfaceIndexes = new ArrayList<Integer>();
 			for(int i = surfaces.size() - 1; i >= 0; i--) { // reverse for loop to preserve index as elements are removed later on
-				if(hasValidSurface(getAdjacents(surfaces.get(i), world),data, world)){
+				if(hasValidSurface(getAdjacents(surfaces.get(i), world), data, world)){ // find surfaces that this crystal could grow on
 					surfaceIndexes.add(i);
 				}
 			}
 
 			int numClusters = AthsMath.binoRNG(random, surfaceIndexes.size(), data.rarity); // ideal number of clusters to generate if possible
-			for(int i : surfaceIndexes) {
+			for(int surfaceIndex : surfaceIndexes) {
 				if(numClusters <= 0) {
 					break;
 				}
-				placeCrystal(surfaces.get(i), data, world, random);
+				Point3D origin = surfaces.remove(surfaceIndex); 
+				placeCrystal(origin, data, world, random); // place 1
+				int numCrystals = AthsMath.binoRNG(random, data.size - 1, 2); // dies from cringe
+				ArrayList<Point3D> takenPoints = new ArrayList<Point3D>();
+				takenPoints.add(origin);
 				
-				// TODO expand cluster using size and dispersion parameters
-				
-				surfaces.remove(i);
+				// now we expand outward and try to place numCrystals
+				while(numCrystals > 0) {
+					// how many points back should be considered as possible seeds for cluster growth
+					int n = (int) (Math.sqrt(takenPoints.size()) * CIRCULARITY); 
+					n = Math.min(n, takenPoints.size()); // avoid index out of bounds
+					
+					ArrayList<Integer> recentIndexes = new ArrayList<Integer>(n); // initialize with known capacity
+					for(int i = takenPoints.size() - n; i < takenPoints.size(); i++){
+					    recentIndexes.add(i);
+					}
+					
+					boolean foundPoint = false;
+					while (recentIndexes.size() > 0){
+						int seedIndex = recentIndexes.remove(random.nextInt(recentIndexes.size()));
+						Point3D seed = takenPoints.get(seedIndex);
+						ArrayList<Point3D> candidates = getValidOpenings(getNeighbors(seed, world), data, world);
+						candidates.removeAll(takenPoints);
+						Point3D choice = null;
+						Collections.shuffle(candidates, random); // avoid a tendency towards a given direction
+						
+						// find the point that is closest to origin
+						for(Point3D candidate : candidates) {
+							if(choice == null || candidate.getDistSq(origin) < choice.getDistSq(origin)) {
+								choice = candidate;
+							}
+						}
+						if(choice != null) {
+							if(random.nextInt(data.dispersion) == 0) {
+								placeCrystal(choice, data, world, random);
+								numCrystals --;
+							}
+							takenPoints.add(choice);
+							foundPoint = true;
+							break;
+						}
+					}
+					if(!foundPoint) {
+						break;
+					}
+				}
 				numClusters--;
 			}
 			
@@ -113,19 +150,6 @@ public class AthsWorldGenCrystals implements IWorldGenerator{
 		// how many crystals ideally do we want = n
 		// loop over cave surfaces and check rock type suitable for this crystal and remove from the surface list and generate a crystal there decrement n
 		// keep checking to make sure surface list isn't empty
-		// 
-
-		
-		/*
-		
-		DataLayer rockLayer1 = TFC_Climate.getCacheManager(world).getRockLayerAt(chunkX, chunkZ, 0);
-		DataLayer rockLayer2 = TFC_Climate.getCacheManager(world).getRockLayerAt(chunkX, chunkZ, 1);
-		DataLayer rockLayer3 = TFC_Climate.getCacheManager(world).getRockLayerAt(chunkX, chunkZ, 2);
-		if (rockLayer1.block == b && (rockLayer1.data2 == metadata || metadata == -1) ||
-			rockLayer2.block == b && (rockLayer2.data2 == metadata || metadata == -1) ||
-			rockLayer3.block == b && (rockLayer3.data2 == metadata || metadata == -1))
-			
-		*/
 	}
 	
 	public static boolean placeCrystal(Point3D p, CrystalSpawnData data, World world, Random random) {

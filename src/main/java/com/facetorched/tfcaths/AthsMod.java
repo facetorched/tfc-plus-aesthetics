@@ -1,5 +1,6 @@
 package com.facetorched.tfcaths;
 
+import com.facetorched.tfcaths.WorldGen.Generators.AthsWorldGenCrystals;
 import com.facetorched.tfcaths.WorldGen.Generators.AthsWorldGenPlants;
 import com.facetorched.tfcaths.proxy.IProxy;
 import com.facetorched.tfcaths.util.Config;
@@ -39,6 +40,7 @@ public class AthsMod
     	Config.reload();
     	
     	GameRegistry.registerWorldGenerator(new AthsWorldGenPlants(), 100);
+    	GameRegistry.registerWorldGenerator(new AthsWorldGenCrystals(), 101);
     	
     }
 
@@ -46,6 +48,7 @@ public class AthsMod
     public void init(FMLInitializationEvent event) //build data structures and register network handlers
     {
     	Config.reloadPlants();
+    	Config.reloadCrystals();
     	proxy.init(event);
     }
     

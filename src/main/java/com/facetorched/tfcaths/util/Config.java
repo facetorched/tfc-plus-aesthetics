@@ -7,7 +7,9 @@ import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.Enums.EnumTree;
 import com.facetorched.tfcaths.AthsGlobal;
 import com.facetorched.tfcaths.AthsMod;
+import com.facetorched.tfcaths.WorldGen.Generators.AthsWorldGenCrystals;
 import com.facetorched.tfcaths.WorldGen.Generators.AthsWorldGenPlants;
+import com.facetorched.tfcaths.WorldGen.Generators.CrystalSpawnData;
 import com.facetorched.tfcaths.WorldGen.Generators.PlantSpawnData;
 
 import net.minecraftforge.common.config.Configuration;
@@ -19,9 +21,6 @@ public class Config {
 	
 	//define configuration fields here
 	public static int numCustomGenerators;
-
-	private static String[] ALLOWED_BIOMES;
-	private static String[] ALLOWED_ROCKTYPES;
 	
 	public static void preInit(File configDir)
 	{
@@ -47,7 +46,10 @@ public class Config {
 	}
 	
 	public static void reloadCrystals() {
+		athsCrystalClusterHelper(AthsGlobal.AMETHYST, new String[] {"All"}, /*size*/20, /*dispersion*/1, /*rarity*/1);
 		
+		if (config.hasChanged()) 
+			config.save();
 	}
 	
 	//this must be run in the init phase (after blocks setup but before world gen)
@@ -308,27 +310,43 @@ public class Config {
 	
 	
 	private static PlantSpawnData getPlantData(String category, String blockName, int[] metas, String[] growOnBlocks, String[] biomes, String[] regions, int size, int dispersion,
-			int rarity, int minAltitude, int maxAltitude, float minTemp, float maxTemp, float minRainfall, float maxRainfall, float minEVT, float maxEVT, float forestGen)
-	{
+			int rarity, int minAltitude, int maxAltitude, float minTemp, float maxTemp, float minRainfall, float maxRainfall, float minEVT, float maxEVT, float forestGen){
 		return new PlantSpawnData(
-				config.get(category, "blockName", blockName).getString(),
-				config.get(category, "metas", metas).getIntList(),
-				config.get(category, "growOnBlocks", growOnBlocks).getStringList(),
-				config.get(category, "biomes", biomes).setValidValues(ALLOWED_BIOMES).getStringList(),
-				config.get(category, "regions", regions).getStringList(),
-				config.get(category, "size", size).setMinValue(1).getInt(),
-				config.get(category, "dispersion", dispersion).setMinValue(1).getInt(),
-				config.get(category, "rarity", rarity).setMinValue(1).getInt(),
-				config.get(category, "minAltitude", minAltitude).setMinValue(0).setMaxValue(255).getInt(),
-				config.get(category, "maxAltitude", maxAltitude).setMinValue(0).setMaxValue(255).getInt(),
-				(float)config.get(category, "minTemp", minTemp).getDouble(),
-				(float)config.get(category, "maxTemp", maxTemp).getDouble(),
-				(float)config.get(category, "minRainfall", minRainfall).getDouble(),
-				(float)config.get(category, "maxRainfall", maxRainfall).getDouble(),
-				(float)config.get(category, "minEVT", minEVT).getDouble(),
-				(float)config.get(category, "maxEVT", maxEVT).getDouble(),
-				(float)config.get(category, "forestGen", forestGen).getDouble()
-		);
+			config.get(category, "blockName", blockName).getString(),
+			config.get(category, "metas", metas).getIntList(),
+			config.get(category, "growOnBlocks", growOnBlocks).getStringList(),
+			config.get(category, "biomes", biomes).setValidValues(AthsGlobal.ALLOWED_BIOMES).getStringList(),
+			config.get(category, "regions", regions).getStringList(),
+			config.get(category, "size", size).setMinValue(1).getInt(),
+			config.get(category, "dispersion", dispersion).setMinValue(1).getInt(),
+			config.get(category, "rarity", rarity).setMinValue(1).getInt(),
+			config.get(category, "minAltitude", minAltitude).setMinValue(0).setMaxValue(255).getInt(),
+			config.get(category, "maxAltitude", maxAltitude).setMinValue(0).setMaxValue(255).getInt(),
+			(float)config.get(category, "minTemp", minTemp).getDouble(),
+			(float)config.get(category, "maxTemp", maxTemp).getDouble(),
+			(float)config.get(category, "minRainfall", minRainfall).getDouble(),
+			(float)config.get(category, "maxRainfall", maxRainfall).getDouble(),
+			(float)config.get(category, "minEVT", minEVT).getDouble(),
+			(float)config.get(category, "maxEVT", maxEVT).getDouble(),
+			(float)config.get(category, "forestGen", forestGen).getDouble());
+	}
+	
+	private static CrystalSpawnData getCrystalData(String category, String blockName, String blockName2, String[] growOnBlocks, int size, int dispersion, int rarity) {
+		return new CrystalSpawnData(
+			config.get(category, "blockName", blockName).getString(),
+			config.get(category, "blockName2", blockName2).getString(),
+			config.get(category, "growOnBlocks", growOnBlocks).getStringList(),
+			config.get(category, "size", size).setMinValue(1).getInt(),
+			config.get(category, "dispersion", dispersion).setMinValue(1).getInt(),
+			config.get(category, "rarity", rarity).setMinValue(1).getInt());
+	}
+	
+	public static void athsCrystalHelper(String name, String[] growOnBlocks, int size, int dispersion, int rarity) {
+		AthsWorldGenCrystals.crystalList.put(name, getCrystalData("~" + name, AthsMod.MODID+":"+name, "", growOnBlocks, size, dispersion, rarity));
+	}
+	
+	public static void athsCrystalClusterHelper(String name, String[] growOnBlocks, int size, int dispersion, int rarity) {
+		AthsWorldGenCrystals.crystalList.put(name, getCrystalData("~" + name, AthsMod.MODID+":"+name, AthsMod.MODID+":"+name+"_Cluster", growOnBlocks, size, dispersion, rarity));
 	}
 	
 	public static void athsPlantHelper(String name, int[] metas, String[] growOnBlocks, String[] biomes, String[] regions, int size, int dispersion,

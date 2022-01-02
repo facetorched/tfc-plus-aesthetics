@@ -66,8 +66,9 @@ public class BlockCrystal extends BlockTerra{
 		}
 		
 		Point3D p = new Point3D(x, y, z);
-		CrystalSpawnData data = new CrystalSpawnData(AthsMod.MODID+":"+crystalName, null, new String[] {"IgIn","IgEx"}, 1, 1, 1);
+		CrystalSpawnData data = new CrystalSpawnData(AthsMod.MODID+":"+AthsGlobal.AMETHYST, AthsMod.MODID+":"+AthsGlobal.AMETHYST+"_Cluster", new String[] {"All"}, 1, 1, 1);
 		ArrayList<Point3D> points = AthsWorldGenCrystals.getValidOpenings(p.add(AthsGlobal.NEIGHBORS), data, world);
+		System.out.println(data.block2);
 		for(Point3D point : points) {
 			AthsWorldGenCrystals.placeCrystal(point, data, world, new Random());
 			//world.setBlock(point.x, point.y, point.z, Blocks.glass);

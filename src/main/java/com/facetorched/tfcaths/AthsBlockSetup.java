@@ -342,6 +342,7 @@ public class AthsBlockSetup {
 	}
 	public static BlockCrystal crystalRegistryHelper(BlockCrystal block, String name) {
 		block.setName(name);
+		System.out.println(block.crystalName);
 		GameRegistry.registerBlock(block, ItemCrystal.class, block.crystalName);
 		return block;
 	}

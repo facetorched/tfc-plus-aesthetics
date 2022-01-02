@@ -21,7 +21,7 @@ public class CrystalSpawnData {
 
 	public CrystalSpawnData(String blockName, String blockName2, String[] canGrowOn, int size, int dispersion, int rarity){
 		block = AthsParser.getBlockFromName(blockName); // error if not found
-		block2 = Block.getBlockFromName(blockName); // no error if not found (set to null)
+		block2 = Block.getBlockFromName(blockName2); // no error if not found (set to null)
 		
 		for(String rock : canGrowOn) {
 			if(rock.equals("All")) {

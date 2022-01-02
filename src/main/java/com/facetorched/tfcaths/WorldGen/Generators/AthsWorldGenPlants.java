@@ -62,7 +62,7 @@ public class AthsWorldGenPlants implements IWorldGenerator{
 		for(String key : keys) {
 			PlantSpawnData data = plantList.get(key);
 			Block plant = data.block;
-			if(data.canGrowConditions(biome, region, bioTemp, rain, evt, centerY)) {
+			if(data.size > 0 && data.canGrowConditions(biome, region, bioTemp, rain, evt, centerY)) {
 				int rarity = data.rarity;
 				rarity *= Math.pow(getEnvironmentRarityScaling(world, centerX, centerY, centerZ, rain, evt), data.forestGen); //ignores this effect if forestGen is 0
 				int numClusters = AthsMath.binoRNG(random, 16 * 16, rarity); // number of clusters for a given plant. Is this slow??
@@ -78,7 +78,6 @@ public class AthsWorldGenPlants implements IWorldGenerator{
 							bmp.zero();
 						bmp.set(x, z);
 						expandClusterOrganic(random, plant, data, world, x, z, bmp); 
-					
 					}
 				}
 			}
