@@ -57,7 +57,7 @@ public class AthsWorldGenPlants implements IWorldGenerator{
 		boolean firstPass = true;
 		
 		ArrayList<String> keys = new ArrayList<String>(plantList.keySet());
-		Collections.shuffle(keys);
+		Collections.shuffle(keys, random); // shuffle so that on average no given plant has a higher priority
 		
 		for(String key : keys) {
 			PlantSpawnData data = plantList.get(key);
@@ -214,7 +214,7 @@ public class AthsWorldGenPlants implements IWorldGenerator{
         return -1;
     }
     
-    public Point3D[] getNeighbors(Point3D point, World world) {
+    private Point3D[] getNeighbors(Point3D point, World world) {
     	Point3D[] neighbors = new Point3D[4];
     	neighbors[0] = getPointFromXZ(point.x + 1, point.z, world);
     	neighbors[1] = getPointFromXZ(point.x - 1, point.z, world);

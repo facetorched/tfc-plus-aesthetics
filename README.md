@@ -4,7 +4,7 @@ World generated decoration blocks to TFC+ to make the world prettier
 # Instructions for configuration
 
 ### biomes
-The biomes that the plant can spawn in separated by new lines. valid biomes are `Ocean, Plains, Lake, High Hills, Swamp, River, Hell, Beach, Gravel Beach, High Hills Edge, Rolling Hills, Mountains, Mountains Edge, High Plains, Deep Ocean, Mountain Range, Mountain Range Edge, Foothills, Shore, Salt Swamp, Lakeshore, Riverbank, River Source, Estuary`
+The biomes that the plant can spawn in separated by new lines. valid biomes are `Ocean, Plains, Lake, High Hills, Swamp, River, Hell, Beach, Gravel Beach, High Hills Edge, Rolling Hills, Mountains, Mountains Edge, High Plains, Deep Ocean, Mountain Range, Mountain Range Edge, Foothills, Shore, Salt Swamp, Lakeshore, Riverbank, River Source, Estuary`. To add all valid biomes use the `All` keyword and to exclude a specific biome, prefix it with `!`, for example: `!Hell`
 ### blockName
 The name of the block to generate. For example `terrafirmacraftplus:undergrowth`
 ### dispersion

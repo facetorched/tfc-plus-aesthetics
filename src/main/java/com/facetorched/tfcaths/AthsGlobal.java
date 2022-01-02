@@ -1,7 +1,10 @@
 package com.facetorched.tfcaths;
 
 import com.dunk.tfc.WorldGen.DataLayer;
+import com.dunk.tfc.api.TFCBlocks;
+import com.dunk.tfc.api.Constant.Global;
 import com.facetorched.tfcaths.util.AthsParser;
+import com.facetorched.tfcaths.util.Point3D;
 
 import net.minecraft.block.Block;
 
@@ -136,10 +139,12 @@ public class AthsGlobal {
 	public static final DataLayer[] ROCKS = new DataLayer[] {DataLayer.GRANITE, DataLayer.DIORITE, DataLayer.GABBRO, DataLayer.SHALE, DataLayer.CLAYSTONE, DataLayer.ROCKSALT, DataLayer.LIMESTONE, DataLayer.CONGLOMERATE, DataLayer.DOLOMITE,
 			DataLayer.CHERT, DataLayer.CHALK, DataLayer.RHYOLITE, DataLayer.BASALT, DataLayer.ANDESITE, DataLayer.DACITE, DataLayer.QUARTZITE, DataLayer.SLATE, DataLayer.PHYLLITE, DataLayer.SCHIST, DataLayer.GNEISS, DataLayer.MARBLE};
 	public static final String[] ROCKTYPES = new String[] {"IgEx","IgIn","Sed","MM"};
+	public static final String[][] ROCKTYPES_NAMES = new String[][] {Global.STONE_IGEX, Global.STONE_IGIN, Global.STONE_SED, Global.STONE_MM};
+	public static final Block[] ROCKTYPES_BLOCKS = new Block[] {TFCBlocks.stoneIgEx, TFCBlocks.stoneIgIn, TFCBlocks.stoneSed, TFCBlocks.stoneMM};
 	
 	public static final String[] ALLOWED_REGIONS = new String[] {"Americas","Europe","Africa","Asia"};
 	public static final String[] ALLOWED_BIOMES = AthsParser.add(AthsParser.append(AthsParser.getBiomes(), AthsParser.prefix(AthsParser.getBiomes(), "!")), "All");
-	public static final String[] ALLOWED_ROCKS = AthsParser.add(AthsParser.append(new String[][] {AthsParser.getRocks(), AthsParser.prefix(AthsParser.getRocks(), "!"), ROCKTYPES}), "All");
+	//public static final String[] ALLOWED_ROCKS = AthsParser.add(AthsParser.append(new String[][] {Global.STONE_ALL, AthsParser.prefix(Global.STONE_ALL, "!"), ROCKTYPES}), "All");
 	
 	// some large prime numbers
 	public static final int PRIME_1 = 83;
@@ -147,4 +152,24 @@ public class AthsGlobal {
 	
 	public static final float TREE_SCALE = 4.0f;
 	public static final int TREE_BASE_RARITY = 1000;
+	
+	public static final Point3D[] NEIGHBORS = new Point3D[] {
+			new Point3D(-1,-1,0),
+			new Point3D(-1,0,-1),
+			new Point3D(-1,0,0),
+			new Point3D(-1,0,1),
+			new Point3D(-1,1,0),
+			new Point3D(0,-1,-1),
+			new Point3D(0,-1,0),
+			new Point3D(0,-1,1),
+			new Point3D(0,0,-1),
+			new Point3D(0,0,1),
+			new Point3D(0,1,-1),
+			new Point3D(0,1,0),
+			new Point3D(0,1,1),
+			new Point3D(1,-1,0),
+			new Point3D(1,0,-1),
+			new Point3D(1,0,0),
+			new Point3D(1,0,1),
+			new Point3D(1,1,0)};
 }

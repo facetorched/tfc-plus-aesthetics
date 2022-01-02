@@ -1,5 +1,6 @@
 package com.facetorched.tfcaths.util;
 
+import com.dunk.tfc.WorldGen.DataLayer;
 import com.dunk.tfc.WorldGen.TFCBiome;
 import com.facetorched.tfcaths.AthsGlobal;
 
@@ -64,12 +65,13 @@ public class AthsParser {
 		return biomeNames;
 	}
 	
-	public static String[] getRocks() {
-		String[] temp = new String[AthsGlobal.ROCKS.length];
+	public static DataLayer getRockFromName(String name) {
 		for(int i = 0; i < AthsGlobal.ROCKS.length; i++) {
-			temp[i] = AthsGlobal.ROCKS[i].getName();
+			if(AthsGlobal.ROCKS[i].getName().equals(name)) {
+				return AthsGlobal.ROCKS[i];
+			}
 		}
-		return temp;
+		return null;
 	}
 	
 	public static String[] add(String[] src, String str) {
@@ -134,6 +136,25 @@ public class AthsParser {
 	public static boolean contains(String[] collection, String key) {
 		for(String str : collection) {
 			if(str.equals(key))
+				return true;
+		}
+		return false;
+	}
+	
+	/*
+	 * -1 is wild card
+	 */
+	public static boolean contains(int[] collection, int key) {
+		for(int i : collection) {
+			if(i == key || i == -1)
+				return true;
+		}
+		return false;
+	}
+	
+	public static boolean contains(Block[] collection, Block key) {
+		for(Block block : collection) {
+			if(block.equals(key))
 				return true;
 		}
 		return false;

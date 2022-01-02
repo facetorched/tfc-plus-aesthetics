@@ -1,5 +1,6 @@
 package com.facetorched.tfcaths.blocks;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -8,8 +9,12 @@ import com.dunk.tfc.Blocks.BlockTerra;
 import com.dunk.tfc.Core.TFCTabs;
 import com.dunk.tfc.api.TFCOptions;
 import com.facetorched.tfcaths.AthsBlockSetup;
+import com.facetorched.tfcaths.AthsGlobal;
 import com.facetorched.tfcaths.AthsMod;
+import com.facetorched.tfcaths.WorldGen.Generators.AthsWorldGenCrystals;
+import com.facetorched.tfcaths.WorldGen.Generators.CrystalSpawnData;
 import com.facetorched.tfcaths.util.AthsParser;
+import com.facetorched.tfcaths.util.Point3D;
 import com.facetorched.tfcaths.util.Point3DD;
 
 import cpw.mods.fml.relauncher.Side;
@@ -59,6 +64,15 @@ public class BlockCrystal extends BlockTerra{
 			world.setBlock(x, y, z, Blocks.air, 0, 2);
 			world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, "dig.glass", 1.0F, world.rand.nextFloat() * 0.1F + 0.9F);
 		}
+		
+		Point3D p = new Point3D(x, y, z);
+		CrystalSpawnData data = new CrystalSpawnData(AthsMod.MODID+":"+crystalName, null, new String[] {"IgIn","IgEx"}, 1, 1, 1);
+		ArrayList<Point3D> points = AthsWorldGenCrystals.getValidOpenings(p.add(AthsGlobal.NEIGHBORS), data, world);
+		for(Point3D point : points) {
+			AthsWorldGenCrystals.placeCrystal(point, data, world, new Random());
+			//world.setBlock(point.x, point.y, point.z, Blocks.glass);
+		}
+		
 		return false;
 	}
 	
