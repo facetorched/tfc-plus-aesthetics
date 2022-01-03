@@ -42,6 +42,7 @@ public class BlockCrystal extends BlockTerra{
 	public Item crystalItem;
 	public String crystalName;
 	public int[] crystalMetas;
+	public boolean isTransparent;
 	
 	public BlockCrystal() {
 		super(Material.rock);
@@ -49,6 +50,7 @@ public class BlockCrystal extends BlockTerra{
 		this.setHarvestLevel("pickaxe", 0);
 		this.setCreativeTab(TFCTabs.TFC_DECORATION);
 		this.setStepSound(Block.soundTypeGlass);
+		this.isTransparent = false;
 	}
 	
 	public static ForgeDirection getDirection(int meta) {
@@ -65,15 +67,16 @@ public class BlockCrystal extends BlockTerra{
 			world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, "dig.glass", 1.0F, world.rand.nextFloat() * 0.1F + 0.9F);
 		}
 		
-		Point3D p = new Point3D(x, y, z);
-		CrystalSpawnData data = new CrystalSpawnData(AthsMod.MODID+":"+AthsGlobal.AMETHYST, AthsMod.MODID+":"+AthsGlobal.AMETHYST+"_Cluster", new String[] {"All"}, 1, 1, 1);
-		ArrayList<Point3D> points = AthsWorldGenCrystals.getValidOpenings(p.add(AthsGlobal.NEIGHBORS), data, world);
-		System.out.println(data.block2);
-		for(Point3D point : points) {
-			AthsWorldGenCrystals.placeCrystal(point, data, world, new Random());
-			//world.setBlock(point.x, point.y, point.z, Blocks.glass);
+		if(TFCOptions.enableDebugMode){
+			Point3D p = new Point3D(x, y, z);
+			CrystalSpawnData data = new CrystalSpawnData(AthsMod.MODID+":"+this.crystalName, AthsMod.MODID+":"+this.crystalName+"_Cluster", new String[] {"All"}, 1, 1, 1);
+			ArrayList<Point3D> points = AthsWorldGenCrystals.getValidOpenings(p.add(AthsGlobal.NEIGHBORS), data, world);
+			System.out.println(data.block2);
+			for(Point3D point : points) {
+				AthsWorldGenCrystals.placeCrystal(point, data, world, new Random());
+				//world.setBlock(point.x, point.y, point.z, Blocks.glass);
+			}
 		}
-		
 		return false;
 	}
 	
@@ -182,7 +185,7 @@ public class BlockCrystal extends BlockTerra{
     @Override
     public int getRenderBlockPass()
     {
-        return 1;
+        return isTransparent ? 1 : 0;
     }
     
     @Override
@@ -222,6 +225,11 @@ public class BlockCrystal extends BlockTerra{
 		this.crystalName = name;
 		this.setBlockName(name);
 		this.setBlockTextureName(AthsMod.MODID + ":crystals/" + crystalName);
+		return this;
+	}
+	
+	public BlockCrystal setIsTransparent() {
+		this.isTransparent = true;
 		return this;
 	}
 }

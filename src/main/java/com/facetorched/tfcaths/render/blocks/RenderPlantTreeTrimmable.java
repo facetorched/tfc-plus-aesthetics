@@ -13,7 +13,7 @@ public class RenderPlantTreeTrimmable extends RenderPlantCross{
 	@Override
 	public float getRenderScale(Block block, Random random, int meta){
 		try {
-			if(((BlockPlantTreeTrimmable)block).getBaseMeta(meta) == 1) //trimmed
+			if(((BlockPlantTreeTrimmable)block).getBaseMeta(meta) >= 1) //trimmed
 				return ((BlockPlantTreeTrimmable)block).getScale();
 		}
 		catch(ClassCastException e) {

@@ -23,13 +23,19 @@ public class BlockPlantTreeTrimmable extends BlockPlantTree{
 		if (player.getHeldItem() != null && 
 			(player.getHeldItem().getItem() instanceof ItemCustomSaw || player.getHeldItem().getItem() instanceof ItemShears)) {
 			int meta = world.getBlockMetadata(x, y, z);
-			shiftMeta(world, x, y, z, meta, 1); // add 1 to the meta
+			if(player.isSneaking()) {
+				shiftMeta(world, x, y, z, meta, 2); // add 2 to the meta (narrow)
+				System.out.println("hi");
+			}
+			else {
+				shiftMeta(world, x, y, z, meta, 1); // add 1 to the meta (trimmed)
+			}
 		}
 		return super.onBlockActivated(world, x, y, z, player, side, hitX, hitY, hitZ);
 	}
 	@Override
 	public BlockPlant setNames(String name) {
-		setNames(new String[] {name, name + "_Trimmed"});
+		setNames(new String[] {name, name + "_Trimmed", name + "_Narrow"});
 		setKeyName(name);
 		return this;
 	}

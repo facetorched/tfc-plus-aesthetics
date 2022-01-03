@@ -27,16 +27,6 @@ public class BlockCrystalCluster extends BlockCrystal{
 		setBlockTextureName(AthsMod.MODID + ":crystals/" + crystalName);
 		return this;
 	}
-	
-	/**
-     * Returns which pass should this block be rendered on. 0 for solids and 1 for alpha
-     */
-    @SideOnly(Side.CLIENT)
-    @Override
-    public int getRenderBlockPass()
-    {
-        return 0;
-    }
     
     /**
      * Updates the blocks bounds based on its current state. Args: world, x, y, z

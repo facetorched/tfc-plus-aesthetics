@@ -133,6 +133,42 @@ public class AthsGlobal {
 	public static final String YUCCA = "Yucca";
 	public static final String SAGEBRUSH = "Sagebrush";
 	
+	public static final String AFRICAN_MILK_BARREL = "African_Milk_Barrel";
+	public static final String AFRICAN_MILK_TREE = "African_Milk_Tree";
+	public static final String ALBANIAN_SPURGE = "Albanian_Spurge";
+	public static final String BLOOD_LILY = "Blood_Lily";
+	public static final String BLUEBELL = "Bluebell";
+	public static final String BONATEA = "Bonatea";
+	public static final String CARALUMA = "Caralluma";
+	public static final String DESERT_ROSE = "Desert_Rose";
+	public static final String EGYPTIAN_AUTUMN_CROCUS = "Egyptian_Autumn_Crocus";
+	public static final String EUROPEAN_BEDSTRAW= "European_Bedstraw";
+	public static final String FREESIA = "Freesia";
+	public static final String GARLIC_MUSTARD = "Garlic_Mustard";
+	public static final String GIFBOOM = "Gifboom";
+	public static final String LEOPARD_ORCHID = "Leopard_Orchid";
+	public static final String LOOSE_FLOWERED_ORCHID = "Loose_Flowered_Orchid";
+	public static final String LOTUS = "Lotus";
+	public static final String MALLOW = "Mallow";
+	public static final String NARBON_VETCH = "Narbon_Vetch";
+	public static final String PAPYRUS = "Papyrus";
+	public static final String PERIWINKLE = "Periwinkle";
+	public static final String QUAQUA = "Quaqua";
+	public static final String RAFFLESIA = "Rafflesia";
+	public static final String ROYAL_JASMINE = "Royal_Jasmine";
+	public static final String SALTWORT = "Saltwort";
+	public static final String SAXAUL = "Saxaul";
+	public static final String SESAME = "Sesame";
+	public static final String SNAKE_SANSEVERIA = "Snake_Sanseveria";
+	public static final String STARFISH_PLANT = "Starfish_Plant";
+	public static final String SWORD_SANSEVERIA = "Sword_Sanseveria";
+	public static final String WATER_PLANTAIN = "Water_Plantain";
+	public static final String WELWITSCHIA_MALE = "Welwitschia_Male";
+	public static final String WELWITSCHIA_FEMALE = "Welwitschia_Female";
+	public static final String WOOD_BITTER_VETCH = "Wood_Bitter_Vetch";
+	
+	public static final String CARALLUMA = "Caralluma";
+	
 	public static final String[] SHALLOW_WATER_BIOMES = new String[]{"River","Beach","Gravel Beach","Swamp","Lake","Shore","Salt Swamp","Lakeshore","Riverbank","Estuary"};
 	public static final String[] LAND_BIOMES = new String[] {"All","!Ocean","!Hell","!Deep Ocean"};
 	
