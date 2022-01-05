@@ -314,10 +314,8 @@ public class Config {
 				/*size*/50, /*dispersion*/3, /*rarity*/2384, /*minAltitude*/0, /*maxAltitude*/170, /*minTemp*/23f, /*maxTemp*/35f, /*minRain*/750f, /*maxRain*/16000f, /*minEVT*/0f, /*maxEVT*/10f);
 		athsPlantHelper(AthsGlobal.WATER_PLANTAIN, new int[] {0}, new String[] {"terrafirmacraftplus:FreshWaterStationary","terrafirmacraftplus:Ice"}, AthsGlobal.SHALLOW_WATER_BIOMES, new String[]{"Americas", "Asia","Europe","Africa"},
 				/*size*/9, /*dispersion*/3, /*rarity*/204, /*minAltitude*/140, /*maxAltitude*/160, /*minTemp*/-20f, /*maxTemp*/40f, /*minRain*/600f, /*maxRain*/16000f, /*minEVT*/0f, /*maxEVT*/10f);
-		athsPlantHelper(AthsGlobal.WELWITSCHIA_FEMALE, new int[] {0}, new String[] {"blockSoil"}, new String[]{"Beach","Gravel Beach","Lake","Lakeshore","Riverbank","Swamp","Salt Swamp","Estuary","Plains","High Plains"}, new String[]{"Africa"},
-				/*size*/1, /*dispersion*/1, /*rarity*/2096, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/22f, /*maxTemp*/40f, /*minRain*/0f, /*maxRain*/30f, /*minEVT*/1f, /*maxEVT*/10f);
-		athsPlantHelper(AthsGlobal.WELWITSCHIA_MALE, new int[] {0}, new String[] {"blockSoil"}, new String[]{"Beach","Gravel Beach","Lake","Lakeshore","Riverbank","Swamp","Salt Swamp","Estuary","Plains","High Plains"}, new String[]{"Africa"},
-				/*size*/1, /*dispersion*/1, /*rarity*/2096, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/22f, /*maxTemp*/40f, /*minRain*/0f, /*maxRain*/30f, /*minEVT*/1f, /*maxEVT*/10f);
+		athsPlantHelper(AthsGlobal.WELWITSCHIA, new int[] {0,1}, new String[] {"blockSoil"}, new String[]{"Beach","Gravel Beach","Lake","Lakeshore","Riverbank","Swamp","Salt Swamp","Estuary","Plains","High Plains"}, new String[]{"Africa"},
+				/*size*/1, /*dispersion*/1, /*rarity*/1024, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/22f, /*maxTemp*/40f, /*minRain*/0f, /*maxRain*/30f, /*minEVT*/1f, /*maxEVT*/10f);
 		athsPlantHelper(AthsGlobal.WOOD_BITTER_VETCH, new int[] {0}, new String[] {"blockSoil"}, AthsGlobal.LAND_BIOMES, new String[]{"Europe"},
 				/*size*/34, /*dispersion*/3, /*rarity*/4984, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/-2f, /*maxTemp*/20f, /*minRain*/450f, /*maxRain*/900f, /*minEVT*/0f, /*maxEVT*/4f);
 		athsPlantHelper(AthsGlobal.WOOD_FERN, new int[] {0}, new String[] {"blockSoil"}, AthsGlobal.LAND_BIOMES, new String[]{"Americas"},

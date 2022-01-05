@@ -16,7 +16,7 @@ public class BlockPlantLilyPad extends BlockPlant{
 	}
 	
 	@Override
-	public BlockPlant setNames(String name) {
+	public BlockPlant setExtraNames(String name) {
 		setNames(new String[] {name + "_Small", name + "_Small_Cluster", name + "_Tiny_Cluster"});
 		setKeyName(name);
 		return this;

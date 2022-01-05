@@ -163,8 +163,7 @@ public class AthsGlobal {
 	public static final String STARFISH_PLANT = "Starfish_Plant";
 	public static final String SWORD_SANSEVERIA = "Sword_Sanseveria";
 	public static final String WATER_PLANTAIN = "Water_Plantain";
-	public static final String WELWITSCHIA_MALE = "Welwitschia_Male";
-	public static final String WELWITSCHIA_FEMALE = "Welwitschia_Female";
+	public static final String WELWITSCHIA = "Welwitschia";
 	public static final String WOOD_BITTER_VETCH = "Wood_Bitter_Vetch";
 	
 	public static final String CARALLUMA = "Caralluma";

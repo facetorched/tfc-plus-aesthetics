@@ -23,18 +23,15 @@ public class BlockPlantTreeTrimmable extends BlockPlantTree{
 		if (player.getHeldItem() != null && 
 			(player.getHeldItem().getItem() instanceof ItemCustomSaw || player.getHeldItem().getItem() instanceof ItemShears)) {
 			int meta = world.getBlockMetadata(x, y, z);
-			if(player.isSneaking()) {
-				shiftMeta(world, x, y, z, meta, 2); // add 2 to the meta (narrow)
-				System.out.println("hi");
-			}
-			else {
-				shiftMeta(world, x, y, z, meta, 1); // add 1 to the meta (trimmed)
-			}
+			//if(player.isSneaking()) {
+			//	shiftMeta(world, x, y, z, meta, 2); // add 2 to the meta (narrow)
+			//}
+			shiftMeta(world, x, y, z, meta, 1); // add 1 to the meta (trimmed)
 		}
 		return super.onBlockActivated(world, x, y, z, player, side, hitX, hitY, hitZ);
 	}
 	@Override
-	public BlockPlant setNames(String name) {
+	public BlockPlant setExtraNames(String name) {
 		setNames(new String[] {name, name + "_Trimmed", name + "_Narrow"});
 		setKeyName(name);
 		return this;
@@ -42,6 +39,6 @@ public class BlockPlantTreeTrimmable extends BlockPlantTree{
 	
 	@Override
 	public BlockPlant setName(String name) {
-		return setNames(name);
+		return setExtraNames(name);
 	}
 }

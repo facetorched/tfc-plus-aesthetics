@@ -430,20 +430,20 @@ public class BlockPlant extends BlockTerra{
 		return varyStartIndexes[vary.index] != null;
 	}
 	
-	public BlockPlant setNames(String name) {
-		return setNames(name, "Small", "Large");
+	public BlockPlant setExtraNames(String name) {
+		return setExtraNames(name, "Small", "Large");
 	}
-	public BlockPlant setNames(String name, String suffix) {
+	public BlockPlant setExtraNames(String name, String suffix) {
 		setNames(new String[] {name, name + "_" + suffix});
 		setKeyName(name);
 		return this;
 	}
-	public BlockPlant setNames(String name, String suffix1, String suffix2) {
+	public BlockPlant setExtraNames(String name, String suffix1, String suffix2) {
 		setNames(new String[] {name, name + "_" + suffix1, name + "_" + suffix2});
 		setKeyName(name);
 		return this;
 	}
-	public BlockPlant setNames(String name, String suffix1, String suffix2, String suffix3) {
+	public BlockPlant setExtraNames(String name, String suffix1, String suffix2, String suffix3) {
 		setNames(new String[] {name, name + "_" + suffix1, name + "_" + suffix2, name + "_" + suffix3});
 		setKeyName(name);
 		return this;
