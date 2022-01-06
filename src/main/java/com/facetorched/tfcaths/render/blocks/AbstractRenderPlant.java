@@ -52,6 +52,7 @@ public abstract class AbstractRenderPlant implements ISimpleBlockRenderingHandle
 		Tessellator tessellator = Tessellator.instance;
         tessellator.setBrightness(block.getMixedBrightnessForBlock(world, x, y, z));
         int rgb = block.colorMultiplier(world, x, y, z);
+        //System.out.println(rgb);
         tessellator.setColorOpaque_I(rgb);
 
         int meta = world.getBlockMetadata(x, y, z);

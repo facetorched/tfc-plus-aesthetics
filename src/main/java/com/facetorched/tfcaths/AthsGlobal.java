@@ -23,6 +23,9 @@ public class AthsGlobal {
 	public static final String TOPAZ = "Topaz";
 	public static final String TOURMALINE = "Tourmaline";
 	
+	public static final String ROCK_CRYSTAL = "Rock_Crystal";
+	public static final String GYPSUM = "Gypsum";
+	
 	public static final String ALGAE_MAT = "Algae_Mat";
 	public static final String ALGAE_MAT_BROWN = "Algae_Mat_Brown";
 	public static final String ALGAE_MAT_CYANOBACTERIA = "Algae_Mat_Cyanobacteria";

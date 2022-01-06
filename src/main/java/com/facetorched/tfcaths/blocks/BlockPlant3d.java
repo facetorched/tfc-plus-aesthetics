@@ -10,6 +10,7 @@ import com.facetorched.tfcaths.AthsMod;
 import com.facetorched.tfcaths.WorldGen.Generators.PlantSpawnData;
 import com.facetorched.tfcaths.enums.EnumVary;
 import com.facetorched.tfcaths.tileentities.TEPlant3d;
+import com.facetorched.tfcaths.util.AthsLogger;
 import com.facetorched.tfcaths.util.ObjPart;
 
 import cpw.mods.fml.relauncher.Side;
@@ -33,6 +34,7 @@ public class BlockPlant3d extends BlockPlant implements ITileEntityProvider{
 	
 	public BlockPlant3d() {
 		super();
+		setGrassBounds();
 		this.renderId = AthsBlockSetup.plant3dRenderID;
 	}
 	
@@ -47,7 +49,7 @@ public class BlockPlant3d extends BlockPlant implements ITileEntityProvider{
 					modelObjs[i] = (WavefrontObject)AdvancedModelLoader.loadModel(new ResourceLocation(AthsMod.MODID + ":models/blocks/plants/" + plantNames[i] + ".obj"));
 				}
 				catch (ModelFormatException e) {
-					System.out.println(AthsMod.MODID + ":models/blocks/plants/" + plantNames[i] + ".obj");
+					AthsLogger.error("unable to parse " + AthsMod.MODID + ":models/blocks/plants/" + plantNames[i] + ".obj");
 				}
 			else {
 				modelObjs[i] = (WavefrontObject)AdvancedModelLoader.loadModel(new ResourceLocation(AthsMod.MODID + ":models/blocks/plants/" + overrideModelName + ".obj"));
@@ -222,9 +224,17 @@ public class BlockPlant3d extends BlockPlant implements ITileEntityProvider{
 	/**
 	 * set part for only one specific meta given a vary and baseMeta. use that meta's name
 	 */
-	public BlockPlant3d setPart(EnumVary vary, int baseMeta, String partName) {
+	public BlockPlant3d setNamedPart(EnumVary vary, int baseMeta, String partName) {
 		int meta = varyStartIndexes[vary.index] + baseMeta;
 		return setNamedPart(meta, partName);
+	}
+	
+	/**
+	 * set part for only one specific meta given a vary and baseMeta. use plantKey as name
+	 */
+	public BlockPlant3d setPart(EnumVary vary, int baseMeta, String partName) {
+		int meta = varyStartIndexes[vary.index] + baseMeta;
+		return setPart(meta, partName);
 	}
 	
 	/**

@@ -191,11 +191,14 @@ public class BlockCrystal extends BlockTerra{
     @Override
     public Item getItemDropped(int meta, Random random, int fortune)
     {
-        return this.crystalItem;
+        return this.crystalItem; // can be null
     }
     
     @Override
     public int damageDropped(int meta){
+    	if(crystalMetas == null) {
+    		return 0;
+    	}
     	Random random = new Random();
     	return crystalMetas[random.nextInt(crystalMetas.length)];
     }

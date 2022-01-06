@@ -46,7 +46,8 @@ public class BlockPlant extends BlockTerra{
 	public Integer[] varyStartIndexes;
 	public boolean hasVarys;
 	public EnumVary[] monthVarys; // for flowers and fruits
-	public EnumVary[] iconVarys; // varys that have unique icons
+	public EnumVary[] iconVarys; // varys that have unique icons (e.g. different colored flowers)
+	public boolean[] blacklistMetas; // metas that shouldn't exist
 	public Class<? extends ItemBlock> itemBlock;
 	public boolean isFoliageColor;
 	public boolean hasCollision;
@@ -96,15 +97,16 @@ public class BlockPlant extends BlockTerra{
 	/**
 	 * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
 	 */
-	public void getSubBlocks(Item item, CreativeTabs tabs, List list)
-	{
+	public void getSubBlocks(Item item, CreativeTabs tabs, List list){
 		// Change to false if this block should not be added to the creative tab
 		Boolean addToCreative = true;
 
-		if(addToCreative)
-		{
-			for(int i = 0; i < plantNames.length; i++)
-				list.add(new ItemStack(item, 1, i));
+		if(addToCreative){
+			for(int i = 0; i < plantNames.length; i++) {
+				if (blacklistMetas == null || !blacklistMetas[i]) {
+					list.add(new ItemStack(item, 1, i));
+				}
+			}
 		}
 	}
 	
@@ -159,11 +161,11 @@ public class BlockPlant extends BlockTerra{
 			if(iconVarys == null) // normal
 				this.icons[i] = register.registerIcon(AthsMod.MODID+":plants/"+plantNames[i]);
 			else { // icon diversity is related to specific varys
-				if(isAnyVary(i, iconVarys)) {
-					this.icons[i] = register.registerIcon(AthsMod.MODID+":plants/"+plantNames[i]);
+				if(isAnyVary(i, iconVarys)) { // is this meta included in the icon array?
+					this.icons[i] = register.registerIcon(AthsMod.MODID+":plants/"+plantNames[i]); // these icons should be treated normally
 				}
-				else {
-					this.icons[i] = register.registerIcon(AthsMod.MODID+":plants/"+plantKey + getVary(i).suffix);
+				else if (getVary(i) != null){
+					this.icons[i] = register.registerIcon(AthsMod.MODID+":plants/"+plantKey + getVary(i).suffix); // for plants such as colored flowers, some textures are shared
 				}
 			}
 		}
@@ -272,7 +274,7 @@ public class BlockPlant extends BlockTerra{
 			// but some meta variations should be higher priority than others
 			
 			// snow
-			if(hasVary(EnumVary.SNOW)) {
+			if(hasVary(EnumVary.SNOW, meta)) {
 				boolean inRain =  TFC_Core.isExposedToRain(world, x, y, z);
 				if(inRain && temp <= 0) {
 					shiftToVary(world, x, y, z, meta, EnumVary.SNOW);
@@ -284,7 +286,7 @@ public class BlockPlant extends BlockTerra{
 			}
 			
 			// winter
-			if(hasVary(EnumVary.WINTER)) {
+			if(hasVary(EnumVary.WINTER, meta)) {
 				if ((month >= TFC_Time.OCTOBER && temp <= 0f) ||
 					(month >= TFC_Time.NOVEMBER && temp <= 10f)) {
 					shiftToVary(world, x, y, z, meta, EnumVary.WINTER);
@@ -292,7 +294,7 @@ public class BlockPlant extends BlockTerra{
 				}
 			}
 			// autumn
-			if(hasVary(EnumVary.AUTUMN)) {
+			if(hasVary(EnumVary.AUTUMN, meta)) {
 				if (month >= TFC_Time.OCTOBER && temp <= 10 ) {//&& random.nextInt(10) == 0) {
 					shiftToVary(world, x, y, z, meta, EnumVary.AUTUMN);
 					return; // success
@@ -302,24 +304,27 @@ public class BlockPlant extends BlockTerra{
 			// flowers fruits etc based on month!
 			if (monthVarys != null) {
 				EnumVary monthVary =  monthVarys[month];
-				if(monthVary != null && hasVary(monthVary)) {
+				if(monthVary != null && hasVary(monthVary, meta)) {
 					shiftToVary(world, x, y, z, meta, monthVary);
 					return; // success
 				}
 			}
 			
 			// default
-			if (month < TFC_Time.OCTOBER && temp > 0) {
+			if (month < TFC_Time.OCTOBER && temp > 0){
 				shiftToVary(world, x, y, z, meta, EnumVary.DEFAULT);
 				return; // success
 			}
-			shiftToVary(world, x, y, z, meta, EnumVary.DEFAULT);
+			//shiftToVary(world, x, y, z, meta, EnumVary.DEFAULT);
 		}
 	}
 	
 	public void shiftToVary(World world, int x, int y, int z, int meta, EnumVary vary) {
 		int newMeta = varyStartIndexes[vary.index] + getBaseMeta(meta);
 		if(meta != newMeta) {
+			if (!hasVary(vary, meta)) {
+				throw new IllegalStateException("plant does not have variation: " + vary.toString());
+			}
 			world.setBlockMetadataWithNotify(x, y, z, newMeta, 2);
 		}
 	}
@@ -333,18 +338,19 @@ public class BlockPlant extends BlockTerra{
 		return false;
 	}
 	public EnumVary[] getVarys() {
-		EnumVary[] ret = new EnumVary[getNumVarys()];
-		int c = 0;
-		for(int i = 0; i < EnumVary.values().length; i++) {
-			if(hasVary(EnumVary.values()[i])) {
-				ret[c] = EnumVary.values()[i];
-				c++;
-			}
+		EnumVary[] ret = new EnumVary[plantNames.length];
+		for(int i = 0; i < plantNames.length; i++) {
+			ret[i] = getVary(i);
 		}
 		return ret;
 	}
 	public EnumVary getVary(int meta) {
-		return getVarys()[meta / numBaseMetas];
+		for(EnumVary vary : EnumVary.values()) {
+			if(isVary(meta, vary)) {
+				return vary;
+			}
+		}
+		return null;
 	}
 	public int getNumVarys() {
 		return plantNames.length/numBaseMetas;
@@ -411,7 +417,7 @@ public class BlockPlant extends BlockTerra{
 	}
 	
 	public boolean isVary(int meta, EnumVary vary) {
-		if(hasVary(vary)) {
+		if(hasVary(vary, meta)) {
 			int startIndex = varyStartIndexes[vary.index];
 			return meta >= startIndex && meta < startIndex + numBaseMetas;
 		}
@@ -426,8 +432,18 @@ public class BlockPlant extends BlockTerra{
 		return false;
 	}
 	
-	public boolean hasVary(EnumVary vary) {
-		return varyStartIndexes[vary.index] != null;
+	//public boolean hasVary(EnumVary vary) {
+	//	return varyStartIndexes[vary.index] != null;
+	//}
+	/**
+	 * given the current meta, does the plant have this vary?
+	 */
+	public boolean hasVary(EnumVary vary, int meta) {
+		Integer start = varyStartIndexes[vary.index];
+		if(this.blacklistMetas != null) {
+			return start != null && !blacklistMetas[start + getBaseMeta(meta)];
+		}
+		return start != null;
 	}
 	
 	public BlockPlant setExtraNames(String name) {
@@ -507,15 +523,13 @@ public class BlockPlant extends BlockTerra{
 		return this;
 	}
 	public BlockPlant setMonthVary(int month, EnumVary vary) {
-		if (!hasVary(vary)) {
-			throw new IllegalStateException("plant does not have variation: " + vary.toString());
-		}
 		if(monthVarys == null) {
 			monthVarys = new EnumVary[TFC_Time.MONTHS.length];
 		}
 		monthVarys[month] = vary;
 		return this;
 	}
+	
 	public BlockPlant setMonthVaryRange(int startMonth, int endMonth, EnumVary vary) {
 		for(int month = startMonth; month != endMonth; month = (month + 1) % 12) {
 			setMonthVary(month, vary);
@@ -535,6 +549,17 @@ public class BlockPlant extends BlockTerra{
 	public BlockPlant setFlowerMonth(int month) {
 		setMonthVary(month, EnumVary.FLOWER);
 		return this;
+	}
+	public BlockPlant setBlacklistMeta(int meta) {
+		if(blacklistMetas == null) {
+			blacklistMetas = new boolean[plantNames.length];
+		}
+		blacklistMetas[meta] = true;
+		return this;
+	}
+	public BlockPlant setBlacklistMeta(EnumVary vary, int baseMeta) {
+		int meta = varyStartIndexes[vary.index] + baseMeta;
+		return setBlacklistMeta(meta);
 	}
 	public BlockPlant setItemBlock(Class<? extends ItemBlock> itemBlock) {
 		this.itemBlock = itemBlock;

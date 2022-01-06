@@ -146,10 +146,11 @@ public class AthsWorldGenPlants implements IWorldGenerator{
 	 */
 	public boolean placePlant(Random random, Block plant, PlantSpawnData data, World world, int x, int y, int z) {
 		if(canPlacePlantAt(plant, data, world, x, y, z)) {
-			world.setBlock(x, y, z, plant, data.metas[random.nextInt(data.metas.length)], 2);
+			int meta = data.metas[random.nextInt(data.metas.length)];
+			world.setBlock(x, y, z, plant, meta, 2);
 			// if it's below freezing during world generation, add snow!
 			if(plant instanceof BlockPlant) {
-				if(((BlockPlant)plant).hasVary(EnumVary.SNOW)) {
+				if(((BlockPlant)plant).hasVary(EnumVary.SNOW, meta)) {
 					if(TFC_Climate.getHeightAdjustedTemp(world, x, y, z) <= 0) {
 						((BlockPlant)plant).shiftToVary(world, x, y, z, world.getBlockMetadata(x, y, z), EnumVary.SNOW);
 					}

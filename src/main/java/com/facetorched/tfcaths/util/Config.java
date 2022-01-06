@@ -55,11 +55,13 @@ public class Config {
         athsCrystalHelper(AthsGlobal.JADE, new String[] {"MM"}, /*size*/1, /*dispersion*/1, /*rarity*/350);
         athsCrystalHelper(AthsGlobal.JASPER, new String[] {"Chert","Limestone","Dolomite","Schist","Gneiss","Phyllite","Slate"}, /*size*/1, /*dispersion*/1, /*rarity*/100);
         athsCrystalHelper(AthsGlobal.OPAL, new String[] {"All"}, /*size*/1, /*dispersion*/1, /*rarity*/650);
-        athsCrystalClusterHelper(AthsGlobal.RUBY, new String[] {"IgIn","STONE_MM"}, /*size*/20, /*dispersion*/6, /*rarity*/500);
+        athsCrystalClusterHelper(AthsGlobal.RUBY, new String[] {"IgIn","MM"}, /*size*/20, /*dispersion*/6, /*rarity*/500);
         athsCrystalClusterHelper(AthsGlobal.SAPPHIRE, new String[] {"IgIn","MM"}, /*size*/20, /*dispersion*/6, /*rarity*/500);
         athsCrystalClusterHelper(AthsGlobal.TOPAZ, new String[] {"Granite","Rhyolite"}, /*size*/18, /*dispersion*/3, /*rarity*/400);
         athsCrystalClusterHelper(AthsGlobal.TOURMALINE, new String[] {"Granite","Diorite","Gneiss","Phyllite","Quartzite"}, /*size*/18, /*dispersion*/3, /*rarity*/400);
-
+        
+        athsCrystalHelper(AthsGlobal.ROCK_CRYSTAL, new String[] {"MM"}, /*size*/20, /*dispersion*/1, /*rarity*/120);
+        athsCrystalHelper(AthsGlobal.GYPSUM, new String[] {"MM"}, /*size*/50, /*dispersion*/1, /*rarity*/140);
 		
 		if (config.hasChanged()) 
 			config.save();
