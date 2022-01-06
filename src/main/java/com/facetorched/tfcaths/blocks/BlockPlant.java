@@ -3,6 +3,7 @@ package com.facetorched.tfcaths.blocks;
 import java.util.List;
 import java.util.Random;
 
+import com.dunk.tfc.BlockSetup;
 import com.dunk.tfc.TerraFirmaCraft;
 import com.dunk.tfc.Blocks.BlockTerra;
 import com.dunk.tfc.Core.TFCTabs;
@@ -36,6 +37,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class BlockPlant extends BlockTerra{
@@ -53,6 +55,7 @@ public class BlockPlant extends BlockTerra{
 	public boolean hasCollision;
 	public boolean hasNoDrops;
 	public int renderId;
+	public boolean isWaterPlant;
 
 	@SideOnly(Side.CLIENT)
 	protected IIcon[] icons;
@@ -75,6 +78,7 @@ public class BlockPlant extends BlockTerra{
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityplayer, int side, float hitX, float hitY, float hitZ)  
 	{
+		//setIsWaterPlant();
 		/*
 		if(TFCOptions.enableDebugMode && world.isRemote){
 			Block b = world.getBlock(x, y-1, z);
@@ -181,25 +185,22 @@ public class BlockPlant extends BlockTerra{
 	 * Can this block stay at this position.  Similar to canPlaceBlockAt except gets checked often with plants.
 	 */
 	@Override
-	public boolean canBlockStay(World world, int x, int y, int z)
-	{
-		return this.canThisPlantGrowOnThisBlock(world.getBlock(x, y - 1, z));
+	public boolean canBlockStay(World world, int x, int y, int z){
+		PlantSpawnData data = AthsWorldGenPlants.plantList.get(this.plantKey);
+		if( data == null) {
+			return false;
+		}
+		if (isWaterPlant && !(world.isSideSolid(x, y-1, z, ForgeDirection.UP) || world.isSideSolid(x, y-2, z, ForgeDirection.UP))) {
+			return false;
+		}
+		return data.canGrowOnBlock(world.getBlock(x, y - 1, z));
 	}
 
 	@Override
 	public boolean canPlaceBlockAt(World world, int x, int y, int z)
 	{
 		Block block = world.getBlock(x, y, z);
-		return (world.isAirBlock(x, y, z) || block.getMaterial().isReplaceable()) && this.canThisPlantGrowOnThisBlock(world.getBlock(x, y - 1, z));
-	}
-
-	protected boolean canThisPlantGrowOnThisBlock(Block block)
-	{
-		PlantSpawnData data = AthsWorldGenPlants.plantList.get(this.plantKey);
-		if( data == null) {
-			return false;
-		}
-		return data.canGrowOnBlock(block);
+		return (world.isAirBlock(x, y, z) || block.getMaterial().isReplaceable()) && this.canBlockStay(world, x, y, z);
 	}
 	
 	// Besides habitat constraints, are there any other constraints to the generation of this block?
@@ -323,7 +324,7 @@ public class BlockPlant extends BlockTerra{
 		int newMeta = varyStartIndexes[vary.index] + getBaseMeta(meta);
 		if(meta != newMeta) {
 			if (!hasVary(vary, meta)) {
-				throw new IllegalStateException("plant does not have variation: " + vary.toString());
+				throw new IllegalStateException("Unable to shift vary. " + this.plantKey + " does not have variation: " + vary.toString());
 			}
 			world.setBlockMetadataWithNotify(x, y, z, newMeta, 2);
 		}
@@ -523,6 +524,9 @@ public class BlockPlant extends BlockTerra{
 		return this;
 	}
 	public BlockPlant setMonthVary(int month, EnumVary vary) {
+		if (varyStartIndexes[vary.index] == null) {
+			throw new IllegalStateException("Unable to set month vary." + this.plantKey + " does not have variation: " + vary.toString());
+		}
 		if(monthVarys == null) {
 			monthVarys = new EnumVary[TFC_Time.MONTHS.length];
 		}
@@ -592,5 +596,9 @@ public class BlockPlant extends BlockTerra{
 				entity.motionZ *= speed;
 			}
 		}
+	}
+	public BlockPlant setIsWaterPlant() {
+		this.isWaterPlant = true;
+		return setRenderID(AthsBlockSetup.plantWaterRenderID);
 	}
 }

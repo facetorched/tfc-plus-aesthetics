@@ -173,6 +173,7 @@ public class AthsGlobal {
 	
 	public static final String[] SHALLOW_WATER_BIOMES = new String[]{"River","Beach","Gravel Beach","Swamp","Lake","Shore","Salt Swamp","Lakeshore","Riverbank","Estuary"};
 	public static final String[] LAND_BIOMES = new String[] {"All","!Ocean","!Hell","!Deep Ocean"};
+	public static final String[] ALL_BIOMES = AthsParser.getBiomes();
 	
 	public static final DataLayer[] ROCKS = new DataLayer[] {DataLayer.GRANITE, DataLayer.DIORITE, DataLayer.GABBRO, DataLayer.SHALE, DataLayer.CLAYSTONE, DataLayer.ROCKSALT, DataLayer.LIMESTONE, DataLayer.CONGLOMERATE, DataLayer.DOLOMITE,
 			DataLayer.CHERT, DataLayer.CHALK, DataLayer.RHYOLITE, DataLayer.BASALT, DataLayer.ANDESITE, DataLayer.DACITE, DataLayer.QUARTZITE, DataLayer.SLATE, DataLayer.PHYLLITE, DataLayer.SCHIST, DataLayer.GNEISS, DataLayer.MARBLE};
@@ -181,7 +182,7 @@ public class AthsGlobal {
 	public static final Block[] ROCKTYPES_BLOCKS = new Block[] {TFCBlocks.stoneIgEx, TFCBlocks.stoneIgIn, TFCBlocks.stoneSed, TFCBlocks.stoneMM};
 	
 	public static final String[] ALLOWED_REGIONS = new String[] {"Americas","Europe","Africa","Asia"};
-	public static final String[] ALLOWED_BIOMES = AthsParser.add(AthsParser.append(AthsParser.getBiomes(), AthsParser.prefix(AthsParser.getBiomes(), "!")), "All");
+	public static final String[] ALLOWED_BIOMES = AthsParser.add(AthsParser.append(ALL_BIOMES, AthsParser.prefix(ALL_BIOMES, "!")), "All");
 	public static final String[] ALLOWED_ROCKS = AthsParser.add(AthsParser.append(Global.STONE_ALL, ROCKTYPES), "All");
 	
 	// some large prime numbers

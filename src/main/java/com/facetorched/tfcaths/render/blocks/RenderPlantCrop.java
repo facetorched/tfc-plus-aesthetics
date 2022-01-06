@@ -25,6 +25,6 @@ public class RenderPlantCrop extends AbstractRenderPlant{
 
 	@Override
 	public int getRenderId() {
-		return AthsBlockSetup.plantCrossRenderID;
+		return AthsBlockSetup.plantCropRenderID;
 	}
 }

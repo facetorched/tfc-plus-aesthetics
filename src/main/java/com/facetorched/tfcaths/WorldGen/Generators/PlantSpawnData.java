@@ -41,7 +41,7 @@ public class PlantSpawnData {
 		
 		for(String biome : biomes) {
 			if(biome.equals("All"))
-				for(String allBiome : AthsParser.getBiomes())
+				for(String allBiome : AthsGlobal.ALL_BIOMES)
 					this.biomes.add(TFCBiome.getBiomeByName(allBiome)); // this is idiotic but the normal biome list contains nulls
 			else if(!biome.startsWith("!"))
 				this.biomes.add(TFCBiome.getBiomeByName(biome));
