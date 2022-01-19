@@ -21,6 +21,7 @@ public class Config {
 	
 	//define configuration fields here
 	public static int numCustomGenerators;
+	public static boolean disable3DPlants;
 	
 	public static void preInit(File configDir)
 	{
@@ -41,6 +42,7 @@ public class Config {
 		}
 		
 		numCustomGenerators = config.getInt("numCustomGenerators", "_num_custom_generators", 1, 0, Integer.MAX_VALUE, "The number of custom plant generators to read from. The names of these generators are enumerated as \"plant_[n]\"");
+		disable3DPlants = config.getBoolean("disable3DPlants", "_disable_3d_plants", false, "Set to true to disable generation of plants with 3D models since they cause lag for some clients");
 		
 		if (config.hasChanged()) config.save();
 	}
@@ -77,7 +79,7 @@ public class Config {
 		//System.out.println(Arrays.toString(p));
 		
 		athsPlantHelper(AthsGlobal.AFRICAN_MILK_BARREL, new int[] {0}, new String[] {"blockSoil","blockSand"}, AthsGlobal.LAND_BIOMES, new String[]{"Africa"},
-				/*size*/12, /*dispersion*/6, /*rarity*/2984, /*minAltitude*/144, /*maxAltitude*/220, /*minTemp*/16f, /*maxTemp*/24f, /*minRain*/45f, /*maxRain*/160f, /*minEVT*/0f, /*maxEVT*/4f);
+				/*size*/12, /*dispersion*/6, /*rarity*/2984, /*minAltitude*/144, /*maxAltitude*/220, /*minTemp*/16f, /*maxTemp*/24f, /*minRain*/60f, /*maxRain*/160f, /*minEVT*/0f, /*maxEVT*/4f);
 		athsPlantHelper(AthsGlobal.AFRICAN_MILK_TREE, new int[] {0}, new String[] {"blockSoil","blockSand"}, AthsGlobal.LAND_BIOMES, new String[]{"Africa"},
 				/*size*/12, /*dispersion*/5, /*rarity*/3984, /*minAltitude*/144, /*maxAltitude*/220, /*minTemp*/19f, /*maxTemp*/40f, /*minRain*/120f, /*maxRain*/660f, /*minEVT*/0f, /*maxEVT*/4f);
 		athsPlantHelper(AthsGlobal.ALBANIAN_SPURGE, new int[] {0}, new String[] {"blockSoil"}, AthsGlobal.LAND_BIOMES, new String[]{"Europe"},
@@ -97,7 +99,7 @@ public class Config {
 		athsPlantHelper(AthsGlobal.ANGELS_TRUMPET + "_White", AthsGlobal.ANGELS_TRUMPET, new int[] {2}, new String[] {"blockSoil"}, new String[]{"High Hills","High Hills Edge","High Plains","Foothills","Mountains Edge","Mountains","Mountain Range","Mountain Range Edge"}, new String[]{"Americas"},
 				/*size*/6, /*dispersion*/15, /*rarity*/1084, /*minAltitude*/150, /*maxAltitude*/220, /*minTemp*/20f, /*maxTemp*/35f, /*minRain*/1000f, /*maxRain*/16000f, /*minEVT*/0f, /*maxEVT*/10f);
 		athsPlantHelper(AthsGlobal.ANGEL_WING_CACTUS, new int[] {0}, new String[] {"blockSoil","blockSand"}, new String[]{"High Hills","Plains","High Hills Edge","Rolling Hills","High Plains","Foothills","Mountains Edge"}, new String[]{"Americas"},
-				/*size*/22, /*dispersion*/15, /*rarity*/980, /*minAltitude*/0, /*maxAltitude*/190, /*minTemp*/19f, /*maxTemp*/35f, /*minRain*/70f, /*maxRain*/210f, /*minEVT*/1f, /*maxEVT*/5f);
+				/*size*/22, /*dispersion*/15, /*rarity*/980, /*minAltitude*/0, /*maxAltitude*/190, /*minTemp*/19f, /*maxTemp*/35f, /*minRain*/75f, /*maxRain*/210f, /*minEVT*/1f, /*maxEVT*/5f);
 		athsPlantHelper(AthsGlobal.BIRD_OF_PARADISE, new int[] {0}, new String[] {"blockSoil"}, AthsGlobal.LAND_BIOMES, new String[]{"Africa"},
 				/*size*/3, /*dispersion*/3, /*rarity*/7584, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/12f, /*maxTemp*/16f, /*minRain*/600f, /*maxRain*/3000f, /*minEVT*/0f, /*maxEVT*/4f);
 		athsPlantHelper(AthsGlobal.BLOOD_LILY, new int[] {0}, new String[] {"blockSoil"}, AthsGlobal.LAND_BIOMES, new String[]{"Africa"},
@@ -107,7 +109,7 @@ public class Config {
 		athsPlantHelper(AthsGlobal.BONATEA, new int[] {0}, new String[] {"blockSoil"}, AthsGlobal.LAND_BIOMES, new String[]{"Africa"},
 				/*size*/7, /*dispersion*/3, /*rarity*/4584, /*minAltitude*/144, /*maxAltitude*/220, /*minTemp*/7f, /*maxTemp*/17f, /*minRain*/500f, /*maxRain*/800f, /*minEVT*/0f, /*maxEVT*/4f);
 		athsPlantHelper(AthsGlobal.BLUE_CEREUS_CACTUS, new int[] {0,1}, new String[] {"blockSoil","blockSand"}, new String[]{"High Hills","Plains","High Hills Edge","Rolling Hills","High Plains","Foothills","Mountains Edge"}, new String[]{"Americas"},
-				/*size*/5, /*dispersion*/8, /*rarity*/1200, /*minAltitude*/0, /*maxAltitude*/210, /*minTemp*/17f, /*maxTemp*/34f, /*minRain*/50f, /*maxRain*/190f, /*minEVT*/0.5f, /*maxEVT*/4f);
+				/*size*/5, /*dispersion*/8, /*rarity*/1200, /*minAltitude*/0, /*maxAltitude*/210, /*minTemp*/17f, /*maxTemp*/34f, /*minRain*/55f, /*maxRain*/190f, /*minEVT*/0.5f, /*maxEVT*/4f);
 		athsPlantHelper(AthsGlobal.BOLETUS, new int[] {0}, new String[] {"blockSoil"}, new String[]{"High Hills","Plains","High Hills Edge","Rolling Hills","High Plains","Foothills","Lakeshore","Riverbank","Swamp"}, new String[]{"Americas", "Asia", "Europe"},
 				/*size*/3, /*dispersion*/2, /*rarity*/7484, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/-5f, /*maxTemp*/15f, /*minRain*/700f, /*maxRain*/1000f, /*minEVT*/0f, /*maxEVT*/4f);
 		athsPlantHelper(AthsGlobal.BRACKEN_FERN, new int[] {0}, new String[] {"blockSoil"}, AthsGlobal.LAND_BIOMES, new String[]{"Americas","Asia","Europe"},
@@ -150,7 +152,7 @@ public class Config {
 				/*size*/6, /*dispersion*/3, /*rarity*/3884, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/17f, /*maxTemp*/26f, /*minRain*/130f, /*maxRain*/300f, /*minEVT*/1f, /*maxEVT*/4f);
 		athsPlantHelper(AthsGlobal.ELEPHANT_GRASS, new int[] {0}, new String[] {"blockSoil"}, new String[]{"High Hills","Plains","High Hills Edge","Rolling Hills","High Plains"}, new String[]{"Africa"},
 				/*size*/200, /*dispersion*/2, /*rarity*/8384, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/15f, /*maxTemp*/32f, /*minRain*/330f, /*maxRain*/700f, /*minEVT*/0f, /*maxEVT*/2f,/*forestGen*/-1.0f);
-		athsPlantHelper(AthsGlobal.ELEPHANT_GRASS, new int[] {0}, new String[] {"blockSoil"}, new String[]{"High Hills","Plains","High Hills Edge","Rolling Hills","High Plains"}, new String[]{"Africa"},
+		athsPlantHelper(AthsGlobal.ELEPHANT_GRASS + "_Dense", AthsGlobal.ELEPHANT_GRASS, new int[] {0}, new String[] {"blockSoil"}, new String[]{"High Hills","Plains","High Hills Edge","Rolling Hills","High Plains"}, new String[]{"Africa"},
 				/*size*/120, /*dispersion*/3, /*rarity*/484, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/15f, /*maxTemp*/32f, /*minRain*/505f, /*maxRain*/520f, /*minEVT*/0f, /*maxEVT*/2f,/*forestGen*/-0.5f);
 		athsPlantHelper(AthsGlobal.ENTOLOMA, new int[] {0}, new String[] {"blockSoil"}, AthsGlobal.LAND_BIOMES, new String[]{"Americas"},
 				/*size*/5, /*dispersion*/3, /*rarity*/6096, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/-5f, /*maxTemp*/15f, /*minRain*/900f, /*maxRain*/10000f, /*minEVT*/0f, /*maxEVT*/6f);
@@ -167,7 +169,7 @@ public class Config {
 		athsPlantHelper(AthsGlobal.GIANT_HOGWEED, new int[] {0}, new String[] {"blockSoil"}, new String[]{"Mountains","High Hills","High Hills Edge","Mountains Edge","Foothills","Riverbank"}, new String[]{"Europe"},
 				/*size*/13, /*dispersion*/8, /*rarity*/6384, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/5f, /*maxTemp*/14f, /*minRain*/660f, /*maxRain*/930f, /*minEVT*/0f, /*maxEVT*/10f);
 		athsPlantHelper(AthsGlobal.GIFBOOM, new int[] {0}, new String[] {"blockSoil","blockSand"}, new String[]{"Plains","High Hills Edge","Rolling Hills","High Plains","Foothills"}, new String[]{"Africa"},
-				/*size*/1, /*dispersion*/1, /*rarity*/656, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/17f, /*maxTemp*/31f, /*minRain*/90f, /*maxRain*/200f, /*minEVT*/1f, /*maxEVT*/5f);
+				/*size*/1, /*dispersion*/1, /*rarity*/656, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/15f, /*maxTemp*/31f, /*minRain*/78f, /*maxRain*/200f, /*minEVT*/1f, /*maxEVT*/5f);
 		athsPlantHelper(AthsGlobal.HEATHER + "_Pink", AthsGlobal.HEATHER, new int[] {0}, new String[] {"blockSoil"}, new String[]{"High Hills","Plains","High Hills Edge","Rolling Hills","High Plains","Foothills","Mountains Edge"}, new String[]{"Europe"},
 				/*size*/40, /*dispersion*/9, /*rarity*/484, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/-5f, /*maxTemp*/20f, /*minRain*/160f, /*maxRain*/1000f, /*minEVT*/0f, /*maxEVT*/5f,/*forestGen*/-1.0f);
 		athsPlantHelper(AthsGlobal.HEATHER + "_White", AthsGlobal.HEATHER, new int[] {1}, new String[] {"blockSoil"}, new String[]{"High Hills","Plains","High Hills Edge","Rolling Hills","High Plains","Foothills","Mountains Edge"}, new String[]{"Europe"},
@@ -231,15 +233,17 @@ public class Config {
 		athsPlantHelper(AthsGlobal.NARBON_VETCH, new int[] {0}, new String[] {"blockSoil"}, AthsGlobal.LAND_BIOMES, new String[]{"Europe","Asia"},
 				/*size*/34, /*dispersion*/3, /*rarity*/5384, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/6f, /*maxTemp*/22f, /*minRain*/450f, /*maxRain*/900f, /*minEVT*/0f, /*maxEVT*/4f);
 		athsPlantHelper(AthsGlobal.OCOTILLO, new int[] {0}, new String[] {"blockSoil","blockSand","blockGravel"}, new String[]{"High Hills","Plains","High Hills Edge","Rolling Hills","High Plains","Foothills","Mountains Edge","Mountains","Mountain Range Edge"}, new String[]{"Americas"},
-				/*size*/10, /*dispersion*/17, /*rarity*/3050, /*minAltitude*/0, /*maxAltitude*/220, /*minTemp*/13f, /*maxTemp*/26f, /*minRain*/75f, /*maxRain*/230f, /*minEVT*/1f, /*maxEVT*/5.5f);
+				/*size*/10, /*dispersion*/17, /*rarity*/3050, /*minAltitude*/0, /*maxAltitude*/220, /*minTemp*/13f, /*maxTemp*/26f, /*minRain*/85f, /*maxRain*/230f, /*minEVT*/1f, /*maxEVT*/5.5f);
 		athsPlantHelper(AthsGlobal.ORGAN_PIPE_CACTUS, new int[] {0}, new String[] {"blockSoil","blockSand","blockGravel"}, new String[]{"High Hills","Plains","High Hills Edge","Rolling Hills","High Plains","Foothills","Mountains Edge","Mountains","Mountain Range Edge"}, new String[]{"Americas"},
 				/*size*/8, /*dispersion*/24, /*rarity*/880, /*minAltitude*/0, /*maxAltitude*/200, /*minTemp*/16f, /*maxTemp*/30f, /*minRain*/100f, /*maxRain*/190f, /*minEVT*/0f, /*maxEVT*/3.5f);
 		athsPlantHelper(AthsGlobal.OSTRICH_FERN, new int[] {0}, new String[] {"blockSoil"}, AthsGlobal.LAND_BIOMES, new String[]{"Americas", "Asia","Europe"},
 				/*size*/25, /*dispersion*/6, /*rarity*/4868, /*minAltitude*/144, /*maxAltitude*/160, /*minTemp*/-5f, /*maxTemp*/20f, /*minRain*/800f, /*maxRain*/8000f, /*minEVT*/0f, /*maxEVT*/10f,/*forestGen*/0.3f);
 		athsPlantHelper(AthsGlobal.PAINTED_FERN, new int[] {0}, new String[] {"blockSoil"}, AthsGlobal.LAND_BIOMES, new String[]{"Asia"},
 				/*size*/16, /*dispersion*/4, /*rarity*/6468, /*minAltitude*/144, /*maxAltitude*/255, /*minTemp*/0f, /*maxTemp*/18f, /*minRain*/800f, /*maxRain*/6000f, /*minEVT*/0f, /*maxEVT*/6f,/*forestGen*/0.5f);
-		athsPlantHelper(AthsGlobal.PAPYRUS, new int[] {0}, new String[] {"blockSoil", "terrafirmacraftplus:FreshWaterStationary"}, new String[]{"Lake","Estuary","Lakeshore","Riverbank","Swamp","River"}, new String[]{"Africa"},
-				/*size*/150, /*dispersion*/3, /*rarity*/524, /*minAltitude*/0, /*maxAltitude*/145, /*minTemp*/17f, /*maxTemp*/40f, /*minRain*/100f, /*maxRain*/3400f, /*minEVT*/0f, /*maxEVT*/6f);
+		athsPlantHelper(AthsGlobal.PAPYRUS, new int[] {0}, new String[] {"blockSoil", "terrafirmacraftplus:FreshWaterStationary"}, new String[]{"Lake","Estuary","Lakeshore","Riverbank","River"}, new String[]{"Africa"},
+				/*size*/150, /*dispersion*/3, /*rarity*/524, /*minAltitude*/0, /*maxAltitude*/145, /*minTemp*/17f, /*maxTemp*/40f, /*minRain*/80f, /*maxRain*/3400f, /*minEVT*/0f, /*maxEVT*/6f);
+		athsPlantHelper(AthsGlobal.PAPYRUS + "_Swamp", AthsGlobal.PAPYRUS, new int[] {0}, new String[] {"blockSoil", "terrafirmacraftplus:FreshWaterStationary"}, new String[]{"Swamp"}, new String[]{"Africa"},
+				/*size*/80, /*dispersion*/4, /*rarity*/1024, /*minAltitude*/0, /*maxAltitude*/145, /*minTemp*/17f, /*maxTemp*/40f, /*minRain*/100f, /*maxRain*/3400f, /*minEVT*/0f, /*maxEVT*/6f);
 		athsPlantHelper(AthsGlobal.PERIWINKLE, new int[] {0}, new String[] {"blockSoil"}, new String[]{"High Hills","Plains","High Hills Edge","Rolling Hills","High Plains","Lake","Foothills","Lakeshore","River","Lake","Riverbank","Swamp"}, new String[]{"Europe"},
 				/*size*/18, /*dispersion*/1, /*rarity*/3028, /*minAltitude*/0, /*maxAltitude*/200, /*minTemp*/8f, /*maxTemp*/18f, /*minRain*/750f, /*maxRain*/16000f, /*minEVT*/1f, /*maxEVT*/10f,/*forestGen*/1.0f);
 		athsPlantHelper(AthsGlobal.POKEWEED, new int[] {0,1}, new String[] {"blockSoil"}, new String[]{"Plains","Rolling Hills","High Plains","High Hills","High Hills Edge","Lakeshore","Riverbank","Swamp"}, new String[]{"Americas"},
@@ -248,36 +252,44 @@ public class Config {
 				/*size*/20, /*dispersion*/2, /*rarity*/256, /*minAltitude*/0, /*maxAltitude*/146, /*minTemp*/-15f, /*maxTemp*/40f, /*minRain*/250f, /*maxRain*/16000f, /*minEVT*/0f, /*maxEVT*/10f);
 		athsPlantHelper(AthsGlobal.PRAIRIE_GRASS, new int[] {0,1,2}, new String[] {"blockSoil"}, new String[]{"Plains","High Hills","Mountains","Rolling Hills","High Hills Edge","Foothills","Mountain Range Edge","Mountain Range","High Plains"}, new String[]{"Americas", "Asia", "Africa", "Europe"},
 				/*size*/100, /*dispersion*/4, /*rarity*/4128, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/0f, /*maxTemp*/18f, /*minRain*/200f, /*maxRain*/750f, /*minEVT*/0f, /*maxEVT*/2f,/*forestGen*/-1.0f);
-		athsPlantHelper(AthsGlobal.PRAIRIE_GRASS, new int[] {0,1,2}, new String[] {"blockSoil"}, new String[]{"Plains","High Hills","Mountains","Rolling Hills","High Hills Edge","Foothills","Mountain Range Edge","Mountain Range","High Plains"}, new String[]{"Americas", "Asia", "Africa", "Europe"},
+		athsPlantHelper(AthsGlobal.PRAIRIE_GRASS + "_DensePrairie", AthsGlobal.PRAIRIE_GRASS, new int[] {0,1,2}, new String[] {"blockSoil"}, new String[]{"Plains","High Hills","Mountains","Rolling Hills","High Hills Edge","Foothills","Mountain Range Edge","Mountain Range","High Plains"}, new String[]{"Americas", "Asia", "Africa", "Europe"},
 				/*size*/120, /*dispersion*/6, /*rarity*/530, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/0f, /*maxTemp*/18f, /*minRain*/250f, /*maxRain*/420f, /*minEVT*/0f, /*maxEVT*/2f,/*forestGen*/-1.0f);
 		athsPlantHelper(AthsGlobal.PRICKLY_PEAR, new int[] {0}, new String[] {"blockSoil","blockSand"}, new String[]{"High Hills","Plains","High Hills Edge","Rolling Hills","High Plains","Foothills","Mountains Edge"}, new String[]{"Americas"},
-				/*size*/12, /*dispersion*/10, /*rarity*/980, /*minAltitude*/0, /*maxAltitude*/190, /*minTemp*/13f, /*maxTemp*/25f, /*minRain*/60f, /*maxRain*/200f, /*minEVT*/0f, /*maxEVT*/5f);
+				/*size*/12, /*dispersion*/10, /*rarity*/980, /*minAltitude*/0, /*maxAltitude*/190, /*minTemp*/13f, /*maxTemp*/25f, /*minRain*/70f, /*maxRain*/200f, /*minEVT*/0f, /*maxEVT*/5f);
 		athsPlantHelper(AthsGlobal.QUAQUA, new int[] {0}, new String[] {"blockSoil","blockSand"}, new String[]{"High Hills","Plains","High Hills Edge","Rolling Hills","High Plains","Foothills","Mountains Edge"}, new String[]{"Africa"},
-				/*size*/10, /*dispersion*/7, /*rarity*/1580, /*minAltitude*/0, /*maxAltitude*/190, /*minTemp*/14f, /*maxTemp*/29f, /*minRain*/60f, /*maxRain*/320f, /*minEVT*/0f, /*maxEVT*/5f);
+				/*size*/10, /*dispersion*/7, /*rarity*/1580, /*minAltitude*/0, /*maxAltitude*/190, /*minTemp*/14f, /*maxTemp*/29f, /*minRain*/70f, /*maxRain*/320f, /*minEVT*/0f, /*maxEVT*/5f);
 		athsPlantHelper(AthsGlobal.RAFFLESIA, new int[] {0}, new String[] {"blockSoil"}, new String[]{"High Hills","Plains","High Hills Edge","Rolling Hills","High Plains","Lake","Foothills","Lakeshore","Riverbank","Swamp","Salt Swamp","Estuary"}, new String[]{"Asia"},
 				/*size*/3, /*dispersion*/6, /*rarity*/10096, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/16f, /*maxTemp*/25f, /*minRain*/1200f, /*maxRain*/16000f, /*minEVT*/1f, /*maxEVT*/10f,/*forestGen*/1.0f);
 		athsPlantHelper(AthsGlobal.ROSEBUSH, new int[] {0}, new String[] {"blockSoil"}, new String[]{"Plains","Rolling Hills","Lakeshore","Riverbank","Swamp","High Hills","High Hills Edge"}, new String[]{"Africa","Americas","Asia","Europe"},
 				/*size*/8, /*dispersion*/3, /*rarity*/4384, /*minAltitude*/0, /*maxAltitude*/180, /*minTemp*/-5f, /*maxTemp*/22f, /*minRain*/600f, /*maxRain*/900f, /*minEVT*/0.5f, /*maxEVT*/5f);
 		athsPlantHelper(AthsGlobal.ROUGH_HORSETAIL, new int[] {0}, new String[] {"blockSoil"}, new String[]{"Plains","Lake","Lakeshore","Riverbank","Swamp","Salt Swamp","Estuary"}, new String[]{"Americas", "Asia", "Europe"},
-				/*size*/35, /*dispersion*/2, /*rarity*/5512, /*minAltitude*/0, /*maxAltitude*/150, /*minTemp*/-10f, /*maxTemp*/12f, /*minRain*/700f, /*maxRain*/16000f, /*minEVT*/0f, /*maxEVT*/6f);
+				/*size*/35, /*dispersion*/2, /*rarity*/5512, /*minAltitude*/0, /*maxAltitude*/150, /*minTemp*/-10f, /*maxTemp*/12f, /*minRain*/600f, /*maxRain*/16000f, /*minEVT*/0f, /*maxEVT*/6f);
 		athsPlantHelper(AthsGlobal.ROYAL_JASMINE, new int[] {0,1,2}, new String[] {"blockSoil"}, AthsGlobal.LAND_BIOMES, new String[]{"Asia"},
 				/*size*/50, /*dispersion*/3, /*rarity*/4028, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/13f, /*maxTemp*/30f, /*minRain*/580f, /*maxRain*/8000f, /*minEVT*/0f, /*maxEVT*/10f,/*forestGen*/1.0f);
 		athsPlantHelper(AthsGlobal.SAGEBRUSH, new int[] {0,1,2}, new String[] {"blockSoil","blockSand"}, new String[]{"High Hills","Plains","High Hills Edge","Rolling Hills","High Plains","Foothills","Mountains Edge","Mountains","Mountain Range","Mountain Range Edge"}, new String[]{"Americas"},
-				/*size*/120, /*dispersion*/6, /*rarity*/400, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/8f, /*maxTemp*/25f, /*minRain*/120f, /*maxRain*/200f, /*minEVT*/0f, /*maxEVT*/4f,/*forestGen*/-1.0f);
-		athsPlantHelper(AthsGlobal.SAGEBRUSH, new int[] {0,1,2}, new String[] {"blockSoil","blockSand"}, new String[]{"High Hills","High Hills Edge","High Plains","Foothills","Mountains Edge","Mountains","Mountain Range","Mountain Range Edge"}, new String[]{"Americas"},
-				/*size*/80, /*dispersion*/6, /*rarity*/6000, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/8f, /*maxTemp*/25f, /*minRain*/200f, /*maxRain*/300f, /*minEVT*/0f, /*maxEVT*/4f,/*forestGen*/-1.0f);
-		athsPlantHelper(AthsGlobal.SAGUARO, new int[] {0,1,2,3,4}, new String[] {"blockSoil","blockSand"}, new String[]{"Plains","High Hills Edge","Rolling Hills","High Plains","Foothills"}, new String[]{"Africa"},
-				/*size*/1, /*dispersion*/1, /*rarity*/456, /*minAltitude*/0, /*maxAltitude*/190, /*minTemp*/17f, /*maxTemp*/31f, /*minRain*/90f, /*maxRain*/200f, /*minEVT*/1f, /*maxEVT*/5f);
+				/*size*/100, /*dispersion*/8, /*rarity*/450, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/8f, /*maxTemp*/25f, /*minRain*/135f, /*maxRain*/200f, /*minEVT*/0f, /*maxEVT*/4f,/*forestGen*/-1.0f);
+		athsPlantHelper(AthsGlobal.SAGEBRUSH + "_Transition", AthsGlobal.SAGEBRUSH, new int[] {0,1,2}, new String[] {"blockSoil","blockSand"}, new String[]{"High Hills","High Hills Edge","High Plains","Foothills","Mountains Edge","Mountains","Mountain Range","Mountain Range Edge"}, new String[]{"Americas"},
+				/*size*/20, /*dispersion*/20, /*rarity*/750, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/8f, /*maxTemp*/25f, /*minRain*/100f, /*maxRain*/135f, /*minEVT*/0f, /*maxEVT*/4f,/*forestGen*/1.0f);
+		athsPlantHelper(AthsGlobal.SAGEBRUSH + "_Grassland", AthsGlobal.SAGEBRUSH, new int[] {0,1,2}, new String[] {"blockSoil","blockSand"}, new String[]{"High Hills","High Hills Edge","High Plains","Foothills","Mountains Edge","Mountains","Mountain Range","Mountain Range Edge"}, new String[]{"Americas"},
+				/*size*/30, /*dispersion*/14, /*rarity*/6000, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/8f, /*maxTemp*/25f, /*minRain*/200f, /*maxRain*/300f, /*minEVT*/0f, /*maxEVT*/4f,/*forestGen*/-1.0f);
+		athsPlantHelper(AthsGlobal.SAGEBRUSH + "_Riverbank", AthsGlobal.SAGEBRUSH, new int[] {0,1,2}, new String[] {"blockSoil","blockSand"}, new String[]{"Riverbank"}, new String[]{"Americas"},
+				/*size*/20, /*dispersion*/20, /*rarity*/750, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/8f, /*maxTemp*/25f, /*minRain*/25f, /*maxRain*/135f, /*minEVT*/0f, /*maxEVT*/4f,/*forestGen*/0.5f);
+		athsPlantHelper(AthsGlobal.SAGUARO, new int[] {0,1,2,3,4}, new String[] {"blockSoil","blockSand"}, new String[]{"Plains","High Hills Edge","Rolling Hills","High Plains","Foothills"}, new String[]{"Americas"},
+				/*size*/1, /*dispersion*/1, /*rarity*/456, /*minAltitude*/0, /*maxAltitude*/190, /*minTemp*/17f, /*maxTemp*/31f, /*minRain*/100f, /*maxRain*/200f, /*minEVT*/1f, /*maxEVT*/5f);
 		athsPlantHelper(AthsGlobal.SAXAUL, new int[] {0,1,2,3}, new String[] {"blockSoil","blockSand"}, new String[]{"High Hills","Plains","High Hills Edge","Rolling Hills","High Plains","Foothills","Mountains Edge","Mountains","Mountain Range","Mountain Range Edge"}, new String[]{"Asia"},
-				/*size*/80, /*dispersion*/6, /*rarity*/900, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/8f, /*maxTemp*/30f, /*minRain*/90f, /*maxRain*/200f, /*minEVT*/0f, /*maxEVT*/4f,/*forestGen*/-1.0f);
-		athsPlantHelper(AthsGlobal.SAXAUL, new int[] {0,1,2,3}, new String[] {"blockSoil","blockSand"}, new String[]{"High Hills","Plains","High Hills Edge","Rolling Hills","High Plains","Foothills","Mountains Edge","Mountains","Mountain Range","Mountain Range Edge"}, new String[]{"Asia"},
-				/*size*/40, /*dispersion*/10, /*rarity*/1100, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/8f, /*maxTemp*/30f, /*minRain*/40f, /*maxRain*/90f, /*minEVT*/0f, /*maxEVT*/4f);
+				/*size*/30, /*dispersion*/17, /*rarity*/2600, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/8f, /*maxTemp*/30f, /*minRain*/110f, /*maxRain*/200f, /*minEVT*/0f, /*maxEVT*/4f,/*forestGen*/-1.0f);
+		athsPlantHelper(AthsGlobal.SAXAUL + "_ExtremeDesert", AthsGlobal.SAXAUL, new int[] {0,1,2,3}, new String[] {"blockSoil","blockSand"}, new String[]{"High Hills","Plains","High Hills Edge","Rolling Hills","High Plains","Foothills","Mountains Edge","Mountains","Mountain Range","Mountain Range Edge"}, new String[]{"Asia"},
+				/*size*/15, /*dispersion*/24, /*rarity*/3900, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/8f, /*maxTemp*/30f, /*minRain*/60f, /*maxRain*/90f, /*minEVT*/0f, /*maxEVT*/4f);
+		athsPlantHelper(AthsGlobal.SAXAUL + "_Riverbank", AthsGlobal.SAXAUL, new int[] {0,1,2}, new String[] {"blockSoil","blockSand"}, new String[]{"Riverbank"}, new String[]{"Asia"},
+				/*size*/12, /*dispersion*/10, /*rarity*/2050, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/8f, /*maxTemp*/30f, /*minRain*/25f, /*maxRain*/135f, /*minEVT*/0f, /*maxEVT*/4f,/*forestGen*/0.5f);
 		athsPlantHelper(AthsGlobal.SALTWORT, new int[] {0,1}, new String[] {"blockSoil","blockSand"}, new String[]{"Salt Swamp","Estuary"}, new String[]{"Africa","Asia","Europe","Americas"},
-				/*size*/12, /*dispersion*/5, /*rarity*/3000, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/8f, /*maxTemp*/30f, /*minRain*/100f, /*maxRain*/3000f, /*minEVT*/0f, /*maxEVT*/4f);
-		athsPlantHelper(AthsGlobal.SALTWORT, new int[] {0,1}, new String[] {"blockSoil","blockSand"}, new String[]{"High Hills","Plains","High Hills Edge","Rolling Hills","High Plains","Foothills","Mountains Edge","Mountains","Mountain Range","Mountain Range Edge"}, new String[]{"Africa"},
-				/*size*/40, /*dispersion*/9, /*rarity*/900, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/8f, /*maxTemp*/30f, /*minRain*/100f, /*maxRain*/200f, /*minEVT*/0f, /*maxEVT*/4f,/*forestGen*/-1.0f);
-		athsPlantHelper(AthsGlobal.SALTWORT, new int[] {0,1}, new String[] {"blockSoil","blockSand"}, new String[]{"High Hills","Plains","High Hills Edge","Rolling Hills","High Plains","Foothills","Mountains Edge","Mountains","Mountain Range","Mountain Range Edge"}, new String[]{"Africa"},
-				/*size*/35, /*dispersion*/12, /*rarity*/1500, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/8f, /*maxTemp*/30f, /*minRain*/60f, /*maxRain*/100f, /*minEVT*/0f, /*maxEVT*/4f,/*forestGen*/-1.0f);
+				/*size*/12, /*dispersion*/5, /*rarity*/550, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/8f, /*maxTemp*/30f, /*minRain*/100f, /*maxRain*/3000f, /*minEVT*/0f, /*maxEVT*/4f);
+		athsPlantHelper(AthsGlobal.SALTWORT + "_AfricaDesert", AthsGlobal.SALTWORT, new int[] {0,1}, new String[] {"blockSoil","blockSand"}, new String[]{"High Hills","Plains","High Hills Edge","Rolling Hills","High Plains","Foothills","Mountains Edge","Mountains","Mountain Range","Mountain Range Edge"}, new String[]{"Africa"},
+				/*size*/40, /*dispersion*/9, /*rarity*/800, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/8f, /*maxTemp*/30f, /*minRain*/100f, /*maxRain*/200f, /*minEVT*/0f, /*maxEVT*/4f,/*forestGen*/-1.0f);
+		athsPlantHelper(AthsGlobal.SALTWORT + "_Riverbank", AthsGlobal.SALTWORT, new int[] {0,1}, new String[] {"blockSoil","blockSand"}, new String[]{"Riverbank"}, new String[]{"Americas"},
+				/*size*/15, /*dispersion*/10, /*rarity*/1550, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/8f, /*maxTemp*/30f, /*minRain*/25f, /*maxRain*/135f, /*minEVT*/0f, /*maxEVT*/4f,/*forestGen*/0.5f);
+		athsPlantHelper(AthsGlobal.SALTWORT + "_AfricaExtremeDesert", AthsGlobal.SALTWORT, new int[] {0,1}, new String[] {"blockSoil","blockSand"}, new String[]{"High Hills","Plains","High Hills Edge","Rolling Hills","High Plains","Foothills","Mountains Edge","Mountains","Mountain Range","Mountain Range Edge"}, new String[]{"Africa"},
+				/*size*/35, /*dispersion*/12, /*rarity*/950, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/8f, /*maxTemp*/30f, /*minRain*/70f, /*maxRain*/100f, /*minEVT*/0f, /*maxEVT*/4f,/*forestGen*/-1.0f);
 		athsPlantHelper(AthsGlobal.SCALY_TREE_FERN, new int[] {0}, new String[] {"blockSoil"}, new String[]{"High Hills","Plains","High Hills Edge","Rolling Hills","High Plains","Lake","Foothills","Lakeshore","Riverbank","Swamp"}, new String[]{"Asia"},
 				/*size*/10, /*dispersion*/30, /*rarity*/8084, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/10f, /*maxTemp*/30f, /*minRain*/1000f, /*maxRain*/16000f, /*minEVT*/2f, /*maxEVT*/10f,/*forestGen*/1.0f);
 		athsPlantHelper(AthsGlobal.SENSITIVE_FERN, new int[] {0}, new String[] {"blockSoil"}, new String[]{"High Hills","Plains","High Hills Edge","Rolling Hills","High Plains","Lake","Foothills","Lakeshore","Riverbank","Swamp"}, new String[]{"Asia","Americas"},
@@ -290,8 +302,8 @@ public class Config {
 				/*size*/60, /*dispersion*/5, /*rarity*/6980, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/22f, /*maxTemp*/40f, /*minRain*/170f, /*maxRain*/2440f, /*minEVT*/0f, /*maxEVT*/5f/*forestGen*/-0.2f);
 		athsPlantHelper(AthsGlobal.SORBUS, new int[] {0}, new String[] {"blockSoil"}, new String[]{"High Hills","Mountains","Mountains Edge","Mountain Range Edge","Mountain Range","High Hills Edge","High Plains","Foothills"}, new String[]{"Africa","Europe","Asia"},
 				/*size*/1, /*dispersion*/1, /*rarity*/884, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/-4f, /*maxTemp*/16f, /*minRain*/550f, /*maxRain*/1000f, /*minEVT*/0f, /*maxEVT*/8f,/*forestGen*/1.0f);
-		athsPlantHelper(AthsGlobal.STARFISH_PLANT, new int[] {0}, new String[] {"blockSoil","blockSand"}, new String[]{"High Hills","Plains","High Hills Edge","Rolling Hills","High Plains","Foothills","Mountains Edge"}, new String[]{"Americas"},
-				/*size*/6, /*dispersion*/5, /*rarity*/3980, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/8f, /*maxTemp*/20f, /*minRain*/90f, /*maxRain*/240f, /*minEVT*/0f, /*maxEVT*/5f);
+		athsPlantHelper(AthsGlobal.STARFISH_PLANT, new int[] {0}, new String[] {"blockSoil","blockSand"}, new String[]{"High Hills","Plains","High Hills Edge","Rolling Hills","High Plains","Foothills","Mountains Edge"}, new String[]{"Africa"},
+				/*size*/6, /*dispersion*/5, /*rarity*/3980, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/8f, /*maxTemp*/20f, /*minRain*/100f, /*maxRain*/240f, /*minEVT*/0f, /*maxEVT*/5f);
 		athsPlantHelper(AthsGlobal.SUMAC, new int[] {0,1}, new String[] {"blockSoil"}, AthsGlobal.LAND_BIOMES, new String[]{"Americas", "Asia"},
 				/*size*/15, /*dispersion*/6, /*rarity*/4668, /*minAltitude*/144, /*maxAltitude*/160, /*minTemp*/4f, /*maxTemp*/18f, /*minRain*/300f, /*maxRain*/1200f, /*minEVT*/0.25f, /*maxEVT*/2f);
 		athsPlantHelper(AthsGlobal.SUNDEW, new int[] {0}, new String[] {"blockSoil"}, new String[]{"Mountains","Mountain Range", "Swamp","Salt Swamp"}, new String[]{"Americas","Africa"},
@@ -301,23 +313,25 @@ public class Config {
 		athsPlantHelper(AthsGlobal.SWORD_FERN, new int[] {0}, new String[] {"blockSoil"}, new String[]{"High Hills","Plains","High Hills Edge","Rolling Hills","High Plains","Foothills","Swamp","Mountains","Mountains Edge","Mountain Range Edge","Mountain Range"}, new String[]{"Americas"},
 				/*size*/25, /*dispersion*/6, /*rarity*/1684, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/-10f, /*maxTemp*/18f, /*minRain*/1000f, /*maxRain*/16000f, /*minEVT*/0f, /*maxEVT*/10f,/*forestGen*/1.0f);
 		athsPlantHelper(AthsGlobal.SWORD_SANSEVERIA, new int[] {0}, new String[] {"blockSoil","blockSand"}, new String[]{"High Hills","Plains","High Hills Edge","Rolling Hills","High Plains","Foothills","Mountains Edge"}, new String[]{"Africa","Asia"},
-				/*size*/80, /*dispersion*/5, /*rarity*/6980, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/19f, /*maxTemp*/36f, /*minRain*/50f, /*maxRain*/440f, /*minEVT*/0f, /*maxEVT*/5f/*forestGen*/-0.5f);
+				/*size*/80, /*dispersion*/5, /*rarity*/6980, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/19f, /*maxTemp*/36f, /*minRain*/55f, /*maxRain*/440f, /*minEVT*/0f, /*maxEVT*/5f/*forestGen*/-0.5f);
 		athsPlantHelper(AthsGlobal.THISTLE, new int[] {0}, new String[] {"blockSoil"}, AthsGlobal.LAND_BIOMES, new String[]{"Americas", "Asia"},
 				/*size*/7, /*dispersion*/11, /*rarity*/556, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/-2f, /*maxTemp*/15f, /*minRain*/350f, /*maxRain*/750f, /*minEVT*/0f, /*maxEVT*/3f);
 		athsPlantHelper(AthsGlobal.TITAN_ARUM, new int[] {0}, new String[] {"blockSoil"}, new String[]{"High Hills","Plains","High Hills Edge","Rolling Hills","High Plains","Lake","Foothills","Lakeshore","Riverbank","Swamp","Salt Swamp","Estuary"}, new String[]{"Asia"},
 				/*size*/2, /*dispersion*/7, /*rarity*/17192, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/20f, /*maxTemp*/28f, /*minRain*/1200f, /*maxRain*/16000f, /*minEVT*/1f, /*maxEVT*/10f,/*forestGen*/1.0f);
 		athsPlantHelper(AthsGlobal.VENUS_FLYTRAP, new int[] {0}, new String[] {"blockSoil"}, new String[]{"Lakeshore","Riverbank","Swamp","Salt Swamp"}, new String[]{"Americas"},
-				/*size*/2, /*dispersion*/1, /*rarity*/4384, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/13f, /*maxTemp*/16f, /*minRain*/700f, /*maxRain*/1000f, /*minEVT*/0f, /*maxEVT*/4f);
+				/*size*/2, /*dispersion*/1, /*rarity*/4384, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/10f, /*maxTemp*/16f, /*minRain*/700f, /*maxRain*/1000f, /*minEVT*/0f, /*maxEVT*/4f);
 		athsPlantHelper(AthsGlobal.VICTORIA_LILY_PAD, new int[] {0}, new String[] {"terrafirmacraftplus:FreshWaterStationary","terrafirmacraftplus:Ice"}, new String[] {"Riverbank","Lakeshore"}, new String[]{"Americas"},
 				/*size*/30, /*dispersion*/4, /*rarity*/4968, /*minAltitude*/140, /*maxAltitude*/160, /*minTemp*/20f, /*maxTemp*/40f, /*minRain*/1200f, /*maxRain*/16000f, /*minEVT*/0f, /*maxEVT*/10f);
 		athsPlantHelper(AthsGlobal.VOODOO_LILY, new int[] {0}, new String[] {"blockSoil"}, new String[]{"High Hills","Plains","High Hills Edge","Rolling Hills","High Plains","Lake","Foothills","Lakeshore","Riverbank","Swamp","Salt Swamp","Estuary"}, new String[]{"Asia"},
 				/*size*/3, /*dispersion*/6, /*rarity*/10096, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/16f, /*maxTemp*/25f, /*minRain*/1200f, /*maxRain*/16000f, /*minEVT*/1f, /*maxEVT*/10f,/*forestGen*/1.0f);
 		athsPlantHelper(AthsGlobal.WATER_HYACINTH, new int[] {0}, new String[] {"terrafirmacraftplus:FreshWaterStationary"}, new String[]{"Plains","Lakeshore","River","Riverbank"}, new String[]{"Americas"},
-				/*size*/50, /*dispersion*/3, /*rarity*/2384, /*minAltitude*/0, /*maxAltitude*/170, /*minTemp*/23f, /*maxTemp*/35f, /*minRain*/750f, /*maxRain*/16000f, /*minEVT*/0f, /*maxEVT*/10f);
-		athsPlantHelper(AthsGlobal.WATER_PLANTAIN, new int[] {0}, new String[] {"terrafirmacraftplus:FreshWaterStationary","terrafirmacraftplus:Ice"}, AthsGlobal.SHALLOW_WATER_BIOMES, new String[]{"Americas", "Asia","Europe","Africa"},
+				/*size*/80, /*dispersion*/3, /*rarity*/1084, /*minAltitude*/0, /*maxAltitude*/170, /*minTemp*/18f, /*maxTemp*/35f, /*minRain*/650f, /*maxRain*/16000f, /*minEVT*/0f, /*maxEVT*/10f);
+		athsPlantHelper(AthsGlobal.WATER_PLANTAIN, new int[] {0}, new String[] {"terrafirmacraftplus:FreshWaterStationary","terrafirmacraftplus:Ice"}, AthsGlobal.LAND_BIOMES, new String[]{"Americas", "Asia","Europe","Africa"},
 				/*size*/9, /*dispersion*/3, /*rarity*/204, /*minAltitude*/140, /*maxAltitude*/160, /*minTemp*/-20f, /*maxTemp*/40f, /*minRain*/600f, /*maxRain*/16000f, /*minEVT*/0f, /*maxEVT*/10f);
-		athsPlantHelper(AthsGlobal.WELWITSCHIA, new int[] {0,1}, new String[] {"blockSoil"}, new String[]{"Beach","Gravel Beach","Lake","Lakeshore","Riverbank","Swamp","Salt Swamp","Estuary","Plains","High Plains"}, new String[]{"Africa"},
-				/*size*/1, /*dispersion*/1, /*rarity*/1024, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/22f, /*maxTemp*/40f, /*minRain*/0f, /*maxRain*/30f, /*minEVT*/1f, /*maxEVT*/10f);
+		athsPlantHelper(AthsGlobal.WATER_PLANTAIN + "_River", AthsGlobal.WATER_PLANTAIN, new int[] {0}, new String[] {"terrafirmacraftplus:FreshWaterStationary","terrafirmacraftplus:Ice"}, new String[]{"Riverbank","River","Lakeshore"}, new String[]{"Americas", "Asia","Europe","Africa"},
+				/*size*/9, /*dispersion*/3, /*rarity*/104, /*minAltitude*/140, /*maxAltitude*/160, /*minTemp*/-20f, /*maxTemp*/40f, /*minRain*/600f, /*maxRain*/16000f, /*minEVT*/0f, /*maxEVT*/10f);
+		athsPlantHelper(AthsGlobal.WELWITSCHIA, new int[] {0,1}, new String[] {"blockSand"}, new String[]{"Beach","Gravel Beach","Lake","Lakeshore","Riverbank","Swamp","Salt Swamp","Estuary","Plains","High Plains"}, new String[]{"Africa"},
+				/*size*/1, /*dispersion*/1, /*rarity*/1024, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/16f, /*maxTemp*/40f, /*minRain*/0f, /*maxRain*/45f, /*minEVT*/1f, /*maxEVT*/10f);
 		athsPlantHelper(AthsGlobal.WOOD_BITTER_VETCH, new int[] {0}, new String[] {"blockSoil"}, AthsGlobal.LAND_BIOMES, new String[]{"Europe"},
 				/*size*/34, /*dispersion*/3, /*rarity*/4984, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/-2f, /*maxTemp*/20f, /*minRain*/450f, /*maxRain*/900f, /*minEVT*/0f, /*maxEVT*/4f);
 		athsPlantHelper(AthsGlobal.WOOD_FERN, new int[] {0}, new String[] {"blockSoil"}, AthsGlobal.LAND_BIOMES, new String[]{"Americas"},
@@ -329,7 +343,7 @@ public class Config {
 		
 		athsTreeHelper(AthsGlobal.YOUNG_ACACIA, new int[] {0}, new String[] {"blockSoil"}, AthsGlobal.LAND_BIOMES, new String[]{"Africa"},
 				/*size*/1, /*dispersion*/1, /*minAltitude*/0, /*maxAltitude*/255, EnumTree.UTACACIA);
-		athsTreeHelper(AthsGlobal.YOUNG_ACACIA + "_America", AthsGlobal.YOUNG_ACACIA, new int[] {0}, new String[] {"blockSoil"}, AthsGlobal.LAND_BIOMES, new String[]{"Africa"},
+		athsTreeHelper(AthsGlobal.YOUNG_ACACIA + "_America", AthsGlobal.YOUNG_ACACIA, new int[] {0}, new String[] {"blockSoil"}, AthsGlobal.LAND_BIOMES, new String[]{"Americas"},
 				/*size*/1, /*dispersion*/1, /*minAltitude*/0, /*maxAltitude*/255, EnumTree.KOA);
 		athsTreeHelper(AthsGlobal.YOUNG_ASH, new int[] {0}, new String[] {"blockSoil"}, AthsGlobal.LAND_BIOMES, new String[]{"Americas", "Asia","Europe","Africa"},
 				/*size*/1, /*dispersion*/1, /*minAltitude*/0, /*maxAltitude*/255, EnumTree.ASH);
@@ -387,18 +401,19 @@ public class Config {
 				/*size*/1, /*dispersion*/1, /*minAltitude*/0, /*maxAltitude*/255, EnumTree.YEW);
 		athsTreeHelper(AthsGlobal.YOUNG_YEW + "_Africa", AthsGlobal.YOUNG_YEW, new int[] {0}, new String[] {"blockSoil"}, AthsGlobal.LAND_BIOMES, new String[]{"Africa"},
 				/*size*/1, /*dispersion*/1, /*minAltitude*/0, /*maxAltitude*/255, EnumTree.AFRICANYEW);
-
+		
+		AthsWorldGenPlants.plantList.put("shrub", getPlantData("shrub", Reference.MOD_ID+":"+TFCBlocks.shrub.getUnlocalizedName().substring(5), new int[] {0}, new String[] {"blockSoil","blockSand"}, new String[]{"Riverbank"}, new String[]{"Americas","Europe","Africa","Asia"},
+		        /*size*/15, /*dispersion*/10, /*rarity*/1550, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/8f, /*maxTemp*/30f, /*minRain*/25f, /*maxRain*/135f, /*minEVT*/0f, /*maxEVT*/4f,/*forestGen*/1.0f));
+		
 		for(int i = 0; i < numCustomGenerators; i++) {
 			String name = "plant_" + i;
 			AthsWorldGenPlants.plantList.put(name, getPlantData(name, Reference.MOD_ID+":"+TFCBlocks.undergrowth.getUnlocalizedName().substring(5), new int[] {0}, new String[] {"blockSoil"}, new String[] {"All", "!Hell"}, new String[]{"Americas", "Asia"}, 
 					/*size*/3, /*dispersion*/1, /*rarity*/424, /*minAltitude*/0, /*maxAltitude*/180, /*minTemp*/0f, /*maxTemp*/40f, /*minRain*/750f, /*maxRain*/16000f, /*minEVT*/0f, /*maxEVT*/10f,/*forestGen*/1.0f));
 		}
-
 		
 		if (config.hasChanged()) 
 			config.save();
 	}
-	
 	
 	private static PlantSpawnData getPlantData(String category, String blockName, int[] metas, String[] growOnBlocks, String[] biomes, String[] regions, int size, int dispersion,
 			int rarity, int minAltitude, int maxAltitude, float minTemp, float maxTemp, float minRainfall, float maxRainfall, float minEVT, float maxEVT, float forestGen){
