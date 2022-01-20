@@ -2,9 +2,6 @@ package com.facetorched.tfcaths.util;
 
 import java.util.Random;
 
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.EnumFacing;
-
 public class AthsMath {
 	public static int toggleKthBit(int n, int k)
 	{

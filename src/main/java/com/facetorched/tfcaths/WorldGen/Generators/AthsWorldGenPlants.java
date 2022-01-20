@@ -3,7 +3,6 @@ package com.facetorched.tfcaths.WorldGen.Generators;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -12,7 +11,6 @@ import com.dunk.tfc.WorldGen.TFCBiome;
 import com.dunk.tfc.WorldGen.Generators.WorldGenForests;
 import com.dunk.tfc.api.Enums.EnumRegion;
 import com.facetorched.tfcaths.blocks.BlockPlant;
-import com.facetorched.tfcaths.blocks.BlockPlantTree;
 import com.facetorched.tfcaths.enums.EnumVary;
 import com.facetorched.tfcaths.util.AthsMath;
 import com.facetorched.tfcaths.util.BitMap;

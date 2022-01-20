@@ -3,7 +3,6 @@ package com.facetorched.tfcaths.blocks;
 import java.util.List;
 import java.util.Random;
 
-import com.dunk.tfc.BlockSetup;
 import com.dunk.tfc.TerraFirmaCraft;
 import com.dunk.tfc.Blocks.BlockTerra;
 import com.dunk.tfc.Core.TFCTabs;
@@ -38,7 +37,6 @@ import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.oredict.OreDictionary;
 
 public class BlockPlant extends BlockTerra{
 	public String[] plantNames;
@@ -92,6 +90,12 @@ public class BlockPlant extends BlockTerra{
 		if(world.isRemote) {
 		}
 		*/
+		if(this.icons != null && this.icons.length>0) {
+			System.out.println(this.getIcon(0, 0));
+			if(this instanceof BlockPlant3d) {
+				System.out.println(((BlockPlant3d)this).getModelParts(0).get(0).getTexture());
+			}
+		}
 		return super.onBlockActivated(world, x, y, z, entityplayer, side, hitX, hitY, hitZ);
 	}
 
@@ -312,10 +316,15 @@ public class BlockPlant extends BlockTerra{
 			}
 			
 			// default
-			if (month < TFC_Time.OCTOBER && temp > 0){
+			if (month < TFC_Time.OCTOBER && temp > 0 || // it has gotten warm enough in the spring
+				(!isVary(meta, EnumVary.WINTER) && !isVary(meta, EnumVary.AUTUMN) && !isVary(meta, EnumVary.SNOW)) // revert back from flower or fruit etc.
+				){
 				shiftToVary(world, x, y, z, meta, EnumVary.DEFAULT);
 				return; // success
 			}
+			
+			// if have reached here, this plant may be in a cold enough location that it will not winter state in the spring
+			
 			//shiftToVary(world, x, y, z, meta, EnumVary.DEFAULT);
 		}
 	}

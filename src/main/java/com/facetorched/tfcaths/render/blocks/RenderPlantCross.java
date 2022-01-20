@@ -14,7 +14,7 @@ public class RenderPlantCross extends AbstractRenderPlant {
 	@Override
 	public boolean renderPlantBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId,
 			RenderBlocks renderer, Tessellator tessellator, int rgb, int meta, float scale, IIcon icon, Random random) {
-		AthsRenderBlocks.drawCrossedSquares(icon, x + random.nextDouble()/4.0, y, z + random.nextDouble()/4.0, scale, random);
+		AthsRenderBlocks.drawCrossedSquares(icon, x + (random.nextDouble() - 0.5) * 0.5, y, z + (random.nextDouble() - 0.5) * 0.5, scale, random);
 		return true;
 	}
 	@Override

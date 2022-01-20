@@ -1,7 +1,5 @@
 package com.facetorched.tfcaths.items.itemblocks;
 
-import com.dunk.tfc.api.TFCBlocks;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

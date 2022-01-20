@@ -3,7 +3,6 @@ package com.facetorched.tfcaths.blocks;
 import com.facetorched.tfcaths.AthsBlockSetup;
 import com.facetorched.tfcaths.items.itemblocks.ItemPlantLilyPad;
 
-import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 

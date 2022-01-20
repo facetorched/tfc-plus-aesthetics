@@ -2,8 +2,6 @@ package com.facetorched.tfcaths.render.blocks;
 
 import java.util.Random;
 
-import com.facetorched.tfcaths.AthsGlobal;
-import com.facetorched.tfcaths.blocks.BlockPlant;
 import com.facetorched.tfcaths.blocks.BlockPlantTreeTrimmable;
 import com.facetorched.tfcaths.util.AthsLogger;
 

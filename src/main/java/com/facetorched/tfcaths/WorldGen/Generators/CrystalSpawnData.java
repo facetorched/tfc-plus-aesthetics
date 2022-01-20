@@ -1,12 +1,7 @@
 package com.facetorched.tfcaths.WorldGen.Generators;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.NoSuchElementException;
 
-import com.dunk.tfc.WorldGen.TFCBiome;
-import com.dunk.tfc.api.TFCBlocks;
-import com.dunk.tfc.api.Constant.Global;
 import com.facetorched.tfcaths.AthsGlobal;
 import com.facetorched.tfcaths.util.AthsParser;
 import com.facetorched.tfcaths.util.BlockMetaPair;

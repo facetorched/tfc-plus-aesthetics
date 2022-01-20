@@ -21,7 +21,7 @@ public class Config {
 	
 	//define configuration fields here
 	public static int numCustomGenerators;
-	public static boolean disable3DPlants;
+	public static float cullShrubs;
 	
 	public static void preInit(File configDir)
 	{
@@ -42,7 +42,7 @@ public class Config {
 		}
 		
 		numCustomGenerators = config.getInt("numCustomGenerators", "_num_custom_generators", 1, 0, Integer.MAX_VALUE, "The number of custom plant generators to read from. The names of these generators are enumerated as \"plant_[n]\"");
-		disable3DPlants = config.getBoolean("disable3DPlants", "_disable_3d_plants", false, "Set to true to disable generation of plants with 3D models since they cause lag for some clients");
+		//cullShrubs = config.getFloat("cullShrubs", "_cull_shrubs", 0.0F, 0.0F, 1.0F, "Amount of shrubs to remove from generation");
 		
 		if (config.hasChanged()) config.save();
 	}

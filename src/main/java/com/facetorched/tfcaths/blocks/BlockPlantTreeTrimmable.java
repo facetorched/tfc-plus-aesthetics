@@ -1,9 +1,5 @@
 package com.facetorched.tfcaths.blocks;
 
-import java.util.Random;
-
-import com.dunk.tfc.Core.TFC_Climate;
-import com.dunk.tfc.Core.TFC_Time;
 import com.dunk.tfc.Items.Tools.ItemCustomSaw;
 import com.dunk.tfc.Items.Tools.ItemShears;
 import com.facetorched.tfcaths.AthsBlockSetup;

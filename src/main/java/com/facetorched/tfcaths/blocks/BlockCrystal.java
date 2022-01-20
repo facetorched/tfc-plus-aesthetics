@@ -1,10 +1,8 @@
 package com.facetorched.tfcaths.blocks;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
-import com.dunk.tfc.TerraFirmaCraft;
 import com.dunk.tfc.Blocks.BlockTerra;
 import com.dunk.tfc.Core.TFCTabs;
 import com.dunk.tfc.api.TFCOptions;
@@ -21,8 +19,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;

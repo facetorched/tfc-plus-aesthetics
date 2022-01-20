@@ -5,8 +5,6 @@ public class BitMap {
 	private int x;
 	private int z;
 	private int width;
-	//private int height;
-	private boolean zeroed;
 	
 	public BitMap(int x, int z, int width, int height) {
 		this.width = width; // number of columns

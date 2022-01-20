@@ -7,7 +7,6 @@ import com.dunk.tfc.ItemSetup;
 import com.dunk.tfc.api.TFCItems;
 import com.facetorched.tfcaths.util.AthsParser;
 
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;

@@ -1,36 +1,27 @@
 package com.facetorched.tfcaths.blocks;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.ArrayList;
+import java.util.HashMap;
 
-import com.dunk.tfc.BlockSetup;
 import com.facetorched.tfcaths.AthsBlockSetup;
 import com.facetorched.tfcaths.AthsMod;
-import com.facetorched.tfcaths.WorldGen.Generators.PlantSpawnData;
 import com.facetorched.tfcaths.enums.EnumVary;
-import com.facetorched.tfcaths.tileentities.TEPlant3d;
 import com.facetorched.tfcaths.util.AthsLogger;
 import com.facetorched.tfcaths.util.ObjPart;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.ModelFormatException;
 import net.minecraftforge.client.model.obj.WavefrontObject;
-import scala.actors.threadpool.Arrays;
 
-public class BlockPlant3d extends BlockPlant implements ITileEntityProvider{
+public class BlockPlant3d extends BlockPlant{
 	public WavefrontObject modelObjs[];
 	public HashMap<Integer, ArrayList<ObjPart>> modelParts = new HashMap<Integer, ArrayList<ObjPart>>();
-	public String overrideModelName;
-	public boolean isAxisAligned;
+	public String overrideModelName; // despite being different plants, use the same model (this is the name of the obj file)
 	
 	public BlockPlant3d() {
 		super();
@@ -55,7 +46,15 @@ public class BlockPlant3d extends BlockPlant implements ITileEntityProvider{
 				modelObjs[i] = (WavefrontObject)AdvancedModelLoader.loadModel(new ResourceLocation(AthsMod.MODID + ":models/blocks/plants/" + overrideModelName + ".obj"));
 			}
 		}
+		
+		for(int i = 0; i < plantNames.length; i++) {
+			for(ObjPart objPart : modelParts.get(i)) {
+				objPart.setIcon(register.registerIcon(objPart.getTexture()));
+			}
+		}
 	}
+	
+	
 	
 	public BlockPlant3d setOverrideModelName(String name) {
 		this.overrideModelName = name;
@@ -67,21 +66,11 @@ public class BlockPlant3d extends BlockPlant implements ITileEntityProvider{
 	}
 	
 	@Override
-	public TileEntity createNewTileEntity(World world, int meta)
-	{
-		return new TEPlant3d();
-	}
-	
-	@Override
 	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(int side, int meta)
-	{
+	public IIcon getIcon(int side, int meta){
+		if(this.modelParts != null && this.modelParts.get(meta) != null)
+			return this.modelParts.get(meta).get(0).getIcon();
 		return null;
-	}
-	
-	public BlockPlant3d setIsAxisAligned() {
-		this.isAxisAligned = true;
-		return this;
 	}
 	
 	public WavefrontObject getModelObj(int meta) {
@@ -241,8 +230,8 @@ public class BlockPlant3d extends BlockPlant implements ITileEntityProvider{
 	 *  the most basic way to set a part. only use this externally if brute force is needed
 	 */
 	public BlockPlant3d setPart(int meta, String plantName, String partName) {
-		ObjPart part =  new ObjPart(new ResourceLocation(AthsMod.MODID, 
-				"textures/blocks/plants/" + plantName + "_" + partName + ".png"), partName);
+		// should we only run this on the client? not sure how
+		ObjPart part =  new ObjPart(AthsMod.MODID + ":plants/" + plantName + "_" + partName, partName);
 		if (this.modelParts.containsKey(meta)) {
 			this.modelParts.get(meta).add(part);
 		}

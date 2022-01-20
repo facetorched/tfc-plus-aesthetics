@@ -1,6 +1,5 @@
 package com.facetorched.tfcaths.util;
 
-import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class Point3DD {

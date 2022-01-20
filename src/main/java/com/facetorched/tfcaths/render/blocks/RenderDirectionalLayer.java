@@ -1,18 +1,12 @@
 package com.facetorched.tfcaths.render.blocks;
 
-import java.util.Random;
-
 import com.facetorched.tfcaths.AthsBlockSetup;
-import com.facetorched.tfcaths.blocks.BlockCrystal;
-import com.facetorched.tfcaths.util.AthsRandom;
 import com.facetorched.tfcaths.util.Point3DD;
 
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.util.ForgeDirection;
 

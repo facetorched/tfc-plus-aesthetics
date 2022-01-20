@@ -1,16 +1,10 @@
 package com.facetorched.tfcaths.blocks;
 
-import java.util.Random;
-
 import com.facetorched.tfcaths.AthsBlockSetup;
 import com.facetorched.tfcaths.AthsMod;
 import com.facetorched.tfcaths.util.AthsParser;
 import com.facetorched.tfcaths.util.Point3DD;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.util.ForgeDirection;
 

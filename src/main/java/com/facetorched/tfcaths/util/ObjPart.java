@@ -1,22 +1,31 @@
 package com.facetorched.tfcaths.util;
 
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.IIcon;
 
 public class ObjPart {
-	public ResourceLocation texture;
+	public String texturePath;
 	public String key;
+	public IIcon icon;
 	
-	public ObjPart(ResourceLocation texture, String key) {
-		this.texture = texture;
+	public IIcon getIcon() {
+		return icon;
+	}
+
+	public void setIcon(IIcon icon) {
+		this.icon = icon;
+	}
+
+	public ObjPart(String texturePath, String key) {
+		this.texturePath = texturePath;
 		this.key = key;
 	}
 	
-	public ResourceLocation getTexture() {
-		return texture;
+	public String getTexture() {
+		return this.texturePath;
 	}
 
-	public void setTexture(ResourceLocation texture) {
-		this.texture = texture;
+	public void setTexture(String texturePath) {
+		this.texturePath = texturePath;
 	}
 	
 	public String getKey() {

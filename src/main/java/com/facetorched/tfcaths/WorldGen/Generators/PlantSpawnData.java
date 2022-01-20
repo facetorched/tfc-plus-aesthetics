@@ -1,19 +1,15 @@
 package com.facetorched.tfcaths.WorldGen.Generators;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.NoSuchElementException;
 
-import com.dunk.tfc.Core.TFC_Climate;
 import com.dunk.tfc.WorldGen.TFCBiome;
 import com.dunk.tfc.api.Enums.EnumRegion;
 import com.facetorched.tfcaths.AthsGlobal;
-import com.facetorched.tfcaths.util.AthsLogger;
 import com.facetorched.tfcaths.util.AthsParser;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.oredict.OreDictionary;
 
