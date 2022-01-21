@@ -21,6 +21,9 @@ import net.minecraftforge.client.model.obj.Vertex;
 import net.minecraftforge.client.model.obj.WavefrontObject;
 
 public class RenderPlant3d implements ISimpleBlockRenderingHandler {
+	private static final float HALF_PI = (float)Math.PI/2;
+	private static final float TWO_PI = (float)Math.PI*2;
+	
 	@Override
 	public boolean shouldRender3DInInventory(int modelId) {
 		return true;
@@ -40,7 +43,7 @@ public class RenderPlant3d implements ISimpleBlockRenderingHandler {
 	        tes.startDrawingQuads();
 	        tes.setColorOpaque_F(1, 1, 1);
 	        float scale = block3d.getScale();
-	        renderWithOBJ(model, block3d.getModelParts(meta), tes, null, scale / 3f);
+	        renderWithOBJ(model, block3d.getModelParts(meta), tes, scale / 3f, 0.0f);
 	        tes.draw();
 	        
 	        RenderHelper.enableStandardItemLighting();
@@ -57,20 +60,18 @@ public class RenderPlant3d implements ISimpleBlockRenderingHandler {
 		if(!objParts.isEmpty()) {
 			WavefrontObject model = block3d.getModelObj(meta);
 			
-			//GL11.glPushMatrix();
-			
-			//GL11.glDisable(GL11.GL_CULL_FACE);
-			
 			Random random = AthsRandom.getRandom(x, z);
-			//GL11.glTranslated(0 + 0.25 + random.nextDouble()*0.5, 0+random.nextDouble()*.001337, 0 + 0.25 + random.nextDouble()*0.5); //prevent some z fighting
 			
-			//if(block3d.isAxisAligned)
-			//	GL11.glRotatef(random.nextInt(4) * 90f, 0, 1, 0);
-			//else
-			//	GL11.glRotatef(random.nextFloat() * 360f, 0, 1, 0); 
+			float rotation;
+			
+			if(block3d.isAxisAligned)
+				rotation = random.nextInt(4) * HALF_PI;
+			else
+				rotation = random.nextFloat() * TWO_PI; 
 			
 			float scale = block3d.getScale();
 			scale *= 1 - .4 * random.nextFloat();
+			
 			Tessellator tes = Tessellator.instance;
 			tes.setBrightness(block.getMixedBrightnessForBlock(world, x, y, z));
 	        tes.setColorOpaque_F(1, 1, 1);
@@ -78,7 +79,7 @@ public class RenderPlant3d implements ISimpleBlockRenderingHandler {
 	        float dy = random.nextFloat() * 0.001337F;
 	        float dz = 0.25F + random.nextFloat() * 0.5F;
 	        tes.addTranslation(x + dx, y + dy , z + dz); //prevent some z fighting
-	        renderWithOBJ(model, block3d.getModelParts(meta), tes, random, scale);
+	        renderWithOBJ(model, block3d.getModelParts(meta), tes, scale, rotation);
 	        tes.addTranslation(-x - dx, -y - dy, -z - dz);
 			return true;
 		}
@@ -90,10 +91,11 @@ public class RenderPlant3d implements ISimpleBlockRenderingHandler {
 		return AthsBlockSetup.plant3dRenderID;
 	}
 	
-	public static void renderWithOBJ(WavefrontObject model, ArrayList<ObjPart> objParts, Tessellator tes, Random random, float scale)
+	public static void renderWithOBJ(WavefrontObject model, ArrayList<ObjPart> objParts, Tessellator tes, float scale, float rotation)
     {
-		int rotation = random == null ? 0 : random.nextInt(4); // number of 90 degrees to rotate
-		float x, z, _x; // positions used for rotation
+		float cos = (float)Math.cos(rotation);
+		float sin = (float)Math.sin(rotation);
+		float x, z; // positions used for rotation
 		
         for(GroupObject go : model.groupObjects){
         	ObjPart part = null;
@@ -103,41 +105,33 @@ public class RenderPlant3d implements ISimpleBlockRenderingHandler {
         		}
         	}
         	if(part != null) {
-        		
 	            for(Face f : go.faces) {
 	                Vertex n = f.faceNormal;
 	                tes.setNormal(n.x, n.y, n.z);
-	                for(int i = 0; i < f.vertices.length; i++) 
-	                {
+	                for(int i = 0; i < f.vertices.length; i++) {
 	                    Vertex v = f.vertices[i];
 	                    TextureCoordinate t = f.textureCoordinates[i];
-	                    x = v.x * scale;
-                    	z = v.z * scale;
-	                    for(int r = 0; r < rotation; r++) {
-	                    	_x = x;
-	                    	x = -z;
-	                    	z = _x;
-	                    }
+	                    // rotate
+	                    x = cos * v.x - sin * v.z;
+	                    z = sin * v.x + cos * v.z;
+	                    x *= scale;
+                    	z *= scale;
 	                    tes.addVertexWithUV(x, v.y * scale, z,
 	                    	part.getIcon().getInterpolatedU(t.u * 16),
 	                    	part.getIcon().getInterpolatedV(t.v * 16));
 	                }
 	            }
-	            
 	            for(Face f : go.faces) {
 	                Vertex n = f.faceNormal;
-	                tes.setNormal(-n.x, -n.y, -n.z); // negative normal?
-	                for(int i = f.vertices.length-1; i >= 0; i--) 
-	                {
+	                tes.setNormal(-n.x, -n.y, -n.z); // negative normal
+	                for(int i = f.vertices.length-1; i >= 0; i--) {
 	                    Vertex v = f.vertices[i];
 	                    TextureCoordinate t = f.textureCoordinates[i];
-	                    x = v.x * scale;
-                    	z = v.z * scale;
-	                    for(int r = 0; r < rotation; r++) {
-	                    	_x = x;
-	                    	x = -z;
-	                    	z = _x;
-	                    }
+	                    // rotate
+	                    x = cos * v.x - sin * v.z;
+	                    z = sin * v.x + cos * v.z;
+	                    x *= scale;
+                    	z *= scale;
 	                    tes.addVertexWithUV(x, v.y * scale, z,
 	                    	part.getIcon().getInterpolatedU(t.u * 16),
 	                    	part.getIcon().getInterpolatedV(t.v * 16));
