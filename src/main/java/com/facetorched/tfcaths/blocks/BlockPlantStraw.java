@@ -7,6 +7,7 @@ import com.dunk.tfc.ItemSetup;
 import com.dunk.tfc.api.TFCItems;
 import com.facetorched.tfcaths.util.AthsParser;
 
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -17,7 +18,7 @@ import net.minecraftforge.oredict.OreDictionary;
 
 public class BlockPlantStraw extends BlockPlant implements IShearable{
 	public BlockPlantStraw() {
-		super();
+		super(Material.vine);
 		setGrassBounds();
 	}
 	

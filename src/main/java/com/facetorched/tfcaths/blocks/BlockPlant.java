@@ -58,9 +58,11 @@ public class BlockPlant extends BlockTerra{
 	@SideOnly(Side.CLIENT)
 	protected IIcon[] icons;
 	
-	public BlockPlant()
-	{
-		super(Material.plants);
+	public BlockPlant() {
+		this(Material.plants);
+	}
+	public BlockPlant(Material m){
+		super(m);
 		this.setTickRandomly(true);
 		float var4 = 0.2F;
 		this.setBlockBounds(0.5F - var4, 0.0F, 0.5F - var4, 0.5F + var4, var4 * 3.0F, 0.5F + var4);
@@ -74,8 +76,7 @@ public class BlockPlant extends BlockTerra{
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityplayer, int side, float hitX, float hitY, float hitZ)  
-	{
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityplayer, int side, float hitX, float hitY, float hitZ)  {
 		//setIsWaterPlant();
 		/*
 		if(TFCOptions.enableDebugMode && world.isRemote){

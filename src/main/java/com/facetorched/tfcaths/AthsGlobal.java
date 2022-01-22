@@ -143,6 +143,7 @@ public class AthsGlobal {
 	public static final String BLUEBELL = "Bluebell";
 	public static final String BONATEA = "Bonatea";
 	public static final String CARALUMA = "Caralluma";
+	public static final String CYCAD = "Cycad";
 	public static final String DESERT_ROSE = "Desert_Rose";
 	public static final String EGYPTIAN_AUTUMN_CROCUS = "Egyptian_Autumn_Crocus";
 	public static final String EUROPEAN_BEDSTRAW= "European_Bedstraw";
@@ -152,6 +153,7 @@ public class AthsGlobal {
 	public static final String LEOPARD_ORCHID = "Leopard_Orchid";
 	public static final String LOOSE_FLOWERED_ORCHID = "Loose_Flowered_Orchid";
 	public static final String LOTUS = "Lotus";
+	public static final String MAIDENHAIR_FERN = "Maidenhair_Fern";
 	public static final String MALLOW = "Mallow";
 	public static final String NARBON_VETCH = "Narbon_Vetch";
 	public static final String PAPYRUS = "Papyrus";

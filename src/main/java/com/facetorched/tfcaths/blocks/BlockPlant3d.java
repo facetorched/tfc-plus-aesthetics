@@ -36,13 +36,9 @@ public class BlockPlant3d extends BlockPlant{
 		//super.registerBlockIcons(register);
 		modelObjs = new WavefrontObject[numBaseMetas];
 		for(int i = 0; i < numBaseMetas; i++) {
-			if(overrideModelName == null)
-				try {
-					modelObjs[i] = (WavefrontObject)AdvancedModelLoader.loadModel(new ResourceLocation(AthsMod.MODID + ":models/blocks/plants/" + plantNames[i] + ".obj"));
-				}
-				catch (ModelFormatException e) {
-					AthsLogger.error("unable to parse " + AthsMod.MODID + ":models/blocks/plants/" + plantNames[i] + ".obj");
-				}
+			if(overrideModelName == null) {
+				modelObjs[i] = (WavefrontObject)AdvancedModelLoader.loadModel(new ResourceLocation(AthsMod.MODID + ":models/blocks/plants/" + plantNames[i] + ".obj"));
+			}
 			else {
 				modelObjs[i] = (WavefrontObject)AdvancedModelLoader.loadModel(new ResourceLocation(AthsMod.MODID + ":models/blocks/plants/" + overrideModelName + ".obj"));
 			}
@@ -210,6 +206,17 @@ public class BlockPlant3d extends BlockPlant{
 	public BlockPlant3d setNamedBaseMetaPart(int[] baseMetas, String partName) {
 		for(int baseMeta : baseMetas) {
 			setNamedBaseMetaPart(baseMeta, partName);
+		}
+		return this;
+	}
+	
+	/**
+	 * set part for a given meta using base meta names (example male and female versions of cones)
+	 */
+	public BlockPlant3d setNamedBaseMetaPart(EnumVary vary, String partName) {
+		for(int i = 0; i < numBaseMetas; i++) {
+			int meta = varyStartIndexes[vary.index] + i;
+			setPart(meta, plantNames[i], partName);
 		}
 		return this;
 	}
