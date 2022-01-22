@@ -1,5 +1,5 @@
 # TFC+ Aesthetics
-World generated decoration blocks to TFC+ to make the world prettier
+World generated decoration blocks for TFC+ to make the world prettier
 
 # Instructions for configuration
 
