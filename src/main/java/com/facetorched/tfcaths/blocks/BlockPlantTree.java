@@ -10,6 +10,7 @@ import com.facetorched.tfcaths.AthsGlobal;
 import com.facetorched.tfcaths.util.AthsParser;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -64,7 +65,7 @@ public class BlockPlantTree extends BlockPlant{
 	@Override
 	protected void checkAndDropBlock(World world, int x, int y, int z){
 		if (!this.canBlockStay(world, x, y, z)){
-			world.setBlock(x, y, z, getBlockById(0), 0, 2);
+			world.setBlock(x, y, z, getBlockById(0), 0, 2); // set to air
 		}
 	}
 	

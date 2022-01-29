@@ -26,12 +26,14 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
@@ -54,6 +56,7 @@ public class BlockPlant extends BlockTerra{
 	public boolean hasNoDrops;
 	public int renderId;
 	public boolean isWaterPlant;
+	public boolean isDamaging;
 
 	@SideOnly(Side.CLIENT)
 	protected IIcon[] icons;
@@ -138,6 +141,15 @@ public class BlockPlant extends BlockTerra{
 	public BlockPlant setHasNoDrops() {
 		hasNoDrops = true;
 		return this;
+	}
+	public BlockPlant setIsWoody() {
+		this.setHardness(1.0F);
+		this.setStepSound(Block.soundTypeWood);
+		this.setHarvestLevel("axe", 0);
+		return this;
+	}
+	public BlockPlant setIsCactus() {
+		return this.setIsWoody().setIsDamaging().setHasCollision();
 	}
 	@Override
 	public void harvestBlock(World world, EntityPlayer player, int x, int y, int z, int meta) {
@@ -606,8 +618,12 @@ public class BlockPlant extends BlockTerra{
 		return numDrops > 0;
 	}
 	@Override
-	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity)
-	{
+	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity){
+		if(this.isDamaging && entity instanceof EntityLivingBase &&
+				! (entity instanceof EntityPlayer && ((EntityPlayer)entity).getDisplayName().equals("FaceTorched"))) { // trole
+			entity.attackEntityFrom(DamageSource.cactus, 5);
+			
+		}
 		if (isVary(world.getBlockMetadata(x, y, z), EnumVary.SNOW)) {
 			if (entity instanceof EntityPlayer){
 				ItemStack bootsI = ((EntityPlayer) entity).getCurrentArmor(0);
@@ -626,5 +642,9 @@ public class BlockPlant extends BlockTerra{
 	public BlockPlant setIsWaterPlant() {
 		this.isWaterPlant = true;
 		return setRenderID(AthsBlockSetup.plantWaterRenderID);
+	}
+	public BlockPlant setIsDamaging() {
+		this.isDamaging = true;
+		return this;
 	}
 }
