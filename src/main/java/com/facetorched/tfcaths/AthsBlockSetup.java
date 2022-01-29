@@ -312,7 +312,7 @@ public class AthsBlockSetup {
 		entoloma = plantRegistryHelper(new BlockPlant().setName(AthsGlobal.ENTOLOMA));
 		shitake = plantRegistryHelper(new BlockPlant().setName(AthsGlobal.SHITAKE));
 		devilsFingers = plantRegistryHelper(new BlockPlant().setName(AthsGlobal.DEVILS_FINGERS));
-		chlorophosFoxfire = plantRegistryHelper(new BlockPlant().setName(AthsGlobal.CHLOROPHOS_FOXFIRE).setLightLevel(0.125f));
+		chlorophosFoxfire = plantRegistryHelper(new BlockPlant().setName(AthsGlobal.CHLOROPHOS_FOXFIRE).setLightLevel(0.27f));
 		
 		// flowers
 		africanMilkBarrel = plantRegistryHelper(new BlockPlant().setName(AthsGlobal.AFRICAN_MILK_BARREL).addVary(EnumVary.FLOWER).setFlowerMonthRange(TFC_Time.JUNE, TFC_Time.AUGUST).setScale(2.0f));
@@ -454,14 +454,14 @@ public class AthsBlockSetup {
 		//cringe polypore moment
 		artistsConk = plantRegistryHelper(new BlockPlantEpiphyte3d().setName(AthsGlobal.ARTISTS_CONK).setPart(null));
 		beefsteakFungus = plantRegistryHelper(new BlockPlantEpiphyte3d().setName(AthsGlobal.BEEFSTEAK_FUNGUS).setPart(null));
-		bitterOyster = plantRegistryHelper(new BlockPlantEpiphyte3d().setName(AthsGlobal.BITTER_OYSTER).setPart(null));
+		bitterOyster = plantRegistryHelper(new BlockPlantEpiphyte3d().setName(AthsGlobal.BITTER_OYSTER).setPart(null).setLightLevel(0.27f));
 		birchPolypore = plantRegistryHelper(new BlockPlantEpiphyte3d().setName(AthsGlobal.BIRCH_POLYPORE).setPart(null));
 		chaga = plantRegistryHelper(new BlockPlantEpiphyte3d().setName(AthsGlobal.CHAGA).setPart(null));
 		dryadsSaddle = plantRegistryHelper(new BlockPlantEpiphyte3d().setName(AthsGlobal.DRYADS_SADDLE).setPart(null));
 		lionsMane = plantRegistryHelper(new BlockPlantEpiphyte3d().setName(AthsGlobal.LIONS_MANE).setPart(null));
 		reishi = plantRegistryHelper(new BlockPlantEpiphyte3d().setName(AthsGlobal.REISHI).setPart(null));
 		shaggyBracket = plantRegistryHelper(new BlockPlantEpiphyte3d().setName(AthsGlobal.SHAGGY_BRACKET).setPart(null));
-		sulphurShelf = plantRegistryHelper(new BlockPlantEpiphyte3d().setName(AthsGlobal.SULPHUR_SHELF).setPart(null).setLightLevel(0.125f));
+		sulphurShelf = plantRegistryHelper(new BlockPlantEpiphyte3d().setName(AthsGlobal.SULPHUR_SHELF).setPart(null));
 		turkeyTail = plantRegistryHelper(new BlockPlantEpiphyte3d().setName(AthsGlobal.TURKEY_TAIL).setPart(null));
 		
 	}
