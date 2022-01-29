@@ -6,6 +6,7 @@ import com.facetorched.tfcaths.render.blocks.RenderDirectionalLayer;
 import com.facetorched.tfcaths.render.blocks.RenderPlant3d;
 import com.facetorched.tfcaths.render.blocks.RenderPlantCrop;
 import com.facetorched.tfcaths.render.blocks.RenderPlantCross;
+import com.facetorched.tfcaths.render.blocks.RenderPlantEpiphyte3d;
 import com.facetorched.tfcaths.render.blocks.RenderPlantLayer;
 import com.facetorched.tfcaths.render.blocks.RenderPlantLilyPad;
 import com.facetorched.tfcaths.render.blocks.RenderPlantLow;
@@ -33,6 +34,7 @@ public class ClientProxy implements IProxy {
     	RenderingRegistry.registerBlockHandler(AthsBlockSetup.plantTreeRenderID = RenderingRegistry.getNextAvailableRenderId(), new RenderPlantTree());
     	RenderingRegistry.registerBlockHandler(AthsBlockSetup.plantTreeTrimmableRenderID = RenderingRegistry.getNextAvailableRenderId(), new RenderPlantTreeTrimmable());
     	RenderingRegistry.registerBlockHandler(AthsBlockSetup.plant3dRenderID = RenderingRegistry.getNextAvailableRenderId(), new RenderPlant3d());
+    	RenderingRegistry.registerBlockHandler(AthsBlockSetup.plantEpiphyte3dRenderID = RenderingRegistry.getNextAvailableRenderId(), new RenderPlantEpiphyte3d());
     	RenderingRegistry.registerBlockHandler(AthsBlockSetup.plantLowRenderID = RenderingRegistry.getNextAvailableRenderId(), new RenderPlantLow());
     	RenderingRegistry.registerBlockHandler(AthsBlockSetup.plantLayerRenderID = RenderingRegistry.getNextAvailableRenderId(), new RenderPlantLayer());
     	RenderingRegistry.registerBlockHandler(AthsBlockSetup.directionalLayerRenderID = RenderingRegistry.getNextAvailableRenderId(), new RenderDirectionalLayer());

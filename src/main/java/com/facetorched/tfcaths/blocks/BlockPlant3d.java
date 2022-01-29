@@ -15,7 +15,6 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.AdvancedModelLoader;
-import net.minecraftforge.client.model.ModelFormatException;
 import net.minecraftforge.client.model.obj.WavefrontObject;
 
 public class BlockPlant3d extends BlockPlant{
@@ -78,17 +77,11 @@ public class BlockPlant3d extends BlockPlant{
 	}
 	
 	public ArrayList<ObjPart> getModelParts(int meta) {
-		return this.modelParts.get(meta);
-	}
-	
-	/**
-	 * set parts for all metas of a given vary
-	 */
-	public BlockPlant3d setVaryParts(EnumVary vary, String plantName, String[] partNames) {
-		for(String partName : partNames) {
-			setVaryPart(vary, plantName, partName);
+		if(meta >= plantNames.length) {
+			AthsLogger.error(String.format("BlockPlant %s does not support metadata %d. How the fr*ck did this happen?", plantKey, meta));
+			return new ArrayList<ObjPart>();
 		}
-		return this;
+		return this.modelParts.get(meta);
 	}
 	/**
 	 * set parts for all metas of a given vary. use plantkey as name
@@ -100,20 +93,11 @@ public class BlockPlant3d extends BlockPlant{
 		return this;
 	}
 	/**
-	 * set parts for all metas of a given vary. use the varyStartIndex's name
+	 * set parts for all metas of a given vary. use the plantKey + vary suffix as name
 	 */
 	public BlockPlant3d setNamedVaryParts(EnumVary vary, String[] partNames) {
 		for(String partName : partNames) {
 			setNamedVaryPart(vary, partName);
-		}
-		return this;
-	}
-	/**
-	 * set parts for all metas of the given varys
-	 */
-	public BlockPlant3d setVaryParts(EnumVary[] varys, String plantName, String[] partNames) {
-		for(String partName : partNames) {
-			setVaryPart(varys, plantName, partName);
 		}
 		return this;
 	}
@@ -127,7 +111,7 @@ public class BlockPlant3d extends BlockPlant{
 		return this;
 	}
 	/**
-	 * set part for all metas of the given varys. use each of the varyStartIndex's names
+	 * set part for all metas of the given varys. use the plantKey + vary suffix as name
 	 */
 	public BlockPlant3d setNamedVaryParts(EnumVary[] varys, String[] partNames) {
 		for(String partName : partNames) {
@@ -152,10 +136,10 @@ public class BlockPlant3d extends BlockPlant{
 		return setVaryPart(vary, plantKey, partName);
 	}
 	/**
-	 * set part for all metas of a given vary. use the varyStartIndex's name
+	 * set part for all metas of a given vary. use the plantKey + vary suffix as name
 	 */
 	public BlockPlant3d setNamedVaryPart(EnumVary vary, String partName) {
-		return setVaryPart(vary, plantNames[varyStartIndexes[vary.index]], partName);
+		return setVaryPart(vary, plantKey + vary.suffix, partName);
 	}
 	/**
 	 * set part for all metas of the given varys
@@ -173,7 +157,7 @@ public class BlockPlant3d extends BlockPlant{
 		return setVaryPart(varys, plantKey, partName); //default is plantKey
 	}
 	/**
-	 * set part for all metas of the given varys. use each of the varyStartIndex's names
+	 * set part for all metas of the given varys. use the plantKey + vary suffix as name
 	 */
 	public BlockPlant3d setNamedVaryPart(EnumVary[] varys, String partName) {
 		for(EnumVary vary : varys) {
@@ -211,12 +195,67 @@ public class BlockPlant3d extends BlockPlant{
 	}
 	
 	/**
-	 * set part for a given meta using base meta names (example male and female versions of cones)
+	 * set part for all metas of a given vary using base meta names (example male and female versions of cones)
 	 */
 	public BlockPlant3d setNamedBaseMetaPart(EnumVary vary, String partName) {
 		for(int i = 0; i < numBaseMetas; i++) {
 			int meta = varyStartIndexes[vary.index] + i;
 			setPart(meta, plantNames[i], partName);
+		}
+		return this;
+	}
+	
+	/**
+	 * set parts for all metas of a given vary using base meta names
+	 */
+	public BlockPlant3d setNamedBaseMetaParts(EnumVary vary, String[] partNames) {
+		for(String partName : partNames) {
+			setNamedBaseMetaPart(vary, partName);
+		}
+		return this;
+	}
+	
+	/**
+	 * set part for all metas of a given varys using base meta names
+	 */
+	public BlockPlant3d setNamedBaseMetaPart(EnumVary[] varys, String partName) {
+		for(EnumVary vary : varys) {
+			setNamedBaseMetaPart(vary, partName);
+		}
+		return this;
+	}
+	
+	/**
+	 * set parts for all metas of a given varys using base meta names
+	 */
+	public BlockPlant3d setNamedBaseMetaParts(EnumVary[] varys, String[] partNames) {
+		for(EnumVary vary : varys) {
+			setNamedBaseMetaParts(vary, partNames);
+		}
+		return this;
+	}
+	
+	/**
+	 * set part for all metas of a given vary. use that meta's name
+	 */
+	
+	public BlockPlant3d setNamedPart(EnumVary vary, String partName) {
+		for(int i = 0; i < numBaseMetas; i++) {
+			int meta = varyStartIndexes[vary.index] + i;
+			setPart(meta, plantNames[meta], partName);
+		}
+		return this;
+	}
+	
+	/**
+	 * set parts for all metas of given varys. use that meta's name
+	 */
+	
+	public BlockPlant3d setNamedParts(EnumVary[] varys, String[] partNames) {
+		for(String partName : partNames) {
+			for(EnumVary vary : varys) {
+				setNamedPart(vary, partName);
+			}
 		}
 		return this;
 	}
@@ -242,7 +281,14 @@ public class BlockPlant3d extends BlockPlant{
 	 */
 	public BlockPlant3d setPart(int meta, String plantName, String partName) {
 		// should we only run this on the client? not sure how
-		ObjPart part =  new ObjPart(AthsMod.MODID + ":plants/" + plantName + "_" + partName, partName);
+		ObjPart part;
+		if(partName == null) {
+			part =  new ObjPart(AthsMod.MODID + ":plants/" + plantName, "_"); // in the obj file the part should be named _
+		}
+		else {
+			part =  new ObjPart(AthsMod.MODID + ":plants/" + plantName + "_" + partName, partName);
+		}
+		
 		if (this.modelParts.containsKey(meta)) {
 			this.modelParts.get(meta).add(part);
 		}
@@ -269,6 +315,17 @@ public class BlockPlant3d extends BlockPlant{
 		}
 		return this;
 	}
+	
+	/**
+	 *  set parts for all possible metas using those meta's names as name
+	 */
+	public BlockPlant3d setNamedParts(String[] partNames) {
+		for(String partName : partNames) {
+			setNamedPart(partName);
+		}
+		return this;
+	}
+	
 	/**
 	 * set part for only one specific meta using plantkey as name
 	 */

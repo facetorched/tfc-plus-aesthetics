@@ -4,11 +4,10 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import com.facetorched.tfcaths.AthsBlockSetup;
+import com.facetorched.tfcaths.AthsGlobal;
 import com.facetorched.tfcaths.blocks.BlockPlant3d;
-import com.facetorched.tfcaths.util.AthsRandom;
 import com.facetorched.tfcaths.util.ObjPart;
 
-import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.RenderHelper;
@@ -22,9 +21,6 @@ import net.minecraftforge.client.model.obj.Vertex;
 import net.minecraftforge.client.model.obj.WavefrontObject;
 
 public class RenderPlant3d extends AbstractRenderPlant {
-	private static final float HALF_PI = (float) Math.PI / 2;
-	private static final float TWO_PI = (float) Math.PI * 2;
-
 	@Override
 	public boolean shouldRender3DInInventory(int modelId) {
 		return true;
@@ -36,19 +32,22 @@ public class RenderPlant3d extends AbstractRenderPlant {
 			return;
 		}
 		BlockPlant3d block3d = (BlockPlant3d) block;
-		ArrayList<ObjPart> objParts = block3d.getModelParts(meta);
-		if (!objParts.isEmpty()) {
-			WavefrontObject model = block3d.getModelObj(meta);
-			Tessellator tes = Tessellator.instance;
-			RenderHelper.disableStandardItemLighting();
-			tes.startDrawingQuads();
-			tes.setColorOpaque_F(1, 1, 1);
-			float scale = block3d.getScale();
-			renderWithOBJ(model, block3d.getModelParts(meta), tes, scale / 3f, 0.0f);
-			tes.draw();
-
-			RenderHelper.enableStandardItemLighting();
+		WavefrontObject model = block3d.getModelObj(meta);
+		Tessellator tessellator = Tessellator.instance;
+		
+		RenderHelper.disableStandardItemLighting();
+		tessellator.startDrawingQuads();
+		tessellator.setColorOpaque_F(1, 1, 1);
+		float maxDist = 0f;
+		for (Vertex v : model.vertices) {
+			maxDist = Math.max(Math.max(Math.max(Math.abs(v.x), Math.abs(v.y)), Math.abs(v.z)), maxDist);
 		}
+		float dy = -0.1f;
+		tessellator.addTranslation(0, dy, 0);
+		renderWithOBJ(model, block3d.getModelParts(meta), tessellator, .8f/maxDist, 0.0f);
+		tessellator.draw();
+		tessellator.addTranslation(0, -dy, 0);
+		RenderHelper.enableStandardItemLighting();
 	}
 	
 	@Override
@@ -59,9 +58,9 @@ public class RenderPlant3d extends AbstractRenderPlant {
 		// rotate a random amount
 		float rotation;
 		if (block3d.isAxisAligned)
-			rotation = random.nextInt(4) * HALF_PI;
+			rotation = random.nextInt(4) * AthsGlobal.HALF_PI;
 		else
-			rotation = random.nextFloat() * TWO_PI;
+			rotation = random.nextFloat() * AthsGlobal.TWO_PI;
 		
 		// scale down by some amount
 		scale *= 1 - .4 * random.nextFloat();

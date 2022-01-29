@@ -1,9 +1,14 @@
 package com.facetorched.tfcaths;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import com.dunk.tfc.BlockSetup;
 import com.dunk.tfc.WorldGen.DataLayer;
 import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.Constant.Global;
 import com.facetorched.tfcaths.util.AthsParser;
+import com.facetorched.tfcaths.util.BlockMetaPair;
 import com.facetorched.tfcaths.util.Point3D;
 
 import net.minecraft.block.Block;
@@ -61,9 +66,7 @@ public class AthsGlobal {
 	public static final String GIANT_HOGWEED = "Giant_Hogweed";
 	public static final String HEATHER = "Heather";
 	public static final String HIBISCUS = "Hibiscus";
-	public static final String HOSTA_HALCYON = "Hosta_Halcyon";
-	public static final String HOSTA_PATRIOT = "Hosta_Patriot";
-	public static final String HOSTA_VULCAN = "Hosta_Vulcan";
+	public static final String HOSTA = "Hosta";
 	public static final String INDIAN_PIPE = "Indian_Pipe";
 	public static final String INDIGO_MILK_CAP = "Indigo_Milk_Cap";
 	public static final String IRIS = "Iris";
@@ -136,6 +139,30 @@ public class AthsGlobal {
 	public static final String YUCCA = "Yucca";
 	public static final String SAGEBRUSH = "Sagebrush";
 	
+	public static final String ARPOPHYLLUM_GIGANTEUM = "Arpophyllum_Giganteum";
+	public static final String ARTISTS_CONK = "Artists_Conk";
+	public static final String BEEFSTEAK_FUNGUS = "Beefsteak_Fungus";
+	public static final String BITTER_OYSTER = "Bitter_Oyster";
+	public static final String BIRCH_POLYPORE = "Birch_Polypore";
+	public static final String BLACK_SPLEENWORT = "Black_Spleenwort";
+	public static final String BOSTON_FERN = "Boston_Fern";
+	public static final String CHAGA = "Chaga";
+	public static final String CHLOROPHOS_FOXFIRE = "Chlorophos_Foxfire";
+	public static final String DRYADS_SADDLE = "Dryads_Saddle";
+	public static final String HEDGEHOG_LIP_ORCHID = "Hedgehog_Lip_Orchid";
+	public static final String LEOPARD_ORCHID_EPIPHYTE = "Leopard_Orchid_Epiphyte";
+	public static final String LIONS_MANE = "Lions_Mane";
+	public static final String MISTLETOE = "Mistletoe";
+	public static final String PALE_UMBRELLA_ORCHID = "Pale_Umbrella_Orchid";
+	public static final String PURPUREORACHIS = "Purpureorachis";
+	public static final String REISHI = "Reishi";
+	public static final String SHAGGY_BRACKET = "Shaggy_Bracket";
+	public static final String SQUIRRELS_FOOT_FERN = "Squirrels_Foot_Fern";
+	public static final String STAGHORN_FERN = "Staghorn_Fern";
+	public static final String SULPHUR_SHELF = "Sulphur_Shelf";
+	public static final String TILLANDSIA_BROMELIAD = "Tillandsia_Bromeliad";
+	public static final String TURKEY_TAIL = "Turkey_Tail";
+	
 	public static final String AFRICAN_MILK_BARREL = "African_Milk_Barrel";
 	public static final String AFRICAN_MILK_TREE = "African_Milk_Tree";
 	public static final String ALBANIAN_SPURGE = "Albanian_Spurge";
@@ -187,12 +214,23 @@ public class AthsGlobal {
 	public static final String[] ALLOWED_BIOMES = AthsParser.add(AthsParser.append(ALL_BIOMES, AthsParser.prefix(ALL_BIOMES, "!")), "All");
 	public static final String[] ALLOWED_ROCKS = AthsParser.add(AthsParser.append(Global.STONE_ALL, ROCKTYPES), "All");
 	
+	public static final ArrayList<BlockMetaPair> ALL_TREE_TRUNKS = new ArrayList<BlockMetaPair>(Arrays.asList(
+			new BlockMetaPair(BlockSetup.logNatural, -1),
+			new BlockMetaPair(BlockSetup.logNatural2, -1),
+			new BlockMetaPair(BlockSetup.logNatural3, -1), 
+			new BlockMetaPair(BlockSetup.branch__y_, -1), 
+			new BlockMetaPair(BlockSetup.branch2__y_, -1), 
+			new BlockMetaPair(BlockSetup.branch3__y_, -1)));
+	
 	// some large prime numbers
 	public static final int PRIME_1 = 83;
 	public static final int PRIME_2 = 139;
 	
 	public static final float TREE_SCALE = 4.0f;
 	public static final int TREE_BASE_RARITY = 1000;
+	
+	public static final float HALF_PI = (float) Math.PI / 2;
+	public static final float TWO_PI = (float) Math.PI * 2;
 	
 	public static final Point3D[] NEIGHBORS = new Point3D[] {
 			new Point3D(-1,-1,0),
@@ -213,4 +251,10 @@ public class AthsGlobal {
 			new Point3D(1,0,0),
 			new Point3D(1,0,1),
 			new Point3D(1,1,0)};
+	
+	public static final Point3D[] HORIZ_NEIGHBORS = new Point3D[] {
+			new Point3D(0, 0, 1), 
+			new Point3D(-1, 0, 0),
+			new Point3D(0, 0, -1),
+			new Point3D(1, 0, 0)};
 }

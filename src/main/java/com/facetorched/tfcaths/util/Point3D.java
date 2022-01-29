@@ -56,4 +56,16 @@ public class Point3D {
     public String toString() {
     	return "("+ this.x + "," + this.y + "," + this.z + ")";
     }
+    
+    @Override
+    public boolean equals(Object o) {
+    	super.equals(o);
+    	if(o.getClass() == Point3D.class) {
+    		Point3D p = (Point3D)o;
+    		return 	p.x == this.x &&
+    				p.y == this.y &&
+    				p.z == this.z;
+    	}
+    	return false;
+    }
 }

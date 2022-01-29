@@ -1,7 +1,11 @@
 package com.facetorched.tfcaths.util;
 
+import java.util.ArrayList;
+
+import com.dunk.tfc.BlockSetup;
 import com.dunk.tfc.WorldGen.DataLayer;
 import com.dunk.tfc.WorldGen.TFCBiome;
+import com.dunk.tfc.api.Enums.EnumTree;
 import com.facetorched.tfcaths.AthsGlobal;
 
 import net.minecraft.block.Block;
@@ -72,6 +76,32 @@ public class AthsParser {
 			}
 		}
 		return null;
+	}
+	
+	public static EnumTree getTreeFromName(String name) {
+		for(EnumTree et : EnumTree.values()) {
+			if(et.name().toLowerCase().equals(name.toLowerCase())) { // disgusting use of the .name() method
+				return et;
+			}
+		}
+		return null;
+	}
+	
+	public static ArrayList<BlockMetaPair> getTrunkBlocks(int treeID){
+		ArrayList<BlockMetaPair> ret = new ArrayList<BlockMetaPair>();
+		if (treeID > 31) {
+			ret.add(new BlockMetaPair(BlockSetup.logNatural3, treeID % 16));
+			ret.add(new BlockMetaPair(BlockSetup.branch3__y_, treeID % 16));
+		}
+		else if (treeID > 15) {
+			ret.add(new BlockMetaPair(BlockSetup.logNatural2, treeID % 16));
+			ret.add(new BlockMetaPair(BlockSetup.branch2__y_, treeID % 16));
+		}
+		else {
+			ret.add(new BlockMetaPair(BlockSetup.logNatural, treeID));
+			ret.add(new BlockMetaPair(BlockSetup.branch__y_, treeID));
+		}
+		return ret;
 	}
 	
 	public static String[] add(String[] src, String str) {

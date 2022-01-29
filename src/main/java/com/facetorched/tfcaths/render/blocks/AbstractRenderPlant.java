@@ -17,6 +17,7 @@ import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public abstract class AbstractRenderPlant implements ISimpleBlockRenderingHandler{
 	public abstract boolean renderPlantBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer, Tessellator tessellator, int rgb, int meta, float scale, IIcon icon, Random random);
@@ -45,8 +46,11 @@ public abstract class AbstractRenderPlant implements ISimpleBlockRenderingHandle
 	
 	@Override
 	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
-		renderSnow(world, x, y, z, block, modelId, renderer);
-		renderLeaves(world, x, y, z, block, modelId, renderer);
+		BlockPlant bp = (BlockPlant)block;
+		if(world.isSideSolid(x, y - 1, z, ForgeDirection.UP, true)) {
+			renderSnow(world, x, y, z, block, modelId, renderer);
+			renderLeaves(world, x, y, z, block, modelId, renderer);
+		}
 		
 		Tessellator tessellator = Tessellator.instance;
         tessellator.setBrightness(block.getMixedBrightnessForBlock(world, x, y, z));

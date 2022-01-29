@@ -4,8 +4,11 @@ import java.util.NoSuchElementException;
 
 import com.dunk.tfc.WorldGen.TFCBiome;
 import com.dunk.tfc.api.Enums.EnumRegion;
+import com.dunk.tfc.api.Enums.EnumTree;
 import com.facetorched.tfcaths.AthsGlobal;
+import com.facetorched.tfcaths.util.AthsLogger;
 import com.facetorched.tfcaths.util.AthsParser;
+import com.facetorched.tfcaths.util.BlockMetaPair;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -18,6 +21,7 @@ public class PlantSpawnData {
 	public int[] metas;
 	public ArrayList<Block> canGrowOn = new ArrayList<Block>();
 	public ArrayList<String> canGrowOnOreDict = new ArrayList<String>();
+	public ArrayList<BlockMetaPair> canGrowOnBlockMeta = new ArrayList<BlockMetaPair>();
 	public ArrayList<TFCBiome> biomes = new ArrayList<TFCBiome>();
 	public ArrayList<EnumRegion> region = new ArrayList<EnumRegion>();
 	public int size, dispersion, rarity, minAltitude, maxAltitude;
@@ -29,14 +33,26 @@ public class PlantSpawnData {
 		this.metas = metas;
 		for(int i = 0; i < canGrowOn.length; i++) {
 			Block b = Block.getBlockFromName(canGrowOn[i]);
-			if(b != null)
+			EnumTree et = AthsParser.getTreeFromName(canGrowOn[i]);
+			if (canGrowOn[i].toLowerCase().equals("alltrees")) {
+				canGrowOnBlockMeta.addAll(AthsGlobal.ALL_TREE_TRUNKS);
+			}
+			else if(b != null) {
 				this.canGrowOn.add(b);
-			else
-				this.canGrowOnOreDict.add(canGrowOn[i]);
+			}
+			else if (et != null) {
+				canGrowOnBlockMeta.addAll(AthsParser.getTrunkBlocks(et.woodMeta));
+			}
+			else if(canGrowOn[i].startsWith("ore:")) {
+				this.canGrowOnOreDict.add(canGrowOn[i].substring(4));
+			}
+			else {
+				AthsLogger.error("no block, tree or ore exists with name " + canGrowOn[i]);
+			}
 		}
 		
 		for(String biome : biomes) {
-			if(biome.equals("All"))
+			if(biome.toLowerCase().equals("all"))
 				for(String allBiome : AthsGlobal.ALL_BIOMES)
 					this.biomes.add(TFCBiome.getBiomeByName(allBiome)); // this is idiotic but the normal biome list contains nulls
 			else if(!biome.startsWith("!"))
@@ -70,24 +86,34 @@ public class PlantSpawnData {
 		this.forestGen = forestGen;
 	}
 	
-	public boolean canGrowConditions(BiomeGenBase biome, EnumRegion region, float bioTemp, float rain, float evt, int blockY)
-	{
+	public boolean canGrowConditions(BiomeGenBase biome, EnumRegion region, float bioTemp, float rain, float evt) {
 		return this.metas.length > 0 &&
 				this.biomes.contains(biome) && this.region.contains(region) &&
 				bioTemp >= minTemp && bioTemp <= maxTemp && 
 				rain >= minRainfall && rain <= maxRainfall && 
-				evt >= minEVT && evt <= maxEVT &&
-				blockY >= minAltitude && blockY <= maxAltitude;
+				evt >= minEVT && evt <= maxEVT;
 	}
 	
-	public boolean canGrowOnBlock(Block block) {
+	public boolean canGrowAltitude(int blockY) {
+		return blockY >= minAltitude && blockY <= maxAltitude;
+	}
+	
+	public boolean canGrowOnBlock(Block block, int meta) {
 		if(canGrowOn.contains(block)) {
 			return true;
 		}
-		int[] ids = OreDictionary.getOreIDs(new ItemStack(Item.getItemFromBlock(block), 1, 0)); //forced to do damage 0
-		for(int id : ids)
-			if(canGrowOnOreDict.contains(OreDictionary.getOreName(id)))
+		if(!canGrowOnOreDict.isEmpty()) {
+			int[] ids = OreDictionary.getOreIDs(new ItemStack(Item.getItemFromBlock(block), 1, meta));
+			for(int id : ids)
+				if(canGrowOnOreDict.contains(OreDictionary.getOreName(id)))
+					return true;
+		}
+		if(!canGrowOnBlockMeta.isEmpty()){
+			BlockMetaPair bm = new BlockMetaPair(block, meta);
+			if(canGrowOnBlockMeta.contains(bm)) {
 				return true;
+			}
+		}
 		return false;
 	}
 }

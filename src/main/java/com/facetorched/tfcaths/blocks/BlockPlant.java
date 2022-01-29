@@ -192,14 +192,18 @@ public class BlockPlant extends BlockTerra{
 	@Override
 	public boolean canBlockStay(World world, int x, int y, int z){
 		PlantSpawnData data = AthsWorldGenPlants.plantList.get(this.plantKey);
-		if( data == null) {
-			return false;
-		}
 		if (isWaterPlant && !(world.isSideSolid(x, y-1, z, ForgeDirection.UP) || world.isSideSolid(x, y-2, z, ForgeDirection.UP))) {
 			return false;
 		}
-		return data.canGrowOnBlock(world.getBlock(x, y - 1, z));
+		if(data == null) {
+			System.out.println("Data null" + plantKey);
+		}
+		if(world == null) {
+			System.out.println("world null");
+		}
+		return data.canGrowOnBlock(world.getBlock(x, y - 1, z), 0); // use meta 0 for now
 	}
+	
 
 	@Override
 	public boolean canPlaceBlockAt(World world, int x, int y, int z)
@@ -232,6 +236,12 @@ public class BlockPlant extends BlockTerra{
 	public boolean isOpaqueCube()
 	{
 		return false;
+	}
+	
+	@Override
+	public BlockPlant setLightLevel(float f) {
+		super.setLightLevel(f);
+		return this;
 	}
 
 	@Override
@@ -268,6 +278,7 @@ public class BlockPlant extends BlockTerra{
 	public void updateTick(World world, int x, int y, int z, Random rand){
 		updateVary(world, x, y, z, rand);
 		checkAndDropBlock(world, x, y, z);
+		int meta = world.getBlockMetadata(x, y, z);
 	}
 	
 	public void updateVary(World world, int x, int y, int z, Random random) {
@@ -323,10 +334,13 @@ public class BlockPlant extends BlockTerra{
 				shiftToVary(world, x, y, z, meta, EnumVary.DEFAULT);
 				return; // success
 			}
-			
 			// if have reached here, this plant may be in a cold enough location that it will not winter state in the spring
 			
 			//shiftToVary(world, x, y, z, meta, EnumVary.DEFAULT);
+		}
+		int meta = world.getBlockMetadata(x, y, z);
+		if (meta >= plantNames.length) { // something horrible has happened
+			shiftToVary(world, x, y, z, meta, EnumVary.DEFAULT);
 		}
 	}
 	
