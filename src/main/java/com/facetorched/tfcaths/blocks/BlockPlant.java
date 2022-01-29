@@ -91,12 +91,14 @@ public class BlockPlant extends BlockTerra{
 		if(world.isRemote) {
 		}
 		*/
+		/*
 		if(this.icons != null && this.icons.length>0) {
 			System.out.println(this.getIcon(0, 0));
 			if(this instanceof BlockPlant3d) {
 				System.out.println(((BlockPlant3d)this).getModelParts(0).get(0).getTexture());
 			}
 		}
+		*/
 		return super.onBlockActivated(world, x, y, z, entityplayer, side, hitX, hitY, hitZ);
 	}
 
