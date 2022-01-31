@@ -5,6 +5,6 @@
 !/gradle/
 !/README.md
 !build.gradle
-!/LICENSE.txt
+!/LICENSE
 !/libs/
 !*.py
