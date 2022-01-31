@@ -21,10 +21,19 @@ public class AthsParser {
 		
 		if (ret == null){
 			AthsLogger.error("config file contains invalid block name " + blockName);
-			throw new java.lang.NullPointerException("invalid block name " + blockName);
+			throw new java.lang.IllegalArgumentException("invalid block name " + blockName);
 		}
 		return ret;
 	}
+	
+	public static Block[] getBlockFromName(String[] blockNames) {
+		Block[] ret = new Block[blockNames.length];
+		for(int i = 0; i < blockNames.length; i++) {
+			ret[i] = getBlockFromName(blockNames[i]);
+		}
+		return ret;
+	}
+	
 	public static boolean isHolding(World world, EntityPlayer player, String oreDict) {
 		if (!world.isRemote){
 			ItemStack equip = player.getCurrentEquippedItem();

@@ -46,7 +46,6 @@ public abstract class AbstractRenderPlant implements ISimpleBlockRenderingHandle
 	
 	@Override
 	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
-		BlockPlant bp = (BlockPlant)block;
 		if(world.isSideSolid(x, y - 1, z, ForgeDirection.UP, true)) {
 			renderSnow(world, x, y, z, block, modelId, renderer);
 			renderLeaves(world, x, y, z, block, modelId, renderer);

@@ -28,7 +28,7 @@ public class BlockPlantStraw extends BlockPlant implements IShearable{
 
 		ItemStack is = player.inventory.getCurrentItem();
 		if (is != null && is.getItem() == TFCItems.stoneFlake){
-			dropItemStacks(world, x, y, z, new ItemStack(ItemSetup.straw), 1, getBaseMeta(meta) + 2, new Random());
+			dropItemStacks(world, x, y, z, new ItemStack(ItemSetup.straw), 1, getMaxStraw(meta), new Random());
 			if (world.rand.nextInt(4) == 0){
 				is.stackSize--;
 			}
@@ -44,22 +44,19 @@ public class BlockPlantStraw extends BlockPlant implements IShearable{
 				break;
 			}
 			else if (name.startsWith("itemKnife")){
-				dropItemStacks(world, x, y, z, new ItemStack(ItemSetup.straw), 1, getBaseMeta(meta) + 2, new Random());
+				dropItemStacks(world, x, y, z, new ItemStack(ItemSetup.straw), 1, getMaxStraw(meta), new Random());
 				AthsParser.damageItem(player, is);
 				break;
 			}
 			else if (name.startsWith("itemScythe"))
 			{
 				//Spawn the straw for the block that we've already destroyed
-				dropItemStacks(world, x, y, z, new ItemStack(ItemSetup.straw), 1, getBaseMeta(meta) + 2, new Random());
+				dropItemStacks(world, x, y, z, new ItemStack(ItemSetup.straw), 1, getMaxStraw(meta), new Random());
 				//Now check each block around the destroyed block for AOE directions
-				for (int r = -1; r < 2; r++)
-				{
-					for (int c = -1; c < 2; c++)
-					{
-						if (world.getBlock(r + x, y, c + z) == this)
-						{
-							dropItemStacks(world, r + x, y, c + z, new ItemStack(ItemSetup.straw), 1, getBaseMeta(meta) + 2, new Random());
+				for (int r = -1; r < 2; r++){
+					for (int c = -1; c < 2; c++){
+						if (world.getBlock(r + x, y, c + z) == this){
+							dropItemStacks(world, r + x, y, c + z, new ItemStack(ItemSetup.straw), 1, getMaxStraw(world.getBlockMetadata(r + x, y, c + z)), new Random());
 							AthsParser.damageItem(player, is);
 							world.setBlockToAir(r + x, y, c + z);
 						}
@@ -88,5 +85,25 @@ public class BlockPlantStraw extends BlockPlant implements IShearable{
 		ArrayList<ItemStack> ret = new ArrayList<ItemStack>();
 		ret.add(new ItemStack(this, 1, world.getBlockMetadata(x, y, z)));
 		return ret;
+	}
+	
+	public int getMaxStraw(int meta) {
+		int maxStraw; // exclusive upper bound
+		if(numBaseMetas == 3) {
+			int m = getBaseMeta(meta);
+			if(m == 0) {
+				maxStraw = 3;
+			}
+			else if (m == 1) {
+				maxStraw = 2;
+			}
+			else {
+				maxStraw = 4;
+			}
+		}
+		else {
+			maxStraw = (int)this.scale + 1;
+		}
+		return maxStraw;
 	}
 }

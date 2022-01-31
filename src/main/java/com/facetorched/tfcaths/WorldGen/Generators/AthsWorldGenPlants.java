@@ -6,18 +6,18 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-import com.dunk.tfc.BlockSetup;
 import com.dunk.tfc.Core.TFC_Climate;
 import com.dunk.tfc.WorldGen.TFCBiome;
 import com.dunk.tfc.WorldGen.Generators.WorldGenForests;
+import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.Enums.EnumRegion;
 import com.facetorched.tfcaths.AthsGlobal;
 import com.facetorched.tfcaths.blocks.BlockPlant;
 import com.facetorched.tfcaths.blocks.BlockPlantEpiphyte3d;
 import com.facetorched.tfcaths.enums.EnumVary;
-import com.facetorched.tfcaths.util.AthsLogger;
 import com.facetorched.tfcaths.util.AthsMath;
 import com.facetorched.tfcaths.util.BitMap;
+import com.facetorched.tfcaths.util.Config;
 import com.facetorched.tfcaths.util.Point3D;
 
 import cpw.mods.fml.common.IWorldGenerator;
@@ -61,11 +61,10 @@ public class AthsWorldGenPlants implements IWorldGenerator {
 				
 				int y = getTopSolidOrLiquidBlock(world, x, z);
 				//avgY += y;
-				/*
-				if(world.getBlock(x, y - 1, z) == BlockSetup.shrub) {
+				if(world.getBlock(x, y - 1, z) == TFCBlocks.shrub && random.nextFloat() <= Config.cullShrubs) {
 					world.setBlock(x, y - 1, z, Blocks.air);
 				}
-				*/
+				
 				y--; // first solid cube
 				Block block = world.getBlock(x, y, z);
 				ArrayList<Point3D> horizAirNeighbors = getHorizAirNeighbors(world, x, y, z);

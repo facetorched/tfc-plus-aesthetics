@@ -37,10 +37,10 @@ public class ItemPlantLilyPad extends ItemPlant{
 				int j = movingobjectposition.blockY;
 				int k = movingobjectposition.blockZ;
 				
-				System.out.println(world.getBlock(i, j, k) == BlockSetup.branch__y_);
+				//System.out.println(world.getBlock(i, j, k) == BlockSetup.branch__y_);
 				//System.out.println(AthsWorldGenPlants.isCubeOrLiquid(par2World.getBlock(i, j, k), par2World, i, j, k));
 				//System.out.println(par2World.getBlock(i, j, k) instanceof ITreeBlock);
-				System.out.println(AthsWorldGenPlants.getTopSolidOrLiquidBlock(world, i, k));
+				//System.out.println(AthsWorldGenPlants.getTopSolidOrLiquidBlock(world, i, k));
 				
 				ArrayList<Point3D> vertPoints = new ArrayList<Point3D>();
 				ArrayList<Block> vertBlocks = new ArrayList<Block>();

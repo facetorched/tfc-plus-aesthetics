@@ -21,6 +21,8 @@ public class Config {
 	
 	//define configuration fields here
 	public static int numCustomGenerators;
+	//public static double[] cullSurfaceWeights;
+	//public static Block [] cullSurfaceBlocks;
 	public static float cullShrubs;
 	
 	public static void preInit(File configDir){
@@ -41,8 +43,17 @@ public class Config {
 		}
 		
 		numCustomGenerators = config.getInt("numCustomGenerators", "_num_custom_generators", 1, 0, Integer.MAX_VALUE, "The number of custom plant generators to read from. The names of these generators are enumerated as \"plant_[n]\"");
-		//cullShrubs = config.getFloat("cullShrubs", "_cull_shrubs", 0.0F, 0.0F, 1.0F, "Amount of shrubs to remove from generation");
 		
+		cullShrubs = config.getFloat("cullShrubs", "_cull_shrubs", 0.2f, 0.0f, 1.0f, "The degree to which TFC+ shrubs should be culled from the world. Set to 0 to disable the culling.");
+		/*
+		String[] cullSurfaceBlockNames = config.getStringList("_cull_surface_blocks", "cullSurfaceBlocks", new String[] {"terrafirmacraftplus:shrub"}, "blocks to be culled from the surface during world generation");
+		cullSurfaceBlocks = AthsParser.getBlockFromName(cullSurfaceBlockNames);
+		cullSurfaceWeights = config.get("cullSurfaceWeights", "_cull_surface_weights", new double[] {0.2}, "The weights associated with each cullSurfaceBlock. The higher the weight the more the block will be culled", 0.0, 1.0).getDoubleList();
+		
+		if(cullSurfaceBlocks.length != cullSurfaceWeights.length) {
+			throw new java.lang.IllegalArgumentException("cullSurfaceBlocks must have the same length as cullSurfaceWeights!");
+		}
+		*/
 		if (config.hasChanged()) config.save();
 	}
 	
@@ -183,6 +194,10 @@ public class Config {
 				/*size*/7, /*dispersion*/7, /*rarity*/6684, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/17f, /*maxTemp*/30f, /*minRain*/600f, /*maxRain*/1400f, /*minEVT*/0f, /*maxEVT*/10f);
 		athsPlantHelper(AthsGlobal.HIBISCUS + "_White", AthsGlobal.HIBISCUS, new int[] {3}, new String[] {"ore:blockSoil"}, new String[]{"High Hills","Plains","High Hills Edge","Rolling Hills","High Plains","Lakeshore","Riverbank","Swamp"}, new String[]{"Americas"},
 				/*size*/7, /*dispersion*/7, /*rarity*/6484, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/12f, /*maxTemp*/17f, /*minRain*/600f, /*maxRain*/1400f, /*minEVT*/0f, /*maxEVT*/10f);
+		athsPlantHelper(AthsGlobal.HOLLY, new int[] {0}, new String[] {"ore:blockSoil"}, AthsGlobal.LAND_BIOMES, new String[]{"Americas","Europe"},
+		        /*size*/1, /*dispersion*/1, /*rarity*/3628, /*minAltitude*/144, /*maxAltitude*/255, /*minTemp*/0f, /*maxTemp*/15f, /*minRain*/650f, /*maxRain*/3000f, /*minEVT*/0.25f, /*maxEVT*/10f,/*forestGen*/1.0f);
+		athsPlantHelper(AthsGlobal.HOLLY + "_Thicket", AthsGlobal.HOLLY, new int[] {0}, new String[] {"ore:blockSoil"}, AthsGlobal.LAND_BIOMES, new String[]{"Americas","Europe"},
+		        /*size*/50, /*dispersion*/3, /*rarity*/9528, /*minAltitude*/144, /*maxAltitude*/255, /*minTemp*/0f, /*maxTemp*/15f, /*minRain*/650f, /*maxRain*/3000f, /*minEVT*/0.25f, /*maxEVT*/10f,/*forestGen*/1.0f);
 		athsPlantHelper(AthsGlobal.HOSTA /*Halcyon*/, new int[] {0}, new String[] {"ore:blockSoil"}, AthsGlobal.LAND_BIOMES, new String[]{"Asia"},
 				/*size*/8, /*dispersion*/4, /*rarity*/3628, /*minAltitude*/144, /*maxAltitude*/255, /*minTemp*/6f, /*maxTemp*/18f, /*minRain*/750f, /*maxRain*/4000f, /*minEVT*/0.5f, /*maxEVT*/10f,/*forestGen*/1.0f);
 		athsPlantHelper(AthsGlobal.HOSTA + "_Patriot", AthsGlobal.HOSTA, new int[] {1}, new String[] {"ore:blockSoil"}, AthsGlobal.LAND_BIOMES, new String[]{"Asia"},

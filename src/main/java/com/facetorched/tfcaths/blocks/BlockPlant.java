@@ -32,6 +32,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.IIcon;
@@ -57,6 +58,8 @@ public class BlockPlant extends BlockTerra{
 	public int renderId;
 	public boolean isWaterPlant;
 	public boolean isDamaging;
+	public int poisonDuration;
+	public boolean isFlammable;
 
 	@SideOnly(Side.CLIENT)
 	protected IIcon[] icons;
@@ -142,17 +145,29 @@ public class BlockPlant extends BlockTerra{
 		hasNoDrops = true;
 		return this;
 	}
+	public BlockPlant setIsFlammable() {
+		isFlammable = true;
+		return this;
+	}
 	public BlockPlant setIsWoody() {
 		this.setHardness(1.0F);
 		this.setStepSound(Block.soundTypeWood);
 		this.setHarvestLevel("axe", 0);
-		return this;
+		this.setIsFlammable();
+		return this.setHasCollision();
 	}
 	public BlockPlant setIsCactus() {
-		return this.setIsWoody().setIsDamaging().setHasCollision();
+		return this.setIsWoody().setIsDamaging();
+	}
+	public BlockPlant setPoisonDuration(int d) {
+		this.poisonDuration = d;
+		return this;
 	}
 	@Override
 	public void harvestBlock(World world, EntityPlayer player, int x, int y, int z, int meta) {
+		if(poisonDuration != 0 && player.getHeldItem() == null) {
+			player.addPotionEffect(new PotionEffect(19, poisonDuration * 20));
+		}
 		if(hasNoDrops) {
 			if(AthsParser.isHolding(world, player, "itemShovel")) {
 				super.harvestBlock(world, player, x, y, z, meta);
@@ -208,12 +223,6 @@ public class BlockPlant extends BlockTerra{
 		PlantSpawnData data = AthsWorldGenPlants.plantList.get(this.plantKey);
 		if (isWaterPlant && !(world.isSideSolid(x, y-1, z, ForgeDirection.UP) || world.isSideSolid(x, y-2, z, ForgeDirection.UP))) {
 			return false;
-		}
-		if(data == null) {
-			System.out.println("Data null" + plantKey);
-		}
-		if(world == null) {
-			System.out.println("world null");
 		}
 		return data.canGrowOnBlock(world.getBlock(x, y - 1, z), 0); // use meta 0 for now
 	}
@@ -292,7 +301,6 @@ public class BlockPlant extends BlockTerra{
 	public void updateTick(World world, int x, int y, int z, Random rand){
 		updateVary(world, x, y, z, rand);
 		checkAndDropBlock(world, x, y, z);
-		int meta = world.getBlockMetadata(x, y, z);
 	}
 	
 	public void updateVary(World world, int x, int y, int z, Random random) {
@@ -612,10 +620,13 @@ public class BlockPlant extends BlockTerra{
 	}
 	
 	public boolean dropItemStacks(World world, int x, int y, int z, ItemStack is, int min, int max, Random random) {
-		int numDrops = min + random.nextInt(max-min);
+		if(max - min <= 0) {
+			return false;
+		}
+		int numDrops = min + random.nextInt(max - min);
 		is.stackSize = numDrops;
 		dropBlockAsItem(world, x, y, z, is);
-		return numDrops > 0;
+		return true;
 	}
 	@Override
 	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity){

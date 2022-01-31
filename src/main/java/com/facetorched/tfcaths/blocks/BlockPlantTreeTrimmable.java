@@ -28,9 +28,7 @@ public class BlockPlantTreeTrimmable extends BlockPlantTree{
 	}
 	@Override
 	public BlockPlant setExtraNames(String name) {
-		setNames(new String[] {name, name + "_Trimmed", name + "_Narrow"});
-		setKeyName(name);
-		return this;
+		return setExtraNames(name, "Trimmed", "Narrow");
 	}
 	
 	@Override

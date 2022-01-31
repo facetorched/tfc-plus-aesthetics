@@ -9,8 +9,6 @@ import com.facetorched.tfcaths.AthsBlockSetup;
 import com.facetorched.tfcaths.AthsGlobal;
 import com.facetorched.tfcaths.util.AthsParser;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -21,11 +19,8 @@ public class BlockPlantTree extends BlockPlant{
 	public BlockPlantTree() {
 		super();
 		setTreeBounds();
-		this.setHardness(1.0F);
-		this.setStepSound(Block.soundTypeWood);
-		this.setHarvestLevel("axe", 0);
+		setIsWoody();
 		this.scale = AthsGlobal.TREE_SCALE;
-		setHasCollision();
 		this.renderId = AthsBlockSetup.plantTreeRenderID;
 	}
 	
