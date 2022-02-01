@@ -8,3 +8,4 @@
 !/LICENSE
 !/libs/
 !*.py
+!wiki.csv
