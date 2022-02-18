@@ -96,10 +96,7 @@ public class BlockPlant3d extends BlockPlant{
 	 * set parts for all metas of a given vary. use the plantKey + vary suffix as name
 	 */
 	public BlockPlant3d setNamedVaryParts(EnumVary vary, String[] partNames) {
-		for(String partName : partNames) {
-			setNamedVaryPart(vary, partName);
-		}
-		return this;
+		return setNamedVaryParts(new EnumVary[] {vary}, partNames);
 	}
 	/**
 	 * set parts for all metas of the given varys. use plantkey as name
@@ -115,7 +112,9 @@ public class BlockPlant3d extends BlockPlant{
 	 */
 	public BlockPlant3d setNamedVaryParts(EnumVary[] varys, String[] partNames) {
 		for(String partName : partNames) {
-			setNamedVaryPart(varys, partName);
+			for(EnumVary vary : varys) {
+				setNamedVaryPart(vary, partName);
+			}
 		}
 		return this;
 	}
@@ -142,13 +141,27 @@ public class BlockPlant3d extends BlockPlant{
 		return setVaryPart(vary, plantKey + vary.suffix, partName);
 	}
 	/**
+	 * set parts for all metas of the given varys
+	 */
+	public BlockPlant3d setVaryParts(EnumVary[] varys, String plantName, String[] partNames) {
+		for(EnumVary vary : varys) {
+			for(String partName : partNames) {
+				setVaryPart(vary, plantName, partName);
+			}
+		}
+		return this;
+	}
+	/**
 	 * set part for all metas of the given varys
 	 */
 	public BlockPlant3d setVaryPart(EnumVary[] varys, String plantName, String partName) {
-		for(EnumVary vary : varys) {
-			setVaryPart(vary, plantName, partName);
-		}
-		return this;
+		return setVaryParts(varys, plantName, new String[] {partName});
+	}
+	/**
+	 * set parts for all metas of the given vary
+	 */
+	public BlockPlant3d setVaryParts(EnumVary vary, String plantName, String [] partName) {
+		return setVaryParts(new EnumVary[] {vary}, plantName, partName);
 	}
 	/**
 	 * set part for all metas of the given varys. use plantkey as name
@@ -160,10 +173,7 @@ public class BlockPlant3d extends BlockPlant{
 	 * set part for all metas of the given varys. use the plantKey + vary suffix as name
 	 */
 	public BlockPlant3d setNamedVaryPart(EnumVary[] varys, String partName) {
-		for(EnumVary vary : varys) {
-			setNamedVaryPart(vary, partName);
-		}
-		return this;
+		return setNamedVaryParts(varys, new String[] {partName});
 	}
 	
 	public BlockPlant3d setBaseMetaPart(int baseMeta, String plantName, String partName) {

@@ -14,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.world.World;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class ItemPlantLilyPad extends ItemPlant{
 
@@ -36,11 +37,15 @@ public class ItemPlantLilyPad extends ItemPlant{
 				int i = movingobjectposition.blockX;
 				int j = movingobjectposition.blockY;
 				int k = movingobjectposition.blockZ;
-				
+				Block b = world.getBlock(i, j, k);
 				//System.out.println(world.getBlock(i, j, k) == BlockSetup.branch__y_);
 				//System.out.println(AthsWorldGenPlants.isCubeOrLiquid(par2World.getBlock(i, j, k), par2World, i, j, k));
 				//System.out.println(par2World.getBlock(i, j, k) instanceof ITreeBlock);
 				//System.out.println(AthsWorldGenPlants.getTopSolidOrLiquidBlock(world, i, k));
+				int[] ids = OreDictionary.getOreIDs(new ItemStack(b.getItem(world, i, j, k), 1, b.getDamageValue(world, i, j, k)));
+				System.out.println(ids.length);
+				for(int id : ids)
+					System.out.println(OreDictionary.getOreName(id));
 				
 				ArrayList<Point3D> vertPoints = new ArrayList<Point3D>();
 				ArrayList<Block> vertBlocks = new ArrayList<Block>();

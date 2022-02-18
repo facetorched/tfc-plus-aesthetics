@@ -15,6 +15,7 @@ import com.facetorched.tfcaths.AthsGlobal;
 import com.facetorched.tfcaths.blocks.BlockPlant;
 import com.facetorched.tfcaths.blocks.BlockPlantEpiphyte3d;
 import com.facetorched.tfcaths.enums.EnumVary;
+import com.facetorched.tfcaths.util.AthsLogger;
 import com.facetorched.tfcaths.util.AthsMath;
 import com.facetorched.tfcaths.util.BitMap;
 import com.facetorched.tfcaths.util.Config;
@@ -92,7 +93,14 @@ public class AthsWorldGenPlants implements IWorldGenerator {
 		
 		//avgY /= 256;
 		int centerY = getTopCubeOrLiquidBlock(world, centerX, centerZ); // use cube height to prevent weird stuff in forests
-
+		
+		if (TFC_Climate.getCacheManager(world) == null) {
+			AthsLogger.error("null cache manager");
+		}
+		else if(TFC_Climate.getCacheManager(world).getEVTLayerAt(centerX, centerZ) == null) {
+			AthsLogger.error("null data layer");
+		}
+		
 		float evt = TFC_Climate.getCacheManager(world).getEVTLayerAt(centerX, centerZ).floatdata1;
 		float rain = TFC_Climate.getRainfall(world, centerX, centerY, centerZ);
 		float bioTemp = TFC_Climate.getBioTemperatureHeight(world, centerX, centerY, centerZ);

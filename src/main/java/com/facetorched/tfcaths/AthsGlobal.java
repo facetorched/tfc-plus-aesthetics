@@ -67,7 +67,9 @@ public class AthsGlobal {
 	public static final String HEATHER = "Heather";
 	public static final String HIBISCUS = "Hibiscus";
 	public static final String HOLLY = "Holly";
-	public static final String HOSTA = "Hosta";
+	public static final String HOSTA_HALCYON = "Hosta_Halcyon";
+	public static final String HOSTA_PATRIOT = "Hosta_Patriot";
+	public static final String HOSTA_VULCAN = "Hosta_Vulcan";
 	public static final String INDIAN_PIPE = "Indian_Pipe";
 	public static final String INDIGO_MILK_CAP = "Indigo_Milk_Cap";
 	public static final String IRIS = "Iris";
