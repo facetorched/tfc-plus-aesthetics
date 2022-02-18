@@ -166,8 +166,7 @@ public class BlockPlant extends BlockTerra{
 	@Override
 	public void harvestBlock(World world, EntityPlayer player, int x, int y, int z, int meta) {
 		if(poisonDuration != 0 && player.getHeldItem() == null &&
-				! isVary(meta, EnumVary.SNOW) &&
-				! isVary(meta, EnumVary.WINTER)) {
+				! ( hasVary(EnumVary.WINTER, meta) && (isVary(meta, EnumVary.SNOW) || isVary(meta, EnumVary.WINTER)))) {
 			player.addPotionEffect(new PotionEffect(19, poisonDuration * 20));
 		}
 		if(hasNoDrops) {
@@ -634,8 +633,7 @@ public class BlockPlant extends BlockTerra{
 	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity){
 		int meta = world.getBlockMetadata(x, y, z);
 		if(this.isDamaging && entity instanceof EntityLivingBase &&
-				! isVary(meta, EnumVary.SNOW) &&
-				! isVary(meta, EnumVary.WINTER) &&
+				! ( hasVary(EnumVary.WINTER, meta) && (isVary(meta, EnumVary.SNOW) || isVary(meta, EnumVary.WINTER))) && // if it gets withered, it shouldn't hurt you
 				! (entity instanceof EntityPlayer && ((EntityPlayer)entity).getDisplayName().equals("FaceTorched"))) { // trole
 			entity.attackEntityFrom(DamageSource.cactus, 5);
 			
