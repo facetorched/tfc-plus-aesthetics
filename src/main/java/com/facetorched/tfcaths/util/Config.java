@@ -27,7 +27,7 @@ public class Config {
 	
 	public static void preInit(File configDir){
 		if (config != null) throw new IllegalStateException("Preinit can't be called twice.");
-		config = new Configuration(new File(configDir,"TFC+Aesthetics-" + AthsMod.VERSION + ".cfg"));
+		config = new Configuration(new File(configDir,"TFCPlusAesthetics-" + AthsMod.VERSION + ".cfg"));
 	}
 	
 	public static void reload(){
