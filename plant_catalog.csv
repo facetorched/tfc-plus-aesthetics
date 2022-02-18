@@ -1,21 +1,19 @@
-Plant/Fungus,Flower,Fruit,Evergreen,Spawning Habitat,Region(s),Special
-African Milk Barrel,Early Summer-Late Summer,-,Yes,Subtropical Desert,Africa,Poisons player when broken by hand
-,,,,,,Spikey
-African Milk Tree,Late Spring - Summer,-,Yes,Arid Tropics,Africa,Poisons player when broken by hand
-,,,,,,Spikey
+ï»¿Plant/Fungus,Flower,Fruit,Evergreen,Spawning Habitat,Region(s),Special
+African Milk Barrel,Early Summer-Late Summer,Autumn - Early Winter,Yes,Subtropical Desert,Africa,"Poisons player when broken by hand, Spikey"
+African Milk Tree,Late Spring - Summer,-,Yes,Arid Tropics,Africa,"Poisons player when broken by hand, Spikey"
 Albanian Spurge,Late Winter - Spring,-,Yes,Mediterranean Climate,Europe,Poisons player when broken by hand
 Algae (Cyanobacteria),-,-,Yes,Cosmopolitan,All Regions,Aquatic
 Algae (Green),-,-,Yes,Cosmopolitan,All Regions,Aquatic
 Algae (Red),-,-,Yes,Cosmopolitan,All Regions,Aquatic
 Aloe Vera,Spring,-,Yes,Desert Mountains,Asia,
-Angel’s Trumpet,Early Summer - Autumn,-,Yes,Tropical Rainforest Highlands,Americas,"Three Varieties: Orange, White, and Pink"
+Angelâ€™s Trumpet,Early Summer - Autumn,-,Yes,Tropical Rainforest Highlands,Americas,"Three Varieties: Orange, White, and Pink"
 Angel Wing Cactus,Spring - Early Summer,-,Yes,Tropical Desert Midlands,Americas,Spikey
 Arpophyllum Giganteum,Late Winter - Late Spring,-,Yes,Tropical Rainforest,Americas,Epiphytic
-Artist’s Conk,-,-,-,Temperate Hardwood Forest,"Americas, Asia, Europe",Epiphytic (Fungus)
+Artistâ€™s Conk,-,-,-,Temperate Hardwood Forest,"Americas, Asia, Europe",Epiphytic (Fungus)
 Beefsteak Fungus,-,-,-,Temperate to Tropical Hardwood Forest,"Americas, Africa, Europe",Epiphytic (Fungus)
 Birch Polypore,-,-,-,Boreal & Temperate Savanna and Hardwood Forest,"Americas, Asia, Europe",Epiphytic (Fungus)
 Bird of Paradise,Late Autumn - Spring,-,Yes,Warm Temperate Savanna and Hardwood Forest,Africa,
-Bitter Oyster,-,-,-,Temperate Hardwood Forest,"Americas, Asia, Europe",Epiphytic (Fungus)
+Bitter Oyster,-,-,-,Temperate Hardwood Forest,"Americas, Asia, Europe","Epiphytic (Fungus), Glowing"
 Black Spleenwort,-,-,Yes,Temperate Hardwood Forest,"Americas, Asia, Europe",Epiphytic
 Blood Lily,Late Spring - Early Summer,-,No,Warm Temperate Savanna and Hardwood Forest,Africa,
 Bluebell,Spring - Early Summer,-,No,Temperate Hardwood Forest,Europe,
@@ -32,19 +30,19 @@ Caralluma,Early Spring - Spring,-,Yes,Subtropical & Tropical Desert,"Africa, Asi
 Chaga,-,-,-,Temperate Hardwood Forest,"Americas, Asia, Europe",Epiphytic (Fungus)
 Chanterelle,-,-,-,Boreal to Subtropical Forest,"Americas, Asia, Europe",Fungus
 Chicken of the Woods,-,-,-,Temperate Hardwood Forest,"Americas, Asia, Europe",Epiphytic (Fungus)
-Chlorophos Foxfire,-,-,-,Subtropical Rainforest,"Americas, Asia",Fungus
+Chlorophos Foxfire,-,-,-,Subtropical Rainforest,"Americas, Asia","Fungus, Glowing"
 Chives,Late Spring - Summer,-,No,Temperate Forest Margin,"Americas, Asia, Europe",
 Clover,Spring - Summer,-,No,Boreal to Subtropical Forest,All Regions,
 Common Reeds,Late Summer - Autumn (Plume),-,No,"Cosmopolitan, Near Water",All Regions,Semi-Aquatic
 Creeping Charlie,Spring - Summer,-,No,Boreal to Subtropical Forest,Europe,
 Cup Plant,Early Summer - Summer,-,No,Temperate Lowland Savanna,Americas,
-Cycad,-,"Early Summer - Autumn (Cones, both Male & Female)",Yes,Tropical Rainforest,"Americas, Asia, Africa",Dioecious (has separate Male and Female plants)
+Cycad,-,Early Summer - Autumn (Cones),Yes,Tropical Rainforest,"Americas, Asia, Africa",Dioecious (has separate Male and Female plants)
 Daffodil,Late Winter - Early Spring,-,No,"Subtropical & Tropical Grassland, Savanna, and Forest",Europe,
 Desert Rose,Spring - Late Summer,-,Yes,Tropical Desert,"Africa, Asia",
-Devil’s Club,-,Summer - Late Summer,No,Boreal Rainforest,Americas,Spikey
-Devil’s Fingers,-,-,-,Boreal to Subtropical Forest,Asia,Fungus
-Devil’sTongue,Spring,-,,Subtropical Rainforest,Asia,
-Dryad’s Saddle,-,-,-,Temperate Hardwood Forest,"Americas, Asia, Europe",Epiphytic (Fungus)
+Devilâ€™s Club,-,Summer - Late Summer,No,Boreal Rainforest,Americas,Spikey
+Devilâ€™s Fingers,-,-,-,Boreal to Subtropical Forest,Asia,Fungus
+Devilâ€™sTongue,Spring,-,,Subtropical Rainforest,Asia,
+Dryadâ€™s Saddle,-,-,-,Temperate Hardwood Forest,"Americas, Asia, Europe",Epiphytic (Fungus)
 Duckweed,-,-,Yes,Cosmopolitan,All Regions,
 Dune Grass,-,-,No,Temperate Beaches,Americas,
 Egyptian Autumn Crocus,Early Winter - Late Winter,-,No,Tropical Arid Lowlands & Midland,"Africa, Asia, Europe",
@@ -60,10 +58,10 @@ Gifboom,Spring - Early Summer,Late Summer - Autumn,Yes,Subtropical & Tropical De
 Heather,Summer - Late Summer,-,Yes,Boreal to Subtropical Desert to Forest,Europe,Two Varieties: White and Pink
 Hedgehog Lip Orchid,Early Spring - Early Summer,-,Yes,Tropical Rainforest,Asia,Epiphytic
 Hibiscus,Summer - Late Summer,-,Yes,"Savanna to Forest, Tropical (Hawaiian), Subtropical (Chinese, Okinawan), Warm Temperate (Swamp)","Americas (Hawaiian, Swamp), Asia (Chinese, Okinawan)","Four Varieties: Chinese, Okinawan, Swamp, Hawaiian"
-Holly,Late spring - Early Summer,Autumn - Early Winter,Yes,Temperate Forest,"Americas, Europe","Can be trimmed for a decorative texture (using shears), and then trimmed again for a short variant."
-Hosta,Summer - Late Summer (Halcyon),-,No,Temperate Hardwood Forest,Asia,"Three Varieties: Halcyon, Patrion, Vulcan"
-,"Late spring - Early Summer (Patriot),",,,,,
-,Late Summer - Early Autumn (Vulcan),,,,,
+Holly,Late spring - Early Summer,Autumn - Early Winter,Yes,Temperate Forest,"Americas, Europe","can be trimmed (using shears or saw), once for decorative, twice for short bush"
+Hosta (Halcyon),Summer - Late Summer ,-,No,Temperate Hardwood Forest,Asia,
+Hosta (Patriot),Late spring - Early Summer,-,No,Temperate Hardwood Forest,Asia,
+Hosta (Vulcan),Late Summer - Early Autumn,-,No,Temperate Hardwood Forest,Asia,
 Indian Pipe,-,-,No,Temperate Hardwood Forest and Rainforest,"Americas, Asia",
 Indigo Milk Cap,-,-,-,Temperate and Subtropical Forest,Americas,Fungus
 Iris,Late Spring - Summer,-,No,Temperate Savanna & Forest Margin Highlands & Riverbanks,"Americas, Asia, Europe",
@@ -73,13 +71,13 @@ Lavender,Early Summer - Late Summer,-,No,Subtropical Grassland & Savanna,"Asia, 
 Leafy Undergrowth,-,-,No,Cosmopolitan Forest,All Regions,Generic Plant
 Leopard Orchid,Late Spring - Summer,-,Yes,Subtropical Rainforest,Africa,Both a ground plant and epiphytic
 Small Lily Pads,-,-,Yes,"Cosmopolitan Lakes, Swamps & Rivers",All Regions,Aquatic
-Lion’s Mane Mushroom,-,-,-,Temperate Hardwood Forest,"Americas, Asia, Europe",Epiphytic (Fungus)
+Lionâ€™s Mane Mushroom,-,-,-,Temperate Hardwood Forest,"Americas, Asia, Europe",Epiphytic (Fungus)
 Lobster Claws,Late Spring - Early Autumn,-,Yes,Tropical Rainforest,Americas,
 Loose Flowered Orchid,Spring - Early Summer,-,No,Temperate Forest Margin Lowlands,"Asia, Europe",
 Lotus,Early Summer - Autumn,-,No,Temperate & Subtropical Savanna & Forest Fresh Water,Asia,Aquatic
 Low Leafy Undergrowth,-,-,No,Cosmopolitan Forest,All Regions,
 Lupine,Spring - Summer,-,No,Temperate Savanna & Forest Margin Highlands,Americas,"Four Varieties: Broadleaf, Wild, Butter, and Red Garden"
-Maidenhair Fern,-,-,No,Temperate Hardwood Forest,"Americas, Asia",Tiny little adiantums :)
+Maidenhair Fern,-,-,No,Temperate Hardwood Forest,"Americas, Asia",Tiny little adiantum :)
 Mallow,Spring - Autumn,-,No,Temperate to Tropical Wetlands,"Africa, Asia, Europe",
 Marigold,Early Summer - Autumn,-,Yes,Subtropical Desert,Americas,
 American Mistletoe,-,Autumn - Early Winter,Yes,Temperate & Subtropical Savanna & Forest,Americas,Epiphytic
@@ -118,7 +116,7 @@ Shitake,-,-,-,Subtropical Forest,Asia,Fungus
 Snake Sansevieria,-,-,Yes,Tropical Desert to Rainforest,"Africa, Asia",
 Snake Sansevieria (Variegated),-,-,Yes,Tropical Desert to Rainforest,"Africa, Asia",
 Sorbus,Early Summer - Summer,Early Autumn,No,Boreal & Temperate Forest & Forest Margin Highlands,"Africa, Asia, Europe",
-Squirrel’s Foot Fern,-,-,Yes,Temperate to Tropical Wet Forest,Asia,Epiphytic
+Squirrelâ€™s Foot Fern,-,-,Yes,Temperate to Tropical Wet Forest,Asia,Epiphytic
 Staghorn Fern,-,-,Yes,Subtropical & Tropical Rainforest,"Africa, Asia",Epiphytic
 Starfish Plant,Summer - Early Autumn,-,Yes,Temperate & Subtropical Desert,Africa,
 Sumac,-,Summer - Late Winter,No,"Temperate Grassland, Savanna, Forest Margin, and Forest","Americas, Asia",
@@ -135,9 +133,9 @@ Victoria Lily pad,-,-,Yes,Tropical Rainforest Rivers,Americas,Aquatic
 Voodoo Lily,Spring,-,Yes,Subtropical & Tropical Rainforest,Asia,
 Water Hyacinth,Late Summer - Early Autumn,-,Yes,Subtropical & Tropical Wetlands & Rivers,Americas,Aquatic
 Water Plantain,-,-,No,Cosmopolitan Wetlands & Rivers,All Regions,Aquatic
-Welwitschia,Summer - Early Autumn (on Female),"Spring - Early Summer (Cones, on Female)",Yes,Subtropical & Tropical Extreme Desert (below 45 rainfall),Africa,Dioecious (has separate Male and Female plants)
+Welwitschia,Summer - Early Autumn (Male),Spring - Early Summer (Female cones),Yes,Subtropical & Tropical Extreme Desert (below 45 rainfall),Africa,Dioecious (has separate Male and Female plants)
 Wood Bitter Vetch,Late Spring - Summer,-,No,Temperate & Subtropical Savanna & Forest Margin,Europe,
 Wood Fern,-,-,No,Boreal & Temperate Hardwood Forest,Americas,
 Yarrow,Early Summer - Early Autumn,-,No,Temperate Grassland & Savanna,"Americas, Asia, Europe",
 Yucca,Spring - Early Summer,-,Yes,"Temperate to Tropical Desert, Grassland & Beaches",Americas,
-Young Trees,-,-,Depends on Tree,Depends on Tree,Depends on Tree,"Each has the same spawn parameters and evergreen status as the normal TFC+ trees. Every TFC+ tree has a young variant except bamboo, mangrove, and joshua. Young Cedars can be trimmed (using shears) for a decorative texture, and then trimmed again for a narrow variant."
+Young Trees,-,-,Depends on Tree,Depends on Tree,Depends on Tree,"Have the same spawn parameters and evergreen status as the TFC+ trees. No young variants of: bamboo, mangrove, or joshua. Young Cedars can be trimmed (using shears or saw), once for decorative, twice for narrow."
