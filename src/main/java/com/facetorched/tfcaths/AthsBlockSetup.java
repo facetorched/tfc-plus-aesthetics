@@ -367,7 +367,7 @@ public class AthsBlockSetup {
 		yarrow = plantRegistryHelper(new BlockPlant().setName(AthsGlobal.YARROW).addVarys(new EnumVary[] {EnumVary.WINTER, EnumVary.SNOW, EnumVary.FLOWER}).setFlowerMonthRange(TFC_Time.JUNE, TFC_Time.SEPTEMBER).setScale(1f));
 		saguaro = plantRegistryHelper(new BlockPlant().setNames(AthsGlobal.SAGUARO, new String[] {"Fork", "Side", "Short", "Staggered", "Stumpy"}).addVary(EnumVary.FLOWER).setFlowerMonthRange(TFC_Time.MAY, TFC_Time.JUNE).setIsCactus().setScale(6f).setTreeBounds());
 		pricklyPear = plantRegistryHelper(new BlockPlant().setName(AthsGlobal.PRICKLY_PEAR).addVarys(new EnumVary[] {EnumVary.FLOWER, EnumVary.FRUIT}).setFlowerMonth(TFC_Time.MAY).setMonthVaryRange(TFC_Time.SEPTEMBER, TFC_Time.OCTOBER, EnumVary.FRUIT).setIsCactus().setScale(2f));
-		holly = plantRegistryHelper(new BlockPlantTreeTrimmable().setExtraNames(AthsGlobal.HOLLY, "Trimmed", "Short").addVarys(new EnumVary[] {EnumVary.FLOWER, EnumVary.FRUIT, EnumVary.SNOW}).setFlowerMonthRange(TFC_Time.MAY,TFC_Time.JUNE).setMonthVaryRange(TFC_Time.OCTOBER, TFC_Time.DECEMBER, EnumVary.FRUIT));
+		holly = plantRegistryHelper(new BlockPlantTreeTrimmable().setExtraNames(AthsGlobal.HOLLY, "Trimmed", "Short").addVarys(new EnumVary[] {EnumVary.FLOWER, EnumVary.FRUIT, EnumVary.SNOW}).setFlowerMonthRange(TFC_Time.MAY,TFC_Time.JUNE).setMonthVaryRange(TFC_Time.OCTOBER, TFC_Time.DECEMBER, EnumVary.FRUIT).setIsDamaging());
 
 		// lily pad like plants
 		lilyPad = plantRegistryHelper(new BlockPlantLilyPad().setExtraNames(AthsGlobal.LILY_PAD).addVary(EnumVary.SNOW));
