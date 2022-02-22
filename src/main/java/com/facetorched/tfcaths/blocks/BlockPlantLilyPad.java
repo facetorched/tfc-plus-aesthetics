@@ -3,12 +3,16 @@ package com.facetorched.tfcaths.blocks;
 import com.facetorched.tfcaths.AthsBlockSetup;
 import com.facetorched.tfcaths.items.itemblocks.ItemPlantLilyPad;
 
+import net.minecraft.block.material.Material;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class BlockPlantLilyPad extends BlockPlant{
 	public BlockPlantLilyPad() {
-		super();
+		this(Material.plants);
+	}
+	public BlockPlantLilyPad(Material m) {
+		super(m);
 		setLayerBounds(.1f);
 		setItemBlock(ItemPlantLilyPad.class);
 		this.renderId = AthsBlockSetup.plantLilyPadRenderID;

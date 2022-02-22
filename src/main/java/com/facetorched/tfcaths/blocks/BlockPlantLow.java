@@ -5,6 +5,7 @@ import com.facetorched.tfcaths.AthsMod;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
 
@@ -12,7 +13,10 @@ public class BlockPlantLow extends BlockPlant{
 	@SideOnly(Side.CLIENT)
 	public IIcon[] sideIcons;
 	public BlockPlantLow() {
-		super();
+		this(Material.plants);
+	}
+	public BlockPlantLow(Material m) {
+		super(m);
 		setLayerBounds(.25f);
 		this.renderId = AthsBlockSetup.plantLowRenderID;
 	}

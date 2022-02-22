@@ -7,6 +7,7 @@ import com.facetorched.tfcaths.items.itemblocks.ItemPlantAlgae;
 import com.facetorched.tfcaths.util.AthsParser;
 import com.facetorched.tfcaths.util.AthsRandom;
 
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -22,7 +23,10 @@ public class BlockPlantAlgae extends BlockPlantLilyPad{
 	public int blueShift;
 	
 	public BlockPlantAlgae() {
-		super();
+		this(Material.vine);
+	}
+	public BlockPlantAlgae(Material m) {
+		super(m);
 		setItemBlock(ItemPlantAlgae.class);
 	}
 	
