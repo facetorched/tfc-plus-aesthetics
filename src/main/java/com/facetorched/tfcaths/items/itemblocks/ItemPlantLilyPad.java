@@ -37,53 +37,17 @@ public class ItemPlantLilyPad extends ItemPlant{
 				int i = movingobjectposition.blockX;
 				int j = movingobjectposition.blockY;
 				int k = movingobjectposition.blockZ;
-				Block b = world.getBlock(i, j, k);
+				//Block b = world.getBlock(i, j, k);
 				//System.out.println(world.getBlock(i, j, k) == BlockSetup.branch__y_);
 				//System.out.println(AthsWorldGenPlants.isCubeOrLiquid(par2World.getBlock(i, j, k), par2World, i, j, k));
 				//System.out.println(par2World.getBlock(i, j, k) instanceof ITreeBlock);
 				//System.out.println(AthsWorldGenPlants.getTopSolidOrLiquidBlock(world, i, k));
+				/*
 				int[] ids = OreDictionary.getOreIDs(new ItemStack(b.getItem(world, i, j, k), 1, b.getDamageValue(world, i, j, k)));
 				System.out.println(ids.length);
 				for(int id : ids)
 					System.out.println(OreDictionary.getOreName(id));
-				
-				ArrayList<Point3D> vertPoints = new ArrayList<Point3D>();
-				ArrayList<Block> vertBlocks = new ArrayList<Block>();
-				
-				int x = i;
-				int z = k;
-				
-				int y = AthsWorldGenPlants.getTopSolidOrLiquidBlock(world, x, z);
-				
-				if(world.getBlock(x, y - 1, z) == BlockSetup.shrub) {
-					world.setBlock(x, y - 1, z, Blocks.air);
-				}
-				
-				y--; // first solid cube
-				Block block = world.getBlock(x, y, z);
-				ArrayList<Point3D> horizAirNeighbors = AthsWorldGenPlants.getHorizAirNeighbors(world, x, y, z);
-				while(y >= 0) {
-					if(horizAirNeighbors == null || !AthsWorldGenPlants.isSolidOrLiquid(block, world, x, y, z)) { // is surrounded by cubes or isn't solid anymore
-						break;
-					}
-					if(!horizAirNeighbors.isEmpty()) {
-						for(Point3D p : horizAirNeighbors) {
-							vertPoints.add(p);
-							vertBlocks.add(block);
-						}
-					}
-					y--;
-					block = world.getBlock(x, y, z);
-					horizAirNeighbors = AthsWorldGenPlants.getHorizAirNeighbors(world, x, y, z);
-					
-				}
-				
-				for(int g = 0; g < vertBlocks.size(); g++) {
-					if(vertBlocks.get(g) instanceof ITreeBlock) {
-						Point3D p = vertPoints.get(g);
-						world.setBlock(p.x, p.y, p.z, Blocks.glass);
-					}
-				}
+				*/
 				
 				if (!world.canMineBlock(par3EntityPlayer, i, j, k))
 					return par1ItemStack;
