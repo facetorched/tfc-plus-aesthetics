@@ -15,6 +15,7 @@ public class RenderPlantLilyPad extends AbstractRenderPlant{
 	@Override
 	public boolean renderPlantBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId,
 			RenderBlocks renderer, Tessellator tessellator, int rgb, int meta, float scale, IIcon icon, Random random) {
+		renderSnow(world, x, y, z, block, modelId, renderer);
 		renderer.setOverrideBlockTexture(icon);
 		renderBlockLilyPad(block, x, y, z, rgb, renderer, world);
 		renderer.clearOverrideBlockTexture();
