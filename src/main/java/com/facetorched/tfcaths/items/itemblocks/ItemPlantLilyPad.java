@@ -1,20 +1,11 @@
 package com.facetorched.tfcaths.items.itemblocks;
 
-import java.util.ArrayList;
-
-import com.dunk.tfc.BlockSetup;
-import com.dunk.tfc.api.Interfaces.ITreeBlock;
-import com.facetorched.tfcaths.WorldGen.Generators.AthsWorldGenPlants;
-import com.facetorched.tfcaths.util.Point3D;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.world.World;
-import net.minecraftforge.oredict.OreDictionary;
 
 public class ItemPlantLilyPad extends ItemPlant{
 

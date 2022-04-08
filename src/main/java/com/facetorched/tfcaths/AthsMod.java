@@ -2,10 +2,12 @@ package com.facetorched.tfcaths;
 
 import com.facetorched.tfcaths.WorldGen.Generators.AthsWorldGenCrystals;
 import com.facetorched.tfcaths.WorldGen.Generators.AthsWorldGenPlants;
+import com.facetorched.tfcaths.handlers.AthsFoodCraftingHandler;
 import com.facetorched.tfcaths.proxy.IProxy;
 import com.facetorched.tfcaths.util.Config;
 
 import cpw.mods.fml.client.event.ConfigChangedEvent;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.SidedProxy;
@@ -39,6 +41,8 @@ public class AthsMod
     	Config.preInit(event.getModConfigurationDirectory());
     	Config.reload();
     	
+    	AthsRecipes.RegisterRecipes();
+    	
     	GameRegistry.registerWorldGenerator(new AthsWorldGenPlants(), 200);
     	GameRegistry.registerWorldGenerator(new AthsWorldGenCrystals(), 201);
     }
@@ -48,6 +52,9 @@ public class AthsMod
     {
     	Config.reloadPlants();
     	Config.reloadCrystals();
+    	
+    	FMLCommonHandler.instance().bus().register(new AthsFoodCraftingHandler());
+    	
     	proxy.init(event);
     }
     
