@@ -44,7 +44,7 @@ public class Config {
 		
 		numCustomGenerators = config.getInt("numCustomGenerators", "_num_custom_generators", 1, 0, Integer.MAX_VALUE, "The number of custom plant generators to read from. The names of these generators are enumerated as \"plant_[n]\"");
 		
-		cullShrubs = config.getFloat("cullShrubs", "_cull_shrubs", 0.2f, 0.0f, 1.0f, "The degree to which TFC+ shrubs should be culled from the world. Set to 0 to disable the culling.");
+		cullShrubs = config.getFloat("cullShrubs", "_cull_shrubs", 0.0f, 0.0f, 1.0f, "The degree to which TFC+ shrubs should be culled from the world. Set to 0 to disable the culling.");
 		/*
 		String[] cullSurfaceBlockNames = config.getStringList("_cull_surface_blocks", "cullSurfaceBlocks", new String[] {"terrafirmacraftplus:shrub"}, "blocks to be culled from the surface during world generation");
 		cullSurfaceBlocks = AthsParser.getBlockFromName(cullSurfaceBlockNames);
