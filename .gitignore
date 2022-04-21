@@ -6,6 +6,5 @@
 !/README.md
 !build.gradle
 !/LICENSE
-!/libs/
 !*.py
 !*.csv
