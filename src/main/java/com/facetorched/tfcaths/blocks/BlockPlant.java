@@ -661,4 +661,13 @@ public class BlockPlant extends BlockTerra{
 		this.isDamaging = true;
 		return this;
 	}
+	@Override
+	public boolean hasComparatorInputOverride() {
+		return true;
+	}
+	@Override
+	public int getComparatorInputOverride(World world, int x, int y, int z, int side) {
+		char c = this.plantKey.toLowerCase().charAt(0);
+		return (c - 'a') * 15 / 25 + 1;
+	}
 }
