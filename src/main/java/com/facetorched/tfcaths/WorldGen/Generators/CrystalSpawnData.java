@@ -3,6 +3,7 @@ package com.facetorched.tfcaths.WorldGen.Generators;
 import java.util.HashMap;
 
 import com.facetorched.tfcaths.AthsGlobal;
+import com.facetorched.tfcaths.util.AthsLogger;
 import com.facetorched.tfcaths.util.AthsParser;
 import com.facetorched.tfcaths.util.BlockMetaPair;
 
@@ -25,7 +26,10 @@ public class CrystalSpawnData {
 				}
 			}
 			else if(addRockByName(rock)) {}
-			else addRockByType(rock);
+			else if(addRockByType(rock)) {}
+			else {
+				AthsLogger.error("Unknown rock encountered in crystal canGrowOn config " + rock);
+			}
 		}
 		
 		this.size = size;
@@ -33,16 +37,16 @@ public class CrystalSpawnData {
 		this.rarity = rarity;
 	}
 	
-	public BlockMetaPair getRockTypeByName(String name) {
-		for(int i = 0; i < AthsGlobal.ROCKTYPES_NAMES.length; i++) {
-			if(AthsParser.contains(AthsGlobal.ROCKTYPES_NAMES[i], name)) {
-				return new BlockMetaPair(AthsGlobal.ROCKTYPES_BLOCKS[i], AthsParser.find(AthsGlobal.ROCKTYPES_NAMES[i], name));
+	public BlockMetaPair getRockByName(String name) {
+		for(int i = 0; i < AthsGlobal.ROCKTYPES_NAMES.length; i++) { // loop over rock types
+			if(AthsParser.contains(AthsGlobal.ROCKTYPES_NAMES[i], name)) { // this rock type contains the rock
+				return new BlockMetaPair(AthsGlobal.ROCKTYPES_BLOCKS[i], AthsParser.find(AthsGlobal.ROCKTYPES_NAMES[i], name)); // add block and index as meta
 			}
 		}
 		return null;
 	}
 	public boolean addRockByName(String name) {
-		BlockMetaPair b = getRockTypeByName(name);
+		BlockMetaPair b = getRockByName(name);
 		if(b != null) {
 			this.canGrowOn.put(b.block, AthsParser.add(this.canGrowOn.get(b.block), b.meta));
 			return true;

@@ -3,10 +3,8 @@ package com.facetorched.tfcaths.util;
 import java.util.ArrayList;
 
 import com.dunk.tfc.BlockSetup;
-import com.dunk.tfc.WorldGen.DataLayer;
 import com.dunk.tfc.WorldGen.TFCBiome;
 import com.dunk.tfc.api.Enums.EnumTree;
-import com.facetorched.tfcaths.AthsGlobal;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
@@ -76,15 +74,6 @@ public class AthsParser {
 			}
 		}
 		return biomeNames;
-	}
-	
-	public static DataLayer getRockFromName(String name) {
-		for(int i = 0; i < AthsGlobal.ROCKS.length; i++) {
-			if(AthsGlobal.ROCKS[i].getName().equals(name)) {
-				return AthsGlobal.ROCKS[i];
-			}
-		}
-		return null;
 	}
 	
 	public static EnumTree getTreeFromName(String name) {

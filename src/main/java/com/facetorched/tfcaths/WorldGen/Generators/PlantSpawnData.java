@@ -47,7 +47,7 @@ public class PlantSpawnData {
 				this.canGrowOnOreDict.add(canGrowOn[i].substring(4));
 			}
 			else {
-				AthsLogger.error("no block, tree or ore exists with name " + canGrowOn[i]);
+				AthsLogger.error("Unknown block, tree or ore encountered in plant canGrowOn config " + canGrowOn[i]);
 			}
 		}
 		
