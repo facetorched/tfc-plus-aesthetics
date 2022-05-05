@@ -13,10 +13,11 @@ public class BlockPlantLow extends BlockPlant{
 	@SideOnly(Side.CLIENT)
 	public IIcon[] sideIcons;
 	public BlockPlantLow() {
-		this(Material.plants);
+		this(Material.vine);
 	}
 	public BlockPlantLow(Material m) {
 		super(m);
+		setHasNoDrops();
 		setLayerBounds(.25f);
 		this.renderId = AthsBlockSetup.plantLowRenderID;
 	}
