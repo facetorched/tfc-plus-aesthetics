@@ -53,6 +53,8 @@ public class AthsMod
     	Config.reloadPlants();
     	Config.reloadCrystals();
     	
+    	AthsBlockSetup.addFlowerPotPlants();
+    	
     	FMLCommonHandler.instance().bus().register(new AthsFoodCraftingHandler());
     	
     	proxy.init(event);

@@ -57,7 +57,7 @@ public class RenderPlantEpiphyte3d extends RenderPlant3d{
 			Block b = world.getBlock(p.x, p.y, p.z);
 			int m = world.getBlockMetadata(p.x, p.y, p.z);
 			if(data.canGrowOnBlock(b, m)) {
-				if (b == BlockSetup.branch2__y_ && m == 1) {
+				if (b == BlockSetup.branch2__y_ /*trunk*/ && (m == 1 /*palm*/ || m == 8 /*Bamboo*/)) {
 					inset = 0.9F;
 				}
 				else if(b instanceof BlockBranch) {
