@@ -24,6 +24,7 @@ public class Config {
 	//public static double[] cullSurfaceWeights;
 	//public static Block [] cullSurfaceBlocks;
 	public static float cullShrubs;
+	public static float rarityMultiplier;
 	
 	public static void preInit(File configDir){
 		if (config != null) throw new IllegalStateException("Preinit can't be called twice.");
@@ -54,6 +55,9 @@ public class Config {
 			throw new java.lang.IllegalArgumentException("cullSurfaceBlocks must have the same length as cullSurfaceWeights!");
 		}
 		*/
+		
+		rarityMultiplier = config.getFloat("rarityMultiplier", "_rarity_multiplier", 1f, 0f, 10000f, "The multiplier applied globally to plant rarity. Set to 0 to disable plant spawning entirely :(");
+		
 		if (config.hasChanged()) config.save();
 	}
 	
@@ -484,6 +488,19 @@ public class Config {
 					/*size*/3, /*dispersion*/1, /*rarity*/424, /*minAltitude*/0, /*maxAltitude*/180, /*minTemp*/0f, /*maxTemp*/40f, /*minRain*/750f, /*maxRain*/16000f, /*minEVT*/0f, /*maxEVT*/10f,/*forestGen*/1.0f));
 		}
 		
+		if(rarityMultiplier != 1f) {
+			if (rarityMultiplier <= 0f) {
+				for(PlantSpawnData d : AthsWorldGenPlants.plantList.values()) {
+					d.size = 0; // disable spawning for plants >:(
+				}
+			}
+			else {
+				for(PlantSpawnData d : AthsWorldGenPlants.plantList.values()) {
+					d.rarity *= rarityMultiplier;
+				}
+			}
+		}
+		
 		if (config.hasChanged())
 			config.save();
 	}
@@ -496,7 +513,7 @@ public class Config {
 			config.get(category, "growOnBlocks", growOnBlocks).getStringList(),
 			config.get(category, "biomes", biomes).setValidValues(AthsGlobal.ALLOWED_BIOMES).getStringList(),
 			config.get(category, "regions", regions).getStringList(),
-			config.get(category, "size", size).setMinValue(1).getInt(),
+			config.get(category, "size", size).setMinValue(0).getInt(),
 			config.get(category, "dispersion", dispersion).setMinValue(1).getInt(),
 			config.get(category, "rarity", rarity).setMinValue(1).getInt(),
 			config.get(category, "minAltitude", minAltitude).setMinValue(0).setMaxValue(255).getInt(),

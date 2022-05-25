@@ -54,11 +54,8 @@ public class AthsWorldGenPlants implements IWorldGenerator {
 		ArrayList<Point3D> vertPoints = new ArrayList<Point3D>();
 		//ArrayList<Block> vertBlocks = new ArrayList<Block>();
 		
-		// TEMPORARY FIX (dunk fix your zamn code)
-		//for (int x = cornerX + 8; x < cornerX + 24; x++) {
-		//	for (int z = cornerZ + 8; z < cornerZ + 24; z++) {
-		for (int x = cornerX; x < cornerX + 16; x++) {
-			for (int z = cornerZ; z < cornerZ + 16; z++) {
+		for (int x = cornerX + 8; x < cornerX + 24; x++) {
+			for (int z = cornerZ + 8; z < cornerZ + 24; z++) {
 				
 				int y = getTopSolidOrLiquidBlock(world, x, z);
 				//avgY += y;
@@ -334,12 +331,6 @@ public class AthsWorldGenPlants implements IWorldGenerator {
 		ArrayList<Point3D> ret = new ArrayList<Point3D>();
 		boolean isExposed = false;
 		for(Point3D p : origin.add(AthsGlobal.HORIZ_NEIGHBORS)) {
-			
-			// temporary fix ######################
-			if(p.x >> 4 != x >> 4 || p.z >> 4 != z >> 4) {
-				continue;
-			}
-			// ####################################
 			
 			Block block = world.getBlock(p.x, p.y, p.z);
 			if(block == Blocks.air) {

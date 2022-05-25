@@ -26,13 +26,7 @@ public class BlockPlantEpiphyte3d extends BlockPlant3d{
 		Point3D origin = new Point3D(x, y, z);
 		for(Point3D p : origin.add(AthsGlobal.HORIZ_NEIGHBORS)) {
 			
-			// temporary fix ######################
-			if(p.x >> 4 != x >> 4 || p.z >> 4 != z >> 4) {
-				continue;
-			}
-			// ####################################
-			
-			else if(data.canGrowOnBlock(world.getBlock(p.x, p.y, p.z), world.getBlockMetadata(p.x, p.y, p.z))) {
+			if(data.canGrowOnBlock(world.getBlock(p.x, p.y, p.z), world.getBlockMetadata(p.x, p.y, p.z))) {
 				return true;
 			}
 		}
