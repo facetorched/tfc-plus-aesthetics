@@ -292,7 +292,7 @@ public class AthsBlockSetup {
 		leafyUndergrowth = plantRegistryHelper(new BlockPlant(Material.vine).setExtraNames(AthsGlobal.LEAFY_UNDERGROWTH).addVarys(new EnumVary[] {EnumVary.AUTUMN, EnumVary.WINTER, EnumVary.SNOW}).setHasNoDrops().setScale(2.0F));
 		mediumUndergrowth = plantRegistryHelper(new BlockPlantStraw().setExtraNames(AthsGlobal.MEDIUM_UNDERGROWTH).addVarys(new EnumVary[] {EnumVary.WINTER, EnumVary.SNOW}).setRenderID(plantCropRenderID).setScale(2.0F));
 		pokeweed = plantRegistryHelper(new BlockPlant().setExtraNames(AthsGlobal.POKEWEED,"Large").addVarys(new EnumVary[] {EnumVary.AUTUMN, EnumVary.WINTER, EnumVary.SNOW, EnumVary.FRUIT}).setMonthVaryRange(TFC_Time.AUGUST, TFC_Time.SEPTEMBER, EnumVary.FRUIT).setScale(3f));
-		saxaul = plantRegistryHelper(new BlockPlant().setExtraNames(AthsGlobal.SAXAUL, "Small", "Large", "Huge").setScale(4.0f));
+		saxaul = plantRegistryHelper(new BlockPlant(Material.vine).setExtraNames(AthsGlobal.SAXAUL, "Small", "Large", "Huge").setScale(4.0f));
 		saltwort = plantRegistryHelper(new BlockPlant().setExtraNames(AthsGlobal.SALTWORT, "Small").addVary(EnumVary.SNOW));
 		
 		// straw dropping plants
@@ -306,7 +306,7 @@ public class AthsBlockSetup {
 		
 		//misc plants
 		clover = plantRegistryHelper(new BlockPlantLayerFlower().setName(AthsGlobal.CLOVER).addVarys(new EnumVary[] {EnumVary.WINTER, EnumVary.SNOW, EnumVary.FLOWER}).setFlowerMonthRange(TFC_Time.APRIL, TFC_Time.JULY));
-		leafyLowUndergrowth = plantRegistryHelper(new BlockPlantLow(Material.vine).setName(AthsGlobal.LEAFY_LOW_UNDERGROWTH).addVarys(new EnumVary[] {EnumVary.WINTER, EnumVary.SNOW}).setHasNoDrops());
+		leafyLowUndergrowth = plantRegistryHelper(new BlockPlantLow().setName(AthsGlobal.LEAFY_LOW_UNDERGROWTH).addVarys(new EnumVary[] {EnumVary.WINTER, EnumVary.SNOW}).setHasNoDrops());
 		aloeVera = plantRegistryHelper(new BlockPlantFlower().setName(AthsGlobal.ALOE_VERA).addVary(EnumVary.FLOWER).setFlowerMonth(TFC_Time.APRIL));
 		creepingCharlie = plantRegistryHelper(new BlockPlantLayerFlower().setName(AthsGlobal.CREEPING_CHARLIE).addVarys(new EnumVary[] {EnumVary.WINTER, EnumVary.SNOW, EnumVary.FLOWER}).setFlowerMonthRange(TFC_Time.APRIL, TFC_Time.JULY));
 		indianPipe = plantRegistryHelper(new BlockPlant().setName(AthsGlobal.INDIAN_PIPE).addVarys(new EnumVary[] {EnumVary.WINTER, EnumVary.SNOW}));
