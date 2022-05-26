@@ -7,13 +7,14 @@ import com.dunk.tfc.ItemSetup;
 import com.dunk.tfc.api.Enums.EnumTree;
 import com.facetorched.tfcaths.AthsBlockSetup;
 import com.facetorched.tfcaths.AthsGlobal;
+import com.facetorched.tfcaths.interfaces.ITree;
 import com.facetorched.tfcaths.util.AthsParser;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class BlockPlantTree extends BlockPlant{
+public class BlockPlantTree extends BlockPlant implements ITree{
 
 	public ItemStack sapling;
 	public BlockPlantTree() {
@@ -29,17 +30,22 @@ public class BlockPlantTree extends BlockPlant{
 		return this;
 	}
 	
+	@Override
+	public ItemStack getSapling() {
+		return this.sapling;
+	}
+	
 	public BlockPlantTree setSapling(EnumTree tree) {
 		// This is some serious hard coding >:(
 		int meta = tree.woodMeta;
 		if (meta < 16) {
-			this.sapling = new ItemStack(BlockSetup.sapling, 0, meta);
+			setSapling(new ItemStack(BlockSetup.sapling, 0, meta));
 		}
 		else if(meta < 32) {
-			this.sapling = new ItemStack(BlockSetup.sapling2, 0, meta % 16);
+			setSapling(new ItemStack(BlockSetup.sapling2, 0, meta % 16));
 		}
 		else
-			this.sapling = new ItemStack(BlockSetup.sapling3, 0, meta % 32);
+			setSapling(new ItemStack(BlockSetup.sapling3, 0, meta % 32));
 		return this;
 	}
 	

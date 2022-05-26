@@ -12,9 +12,12 @@ import com.facetorched.tfcaths.blocks.BlockPlant;
 import com.facetorched.tfcaths.blocks.BlockPlant3d;
 import com.facetorched.tfcaths.blocks.BlockPlant3dFlower;
 import com.facetorched.tfcaths.blocks.BlockPlantAlgae;
+import com.facetorched.tfcaths.blocks.BlockPlantCactus;
 import com.facetorched.tfcaths.blocks.BlockPlantEpiphyte3d;
 import com.facetorched.tfcaths.blocks.BlockPlantEpiphyte3dFlower;
+import com.facetorched.tfcaths.blocks.BlockPlantEpiphyte3dFungus;
 import com.facetorched.tfcaths.blocks.BlockPlantFlower;
+import com.facetorched.tfcaths.blocks.BlockPlantFungus;
 import com.facetorched.tfcaths.blocks.BlockPlantLayerFlower;
 import com.facetorched.tfcaths.blocks.BlockPlantLilyPad;
 import com.facetorched.tfcaths.blocks.BlockPlantLilyPad3d;
@@ -30,6 +33,7 @@ import com.facetorched.tfcaths.blocks.BlockPlantTreeTrimmable;
 import com.facetorched.tfcaths.blocks.BlockPlantTreeTrimmableFlower;
 import com.facetorched.tfcaths.enums.EnumVary;
 import com.facetorched.tfcaths.items.itemblocks.ItemCrystal;
+import com.facetorched.tfcaths.util.AthsParser;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
@@ -292,8 +296,8 @@ public class AthsBlockSetup {
 		leafyUndergrowth = plantRegistryHelper(new BlockPlant(Material.vine).setExtraNames(AthsGlobal.LEAFY_UNDERGROWTH).addVarys(new EnumVary[] {EnumVary.AUTUMN, EnumVary.WINTER, EnumVary.SNOW}).setHasNoDrops().setScale(2.0F));
 		mediumUndergrowth = plantRegistryHelper(new BlockPlantStraw().setExtraNames(AthsGlobal.MEDIUM_UNDERGROWTH).addVarys(new EnumVary[] {EnumVary.WINTER, EnumVary.SNOW}).setRenderID(plantCropRenderID).setScale(2.0F));
 		pokeweed = plantRegistryHelper(new BlockPlant().setExtraNames(AthsGlobal.POKEWEED,"Large").addVarys(new EnumVary[] {EnumVary.AUTUMN, EnumVary.WINTER, EnumVary.SNOW, EnumVary.FRUIT}).setMonthVaryRange(TFC_Time.AUGUST, TFC_Time.SEPTEMBER, EnumVary.FRUIT).setScale(3f));
-		saxaul = plantRegistryHelper(new BlockPlant(Material.vine).setExtraNames(AthsGlobal.SAXAUL, "Small", "Large", "Huge").setScale(4.0f));
-		saltwort = plantRegistryHelper(new BlockPlant().setExtraNames(AthsGlobal.SALTWORT, "Small").addVary(EnumVary.SNOW));
+		saxaul = plantRegistryHelper(new BlockPlant().setExtraNames(AthsGlobal.SAXAUL, "Small", "Large", "Huge").setScale(4.0f));
+		saltwort = plantRegistryHelper(new BlockPlant(Material.vine).setExtraNames(AthsGlobal.SALTWORT, "Small").addVary(EnumVary.SNOW));
 		
 		// straw dropping plants
 		duneGrass = plantRegistryHelper(new BlockPlantStraw().setName(AthsGlobal.DUNE_GRASS).addVarys(new EnumVary[] {EnumVary.WINTER, EnumVary.SNOW}));
@@ -315,15 +319,15 @@ public class AthsBlockSetup {
 		waterPlantain = plantRegistryHelper(new BlockPlant().setName(AthsGlobal.WATER_PLANTAIN).addVarys(new EnumVary[] {EnumVary.WINTER, EnumVary.SNOW}).setIsWaterPlant().setScale(2.0F));
 		
 		// mushrooms
-		boletus = plantRegistryHelper(new BlockPlant().setName(AthsGlobal.BOLETUS));
-		chanterelle = plantRegistryHelper(new BlockPlant().setName(AthsGlobal.CHANTERELLE));
-		indigoMilkCap = plantRegistryHelper(new BlockPlant().setName(AthsGlobal.INDIGO_MILK_CAP));
-		morel = plantRegistryHelper(new BlockPlant().setName(AthsGlobal.MOREL));
-		bridalVeilStinkhorn = plantRegistryHelper(new BlockPlant().setName(AthsGlobal.BRIDAL_VEIL_STINKHORN));
-		entoloma = plantRegistryHelper(new BlockPlant().setName(AthsGlobal.ENTOLOMA));
-		shitake = plantRegistryHelper(new BlockPlant().setName(AthsGlobal.SHITAKE));
-		devilsFingers = plantRegistryHelper(new BlockPlant().setName(AthsGlobal.DEVILS_FINGERS));
-		chlorophosFoxfire = plantRegistryHelper(new BlockPlant().setName(AthsGlobal.CHLOROPHOS_FOXFIRE).setLightLevel(0.27f));
+		boletus = plantRegistryHelper(new BlockPlantFungus().setName(AthsGlobal.BOLETUS).setBrownMushroom(32f));
+		chanterelle = plantRegistryHelper(new BlockPlantFungus().setName(AthsGlobal.CHANTERELLE).setBrownMushroom(32f));
+		indigoMilkCap = plantRegistryHelper(new BlockPlantFungus().setName(AthsGlobal.INDIGO_MILK_CAP).setBrownMushroom(16f));
+		morel = plantRegistryHelper(new BlockPlantFungus().setName(AthsGlobal.MOREL).setBrownMushroom(4f));
+		bridalVeilStinkhorn = plantRegistryHelper(new BlockPlantFungus().setName(AthsGlobal.BRIDAL_VEIL_STINKHORN).setRedMushroom(4f));
+		entoloma = plantRegistryHelper(new BlockPlantFungus().setName(AthsGlobal.ENTOLOMA).setRedMushroom(6f));
+		shitake = plantRegistryHelper(new BlockPlantFungus().setName(AthsGlobal.SHITAKE).setBrownMushroom(10f));
+		devilsFingers = plantRegistryHelper(new BlockPlantFungus().setName(AthsGlobal.DEVILS_FINGERS).setRedMushroom(4f));
+		chlorophosFoxfire = plantRegistryHelper(new BlockPlantFungus().setName(AthsGlobal.CHLOROPHOS_FOXFIRE).setBrownMushroom(2f).setLightLevel(0.27f));
 		
 		// flowers
 		africanMilkBarrel = plantRegistryHelper(new BlockPlantFlower().setName(AthsGlobal.AFRICAN_MILK_BARREL).addVary(EnumVary.FLOWER).setFlowerMonthRange(TFC_Time.JUNE, TFC_Time.AUGUST).setIsDamaging().setPoisonDuration(2).setScale(2.0f));
@@ -354,9 +358,9 @@ public class AthsBlockSetup {
 		titanArum = plantRegistryHelper(new BlockPlant().setName(AthsGlobal.TITAN_ARUM).addVary(EnumVary.FLOWER).setFlowerMonth(TFC_Time.AUGUST).setScale(2.0F));
 		voodooLily = plantRegistryHelper(new BlockPlant().setName(AthsGlobal.VOODOO_LILY).addVary(EnumVary.FLOWER).setFlowerMonth(TFC_Time.JUNE).setScale(2.0F));
 		angelsTrumpet = plantRegistryHelper(new BlockPlantTree().setNames(AthsGlobal.ANGELS_TRUMPET, new String[] {"Orange","Pink","White"}).addVary(EnumVary.FLOWER).addIconVary(EnumVary.FLOWER).setFlowerMonthRange(TFC_Time.JUNE,TFC_Time.OCTOBER));
-		angelWingCactus = plantRegistryHelper(new BlockPlantFlower().setName(AthsGlobal.ANGEL_WING_CACTUS).addVary(EnumVary.FLOWER).setFlowerMonthRange(TFC_Time.MAY, TFC_Time.JUNE).setIsCactus().setScale(2f));
-		blueCereusCactus = plantRegistryHelper(new BlockPlantFlower().setExtraNames(AthsGlobal.BLUE_CEREUS_CACTUS, "Large").addVary(EnumVary.FLOWER).setFlowerMonthRange(TFC_Time.MAY, TFC_Time.JUNE).setIsCactus().setScale(3f).setTreeBounds());
-		organPipeCactus = plantRegistryHelper(new BlockPlantFlower().setName(AthsGlobal.ORGAN_PIPE_CACTUS).addVary(EnumVary.FLOWER).setFlowerMonthRange(TFC_Time.MAY, TFC_Time.JUNE).setIsCactus().setScale(6f).setTreeBounds());
+		angelWingCactus = plantRegistryHelper(new BlockPlantCactus().setName(AthsGlobal.ANGEL_WING_CACTUS).addVary(EnumVary.FLOWER).setFlowerMonthRange(TFC_Time.MAY, TFC_Time.JUNE).setScale(2f));
+		blueCereusCactus = plantRegistryHelper(new BlockPlantCactus().setExtraNames(AthsGlobal.BLUE_CEREUS_CACTUS, "Large").addVary(EnumVary.FLOWER).setFlowerMonthRange(TFC_Time.MAY, TFC_Time.JUNE).setScale(3f).setTreeBounds());
+		organPipeCactus = plantRegistryHelper(new BlockPlantCactus().setName(AthsGlobal.ORGAN_PIPE_CACTUS).addVary(EnumVary.FLOWER).setFlowerMonthRange(TFC_Time.MAY, TFC_Time.JUNE).setScale(6f).setTreeBounds());
 		camasFlower = plantRegistryHelper(new BlockPlantFlower().setName(AthsGlobal.CAMAS_FLOWER).addVarys(new EnumVary[] {EnumVary.WINTER, EnumVary.SNOW, EnumVary.FLOWER}).setFlowerMonthRange(TFC_Time.APRIL, TFC_Time.MAY));
 		chives = plantRegistryHelper(new BlockPlantFlower().setName(AthsGlobal.CHIVES).addVarys(new EnumVary[] {EnumVary.WINTER, EnumVary.SNOW, EnumVary.FLOWER}).setFlowerMonthRange(TFC_Time.MAY, TFC_Time.JULY));
 		cupPlant = plantRegistryHelper(new BlockPlantFlower().setExtraNames(AthsGlobal.CUP_PLANT, "Large").addVarys(new EnumVary[] {EnumVary.WINTER, EnumVary.SNOW, EnumVary.FLOWER}).setFlowerMonthRange(TFC_Time.JUNE, TFC_Time.JULY).setRenderID(plantCropRenderID).setScale(3f));
@@ -376,8 +380,8 @@ public class AthsBlockSetup {
 		sunflower = plantRegistryHelper(new BlockPlantFlower().setName(AthsGlobal.SUNFLOWER).addVarys(new EnumVary[] {EnumVary.WINTER, EnumVary.SNOW, EnumVary.FLOWER}).setFlowerMonthRange(TFC_Time.JUNE, TFC_Time.SEPTEMBER).setScale(3f));
 		thistle = plantRegistryHelper(new BlockPlantFlower().setName(AthsGlobal.THISTLE).addVarys(new EnumVary[] {EnumVary.WINTER, EnumVary.SNOW, EnumVary.FLOWER}).setFlowerMonthRange(TFC_Time.MAY, TFC_Time.AUGUST).setIsDamaging().setScale(1f));
 		yarrow = plantRegistryHelper(new BlockPlantFlower().setName(AthsGlobal.YARROW).addVarys(new EnumVary[] {EnumVary.WINTER, EnumVary.SNOW, EnumVary.FLOWER}).setFlowerMonthRange(TFC_Time.JUNE, TFC_Time.SEPTEMBER).setScale(1f));
-		saguaro = plantRegistryHelper(new BlockPlantFlower().setNames(AthsGlobal.SAGUARO, new String[] {"Fork", "Side", "Short", "Staggered", "Stumpy"}).addVary(EnumVary.FLOWER).setFlowerMonthRange(TFC_Time.MAY, TFC_Time.JUNE).setIsCactus().setScale(6f).setTreeBounds());
-		pricklyPear = plantRegistryHelper(new BlockPlantFlower().setName(AthsGlobal.PRICKLY_PEAR).addVarys(new EnumVary[] {EnumVary.FLOWER, EnumVary.FRUIT}).setFlowerMonth(TFC_Time.MAY).setMonthVaryRange(TFC_Time.SEPTEMBER, TFC_Time.OCTOBER, EnumVary.FRUIT).setIsCactus().setScale(2f));
+		saguaro = plantRegistryHelper(new BlockPlantCactus().setNames(AthsGlobal.SAGUARO, new String[] {"Fork", "Side", "Short", "Staggered", "Stumpy"}).addVary(EnumVary.FLOWER).setFlowerMonthRange(TFC_Time.MAY, TFC_Time.JUNE).setScale(6f).setTreeBounds());
+		pricklyPear = plantRegistryHelper(new BlockPlantCactus().setName(AthsGlobal.PRICKLY_PEAR).addVarys(new EnumVary[] {EnumVary.FLOWER, EnumVary.FRUIT}).setFlowerMonth(TFC_Time.MAY).setMonthVaryRange(TFC_Time.SEPTEMBER, TFC_Time.OCTOBER, EnumVary.FRUIT).setScale(2f));
 		holly = plantRegistryHelper(new BlockPlantTreeTrimmableFlower().setExtraNames(AthsGlobal.HOLLY, "Trimmed", "Short").addVarys(new EnumVary[] {EnumVary.FLOWER, EnumVary.FRUIT, EnumVary.SNOW}).setFlowerMonthRange(TFC_Time.MAY,TFC_Time.JUNE).setMonthVaryRange(TFC_Time.OCTOBER, TFC_Time.DECEMBER, EnumVary.FRUIT).setIsDamaging());
 
 		// lily pad like plants
@@ -466,17 +470,17 @@ public class AthsBlockSetup {
 		tillandsiaBromeliad = plantRegistryHelper(new BlockPlantEpiphyte3d().setName(AthsGlobal.TILLANDSIA_BROMELIAD).addVary(EnumVary.FLOWER).setPart("Leaf").setVaryPart(EnumVary.FLOWER, "Flower").setFlowerMonthRange(TFC_Time.JUNE, TFC_Time.AUGUST));
 		
 		//cringe polypore moment
-		artistsConk = plantRegistryHelper(new BlockPlantEpiphyte3d().setName(AthsGlobal.ARTISTS_CONK).setPart(null));
-		beefsteakFungus = plantRegistryHelper(new BlockPlantEpiphyte3d().setName(AthsGlobal.BEEFSTEAK_FUNGUS).setPart(null));
-		bitterOyster = plantRegistryHelper(new BlockPlantEpiphyte3d().setName(AthsGlobal.BITTER_OYSTER).setPart(null).setLightLevel(0.27f));
-		birchPolypore = plantRegistryHelper(new BlockPlantEpiphyte3d().setName(AthsGlobal.BIRCH_POLYPORE).setPart(null));
-		chaga = plantRegistryHelper(new BlockPlantEpiphyte3d().setName(AthsGlobal.CHAGA).setPart(null));
-		dryadsSaddle = plantRegistryHelper(new BlockPlantEpiphyte3d().setName(AthsGlobal.DRYADS_SADDLE).setPart(null));
-		lionsMane = plantRegistryHelper(new BlockPlantEpiphyte3d().setName(AthsGlobal.LIONS_MANE).setPart(null));
-		reishi = plantRegistryHelper(new BlockPlantEpiphyte3d().setName(AthsGlobal.REISHI).setPart(null));
-		shaggyBracket = plantRegistryHelper(new BlockPlantEpiphyte3d().setName(AthsGlobal.SHAGGY_BRACKET).setPart(null));
-		sulphurShelf = plantRegistryHelper(new BlockPlantEpiphyte3d().setName(AthsGlobal.SULPHUR_SHELF).setPart(null));
-		turkeyTail = plantRegistryHelper(new BlockPlantEpiphyte3d().setName(AthsGlobal.TURKEY_TAIL).setPart(null));
+		artistsConk = plantRegistryHelper(new BlockPlantEpiphyte3dFungus().setName(AthsGlobal.ARTISTS_CONK).setPart(null));
+		beefsteakFungus = plantRegistryHelper(new BlockPlantEpiphyte3dFungus().setName(AthsGlobal.BEEFSTEAK_FUNGUS).setPart(null).setBrownMushroom(16f));
+		bitterOyster = plantRegistryHelper(new BlockPlantEpiphyte3dFungus().setName(AthsGlobal.BITTER_OYSTER).setPart(null).setLightLevel(0.27f));
+		birchPolypore = plantRegistryHelper(new BlockPlantEpiphyte3dFungus().setName(AthsGlobal.BIRCH_POLYPORE).setPart(null).setBrownMushroom(8f));
+		chaga = plantRegistryHelper(new BlockPlantEpiphyte3dFungus().setName(AthsGlobal.CHAGA).setPart(null));
+		dryadsSaddle = plantRegistryHelper(new BlockPlantEpiphyte3dFungus().setName(AthsGlobal.DRYADS_SADDLE).setPart(null).setBrownMushroom(120f));
+		lionsMane = plantRegistryHelper(new BlockPlantEpiphyte3dFungus().setName(AthsGlobal.LIONS_MANE).setPart(null).setBrownMushroom(16f));
+		reishi = plantRegistryHelper(new BlockPlantEpiphyte3dFungus().setName(AthsGlobal.REISHI).setPart(null));
+		shaggyBracket = plantRegistryHelper(new BlockPlantEpiphyte3dFungus().setName(AthsGlobal.SHAGGY_BRACKET).setPart(null));
+		sulphurShelf = plantRegistryHelper(new BlockPlantEpiphyte3dFungus().setName(AthsGlobal.SULPHUR_SHELF).setPart(null).setBrownMushroom(160f));
+		turkeyTail = plantRegistryHelper(new BlockPlantEpiphyte3dFungus().setName(AthsGlobal.TURKEY_TAIL).setPart(null));
 
 	}
 	
@@ -498,118 +502,10 @@ public class AthsBlockSetup {
 	}
 	
 	public static void addFlowerPotPlants() {
-		flowerPotHelper(africanMilkBarrel);
-		flowerPotHelper(africanMilkTree);
-		flowerPotHelper(albanianSpurge);
-		flowerPotHelper(aloeVera);
-		flowerPotHelper(angelsTrumpet);
-		flowerPotHelper(angelWingCactus);
-		flowerPotHelper(birdOfParadise);
-		flowerPotHelper(bloodLily);
-		flowerPotHelper(blueCereusCactus);
-		flowerPotHelper(boletus);
-		flowerPotHelper(bonatea);
-		flowerPotHelper(bridalVeilStinkhorn);
-		flowerPotHelper(mediumUndergrowth);
-		flowerPotHelper(camasFlower);
-		flowerPotHelper(caralluma);
-		flowerPotHelper(chanterelle);
-		flowerPotHelper(chlorophosFoxfire);
-		flowerPotHelper(chives);
-		flowerPotHelper(commonReeds);
-		flowerPotHelper(cupPlant);
-		flowerPotHelper(daffodil);
-		flowerPotHelper(desertRose);
-		flowerPotHelper(devilsFingers);
-		flowerPotHelper(devilsTongue);
-		flowerPotHelper(duneGrass);
-		flowerPotHelper(elephantGrass);
-		flowerPotHelper(entoloma);
-		flowerPotHelper(europeanBedstraw);
-		flowerPotHelper(fieldHorsetail);
-		flowerPotHelper(fireweed);
-		flowerPotHelper(freesia);
-		flowerPotHelper(garlicMustard);
-		flowerPotHelper(giantHogweed);
-		flowerPotHelper(gifboom);
-		flowerPotHelper(heather);
-		flowerPotHelper(hibiscus);
-		flowerPotHelper(holly);
-		flowerPotHelper(indianPipe);
-		flowerPotHelper(indigoMilkCap);
-		flowerPotHelper(iris);
-		flowerPotHelper(jackInThePulpit);
-		flowerPotHelper(lavender);
-		flowerPotHelper(leafyUndergrowth);
-		flowerPotHelper(leopardOrchid);
-		flowerPotHelper(lobsterClaws);
-		flowerPotHelper(looseFloweredOrchid);
-		flowerPotHelper(lupine);
-		flowerPotHelper(mallow);
-		flowerPotHelper(marigold);
-		flowerPotHelper(morel);
-		flowerPotHelper(narbonVetch);
-		flowerPotHelper(ocotillo);
-		flowerPotHelper(organPipeCactus);
-		flowerPotHelper(papyrus);
-		flowerPotHelper(pokeweed);
-		flowerPotHelper(prairieGrass);
-		flowerPotHelper(pricklyPear);
-		flowerPotHelper(quaqua);
-		flowerPotHelper(rosebush);
-		flowerPotHelper(roughHorsetail);
-		flowerPotHelper(royalJasmine);
-		flowerPotHelper(sagebrush);
-		flowerPotHelper(saguaro);
-		flowerPotHelper(saxaul);
-		flowerPotHelper(saltwort);
-		flowerPotHelper(pondGrass);
-		flowerPotHelper(sesame);
-		flowerPotHelper(shitake);
-		flowerPotHelper(sorbus);
-		flowerPotHelper(sundew);
-		flowerPotHelper(sunflower);
-		flowerPotHelper(thistle);
-		flowerPotHelper(titanArum);
-		flowerPotHelper(venusFlytrap);
-		flowerPotHelper(voodooLily);
-		flowerPotHelper(waterPlantain);
-		flowerPotHelper(woodBitterVetch);
-		flowerPotHelper(yarrow);
-		
-		flowerPotHelper(youngAcacia);
-		flowerPotHelper(youngAsh);
-		flowerPotHelper(youngAspen);
-		flowerPotHelper(youngBaobab);
-		flowerPotHelper(youngBirch);
-		flowerPotHelper(youngChestnut);
-		flowerPotHelper(youngDoglasFir);
-		flowerPotHelper(youngEbony);
-		flowerPotHelper(youngFever);
-		flowerPotHelper(youngGhaf);
-		flowerPotHelper(youngGinko);
-		flowerPotHelper(youngHickory);
-		flowerPotHelper(youngKapok);
-		flowerPotHelper(youngLaurel);
-		flowerPotHelper(youngLimba);
-		flowerPotHelper(youngMahoe);
-		flowerPotHelper(youngMahogany);
-		flowerPotHelper(youngMaple);
-		flowerPotHelper(youngOak);
-		flowerPotHelper(youngPine);
-		flowerPotHelper(youngSequoia);
-		flowerPotHelper(youngSpruce);
-		flowerPotHelper(youngSycamore);
-		flowerPotHelper(youngTeak);
-		flowerPotHelper(youngWhiteCedar);
-		flowerPotHelper(youngWhiteElm);
-		flowerPotHelper(youngWillow);
-		flowerPotHelper(youngYew);
-		
-		
-	}
-	
-	public static void flowerPotHelper(Block plant) {
-		((BlockCustomFlowerPot)TFCBlocks.flowerPot).addValidBlock(plant);
+		for(BlockPlant b : AthsParser.getAthsPlants()) {
+			if(b.getRenderType() == plantCrossRenderID || b.getRenderType() == plantCropRenderID) {
+				((BlockCustomFlowerPot)TFCBlocks.flowerPot).addValidBlock(b);
+			}
+		}
 	}
 }

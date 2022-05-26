@@ -1,5 +1,8 @@
 package com.facetorched.tfcaths.items.itemblocks;
 
+import com.facetorched.tfcaths.interfaces.IFungus;
+import com.facetorched.tfcaths.util.AthsParser;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -39,6 +42,8 @@ public class ItemPlantLilyPad extends ItemPlant{
 				for(int id : ids)
 					System.out.println(OreDictionary.getOreName(id));
 				*/
+				
+				System.out.println(AthsParser.getAthsPlants(IFungus.class));
 				
 				if (!world.canMineBlock(par3EntityPlayer, i, j, k))
 					return par1ItemStack;

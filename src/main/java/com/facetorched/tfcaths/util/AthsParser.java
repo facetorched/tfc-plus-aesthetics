@@ -1,10 +1,14 @@
 package com.facetorched.tfcaths.util;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import com.dunk.tfc.BlockSetup;
 import com.dunk.tfc.WorldGen.TFCBiome;
 import com.dunk.tfc.api.Enums.EnumTree;
+import com.facetorched.tfcaths.WorldGen.Generators.AthsWorldGenPlants;
+import com.facetorched.tfcaths.WorldGen.Generators.PlantSpawnData;
+import com.facetorched.tfcaths.blocks.BlockPlant;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
@@ -194,5 +198,20 @@ public class AthsParser {
 				return i;
 		}
 		return -1;
+	}
+	
+	public static HashSet<BlockPlant> getAthsPlants(){
+		return getAthsPlants(BlockPlant.class);
+	}
+	
+	public static HashSet<BlockPlant> getAthsPlants(Class<?> subclass){
+		HashSet<BlockPlant> result = new HashSet<BlockPlant>();
+		for(PlantSpawnData d : AthsWorldGenPlants.plantList.values()) {
+			Block b = d.block;
+			if(b != null && b instanceof BlockPlant && subclass.isInstance(b)) {
+				result.add((BlockPlant)b);
+			}
+		}
+		return result;
 	}
 }

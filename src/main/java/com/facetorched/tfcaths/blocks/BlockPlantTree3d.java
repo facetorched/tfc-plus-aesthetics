@@ -3,6 +3,7 @@ package com.facetorched.tfcaths.blocks;
 import java.util.Random;
 
 import com.dunk.tfc.ItemSetup;
+import com.facetorched.tfcaths.interfaces.ITree;
 import com.facetorched.tfcaths.util.AthsParser;
 
 import net.minecraft.block.Block;
@@ -10,7 +11,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class BlockPlantTree3d extends BlockPlant3d{
+public class BlockPlantTree3d extends BlockPlant3d implements ITree{
 	public BlockPlantTree3d() {
 		super();
 		setTreeBounds();
@@ -46,5 +47,9 @@ public class BlockPlantTree3d extends BlockPlant3d{
 			}
 		}
 		return true;
+	}
+	@Override
+	public ItemStack getSapling() {
+		return null;
 	}
 }

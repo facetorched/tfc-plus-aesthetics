@@ -11,7 +11,13 @@ import com.facetorched.tfcaths.WorldGen.Generators.AthsWorldGenCrystals;
 import com.facetorched.tfcaths.WorldGen.Generators.AthsWorldGenPlants;
 import com.facetorched.tfcaths.WorldGen.Generators.CrystalSpawnData;
 import com.facetorched.tfcaths.WorldGen.Generators.PlantSpawnData;
+import com.facetorched.tfcaths.blocks.BlockPlantCactus;
+import com.facetorched.tfcaths.blocks.BlockPlantEpiphyte3d;
+import com.facetorched.tfcaths.blocks.BlockPlantLilyPad;
+import com.facetorched.tfcaths.interfaces.ILilyPad;
+import com.facetorched.tfcaths.interfaces.ITree;
 
+import net.minecraft.entity.ai.attributes.RangedAttribute;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -24,11 +30,20 @@ public class Config {
 	//public static double[] cullSurfaceWeights;
 	//public static Block [] cullSurfaceBlocks;
 	public static float cullShrubs;
-	public static float rarityMultiplier;
+	
+	public static boolean mushroomRecipes;
+	public static boolean propagationRecipes;
+	public static boolean miscRecipes;
+	
+	public static float rarityTree;
+	public static float rarityLilyPad;
+	public static float rarityEpiphyte;
+	public static float rarityCactus;
+	public static float rarityOther;
 	
 	public static void preInit(File configDir){
 		if (config != null) throw new IllegalStateException("Preinit can't be called twice.");
-		config = new Configuration(new File(configDir,"TFCPlusAesthetics-" + AthsMod.VERSION + ".cfg"));
+		config = new Configuration(new File(configDir,"TFCPlusAesthetics.cfg"));
 	}
 	
 	public static void reload(){
@@ -43,7 +58,7 @@ public class Config {
 			OreDictionary.registerOre("blockSoil", AthsParser.getBlockFromName(soil));
 		}
 		
-		numCustomGenerators = config.getInt("numCustomGenerators", "_num_custom_generators", 1, 0, Integer.MAX_VALUE, "The number of custom plant generators to read from. The names of these generators are enumerated as \"plant_[n]\"");
+		numCustomGenerators = config.getInt("numCustomGenerators", "_num_custom_generators", 1, 0, Integer.MAX_VALUE, "The number of custom plant generators to read from. The names of these generators are enumerated as \"_z[n]\"");
 		
 		cullShrubs = config.getFloat("cullShrubs", "_cull_shrubs", 0.0f, 0.0f, 1.0f, "The degree to which TFC+ shrubs should be culled from the world. Set to 0 to disable the culling.");
 		/*
@@ -56,7 +71,15 @@ public class Config {
 		}
 		*/
 		
-		rarityMultiplier = config.getFloat("rarityMultiplier", "_rarity_multiplier", 1f, 0f, 10000f, "The multiplier applied globally to plant rarity. Set to 0 to disable plant spawning entirely :(");
+		mushroomRecipes = config.getBoolean("mushroomRecipes", "_mushroom_recipes", true, "Set to false to prevent fungi from being craftable into mushroom food items");
+		propagationRecipes = config.getBoolean("propagationRecipes", "_propagation_recipes", true, "Set to false to prevent plants from being growable in a barrel");
+		miscRecipes = config.getBoolean("miscRecipes", "_misc_recipes", true, "Set to false to prevent addition of various TFC+ styled plant-based recipes");
+		
+		rarityTree = config.getFloat("rarityTree", "_rarity_tree", 1f, 0f, 10000f, "The multiplier applied to tree-like plant rarity. Set to 0 to disable these from spawning entirely");
+		rarityLilyPad = config.getFloat("rarityLilyPad", "_rarity_lily_pad", 1f, 0f, 10000f, "The multiplier applied to lilypad-like plant rarity (including algae). Set to 0 to disable these from spawning entirely");
+		rarityEpiphyte = config.getFloat("rarityEpiphyte", "_rarity_epiphyte", 1f, 0f, 10000f, "The multiplier applied to epiphyte plant rarity. Set to 0 to disable these from spawning entirely");
+		rarityCactus = config.getFloat("rarityCactus", "_rarity_cactus", 1f, 0f, 10000f, "The multiplier applied to cactus rarity. Set to 0 to disable these from spawning entirely");
+		rarityOther = config.getFloat("rarityOther", "_rarity_other", 1f, 0f, 10000f, "The multiplier applied to non-categorized plants. Set to 0 to disable these from spawning entirely");
 		
 		if (config.hasChanged()) config.save();
 	}
@@ -483,29 +506,69 @@ public class Config {
 		        /*size*/15, /*dispersion*/10, /*rarity*/1550, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/8f, /*maxTemp*/30f, /*minRain*/25f, /*maxRain*/135f, /*minEVT*/0f, /*maxEVT*/4f,/*forestGen*/1.0f));
 
 		for(int i = 0; i < numCustomGenerators; i++) {
-			String name = "plant_" + i;
-			AthsWorldGenPlants.plantList.put(name, getPlantData(name, Reference.MOD_ID+":"+TFCBlocks.undergrowth.getUnlocalizedName().substring(5), new int[] {0}, new String[] {"ore:blockSoil"}, new String[] {"All", "!Hell"}, new String[]{"Americas", "Asia"}, 
+			String name = "_z" + i;
+			AthsWorldGenPlants.plantList.put(name, getCustomPlantData(name, Reference.MOD_ID+":"+TFCBlocks.undergrowth.getUnlocalizedName().substring(5), new int[] {0}, new String[] {"ore:blockSoil"}, new String[] {"All", "!Hell"}, new String[]{"Americas", "Asia"}, 
 					/*size*/3, /*dispersion*/1, /*rarity*/424, /*minAltitude*/0, /*maxAltitude*/180, /*minTemp*/0f, /*maxTemp*/40f, /*minRain*/750f, /*maxRain*/16000f, /*minEVT*/0f, /*maxEVT*/10f,/*forestGen*/1.0f));
 		}
 		
-		if(rarityMultiplier != 1f) {
-			if (rarityMultiplier <= 0f) {
-				for(PlantSpawnData d : AthsWorldGenPlants.plantList.values()) {
-					d.size = 0; // disable spawning for plants >:(
-				}
+		for(PlantSpawnData d : AthsWorldGenPlants.plantList.values()) {
+			if(d.block instanceof BlockPlantCactus) {
+				rarityHelper(d, rarityCactus);
+			}
+			else if(d.block instanceof BlockPlantEpiphyte3d) {
+				rarityHelper(d, rarityEpiphyte);
+			}
+			else if(d.block instanceof ILilyPad) {
+				rarityHelper(d, rarityLilyPad);
+			}
+			else if(d.block instanceof ITree) {
+				rarityHelper(d, rarityTree);
 			}
 			else {
-				for(PlantSpawnData d : AthsWorldGenPlants.plantList.values()) {
-					d.rarity *= rarityMultiplier;
-				}
+				rarityHelper(d, rarityOther);
 			}
 		}
+
 		
 		if (config.hasChanged())
 			config.save();
 	}
+
+	private static void rarityHelper(PlantSpawnData d, float rarity) {
+		if(rarity == 1f){
+			return;
+		}
+		else if (rarity <= 0f) {
+			d.size = 0;
+		}
+		else {
+			d.rarity *= rarity;
+		}
+	}
 	
 	private static PlantSpawnData getPlantData(String category, String blockName, int[] metas, String[] growOnBlocks, String[] biomes, String[] regions, int size, int dispersion,
+			int rarity, int minAltitude, int maxAltitude, float minTemp, float maxTemp, float minRainfall, float maxRainfall, float minEVT, float maxEVT, float forestGen){
+		return new PlantSpawnData(
+			blockName,
+			config.get(category, "metas", metas).getIntList(),
+			config.get(category, "growOnBlocks", growOnBlocks).getStringList(),
+			config.get(category, "biomes", biomes).setValidValues(AthsGlobal.ALLOWED_BIOMES).getStringList(),
+			config.get(category, "regions", regions).getStringList(),
+			config.get(category, "size", size).setMinValue(0).getInt(),
+			config.get(category, "dispersion", dispersion).setMinValue(1).getInt(),
+			config.get(category, "rarity", rarity).setMinValue(1).getInt(),
+			config.get(category, "minAltitude", minAltitude).setMinValue(0).setMaxValue(255).getInt(),
+			config.get(category, "maxAltitude", maxAltitude).setMinValue(0).setMaxValue(255).getInt(),
+			(float)config.get(category, "minTemp", minTemp).getDouble(),
+			(float)config.get(category, "maxTemp", maxTemp).getDouble(),
+			(float)config.get(category, "minRainfall", minRainfall).getDouble(),
+			(float)config.get(category, "maxRainfall", maxRainfall).getDouble(),
+			(float)config.get(category, "minEVT", minEVT).getDouble(),
+			(float)config.get(category, "maxEVT", maxEVT).getDouble(),
+			(float)config.get(category, "forestGen", forestGen).getDouble());
+	}
+	
+	private static PlantSpawnData getCustomPlantData(String category, String blockName, int[] metas, String[] growOnBlocks, String[] biomes, String[] regions, int size, int dispersion,
 			int rarity, int minAltitude, int maxAltitude, float minTemp, float maxTemp, float minRainfall, float maxRainfall, float minEVT, float maxEVT, float forestGen){
 		return new PlantSpawnData(
 			config.get(category, "blockName", blockName).getString(),

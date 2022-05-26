@@ -41,8 +41,6 @@ public class AthsMod
     	Config.preInit(event.getModConfigurationDirectory());
     	Config.reload();
     	
-    	AthsRecipes.RegisterRecipes();
-    	
     	GameRegistry.registerWorldGenerator(new AthsWorldGenPlants(), 200);
     	GameRegistry.registerWorldGenerator(new AthsWorldGenCrystals(), 201);
     }
@@ -52,6 +50,8 @@ public class AthsMod
     {
     	Config.reloadPlants();
     	Config.reloadCrystals();
+    	
+    	AthsRecipes.RegisterRecipes();
     	
     	AthsBlockSetup.addFlowerPotPlants();
     	

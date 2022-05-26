@@ -3,6 +3,7 @@ package com.facetorched.tfcaths.blocks;
 import java.util.List;
 import java.util.Random;
 
+import com.dunk.tfc.ItemSetup;
 import com.dunk.tfc.TerraFirmaCraft;
 import com.dunk.tfc.Blocks.BlockTerra;
 import com.dunk.tfc.Core.TFCTabs;
@@ -10,6 +11,7 @@ import com.dunk.tfc.Core.TFC_Climate;
 import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Core.TFC_Time;
 import com.dunk.tfc.Entities.Mobs.EntityWolfTFC;
+import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.api.TFCItems;
 import com.facetorched.tfcaths.AthsBlockSetup;
 import com.facetorched.tfcaths.AthsMod;
@@ -60,6 +62,7 @@ public class BlockPlant extends BlockTerra{
 	public boolean isDamaging;
 	public int poisonDuration;
 	public boolean isFlammable;
+	public ItemStack foodItemStack;
 
 	@SideOnly(Side.CLIENT)
 	protected IIcon[] icons;
@@ -127,6 +130,30 @@ public class BlockPlant extends BlockTerra{
 		}
 	}
 	
+	public int getNumBlacklist() {
+		if(blacklistMetas == null) {
+			return 0;
+		}
+		int result = 0;
+		for(boolean b : blacklistMetas) {
+			result += b ? 1 : 0;
+		}
+		return result;
+	}
+	
+	public int[] getMetas() {
+		
+		int[] result = new int[plantNames.length - getNumBlacklist()];
+		int index = 0;
+		for(int meta = 0; meta < plantNames.length; meta++) {
+			if (blacklistMetas == null || !blacklistMetas[meta]) {
+				result[index] = meta;
+				index++;
+			}
+		}
+		return result;
+	}
+	
 	public BlockPlant setGrassBounds() {
 		float var4 = 0.4F;
 		this.setBlockBounds(0.5F - var4, 0.0F, 0.5F - var4, 0.5F + var4, var4 * 2.0F, 0.5F + var4);
@@ -155,9 +182,6 @@ public class BlockPlant extends BlockTerra{
 		this.setHarvestLevel("axe", 0);
 		this.setIsFlammable();
 		return this.setHasCollision();
-	}
-	public BlockPlant setIsCactus() {
-		return this.setIsWoody().setIsDamaging();
 	}
 	public BlockPlant setPoisonDuration(int d) {
 		this.poisonDuration = d;
@@ -669,5 +693,22 @@ public class BlockPlant extends BlockTerra{
 	public int getComparatorInputOverride(World world, int x, int y, int z, int side) {
 		char c = this.plantKey.toLowerCase().charAt(0);
 		return (c - 'a') * 15 / 25 + 1;
+	}
+	
+	public ItemStack getFoodItemStack() {
+		return this.foodItemStack;
+	}
+	
+	public BlockPlant setFoodItemStack(Item food, float weight){
+		this.foodItemStack = ItemFoodTFC.createTag(new ItemStack(food, 1, 0), weight);
+		return this;
+	}	
+	
+	public BlockPlant setBrownMushroom(float weight) {
+		return setFoodItemStack(ItemSetup.mushroomFoodB, weight);
+	}
+
+	public BlockPlant setRedMushroom(float weight) {
+		return setFoodItemStack(ItemSetup.mushroomFoodR, weight);
 	}
 }
