@@ -146,6 +146,7 @@ public class BlockCrystal extends BlockTerra{
 	public boolean canPlaceBlockOnSide(World world, int x, int y, int z, int side) {
 		ForgeDirection d = ForgeDirection.getOrientation(side).getOpposite();
 		if (world.isSideSolid(x + d.offsetX, y + d.offsetY, z + d.offsetZ, ForgeDirection.getOrientation(side))) {
+			System.out.println(d);
 			return super.canPlaceBlockOnSide(world, x, y, z, side);
 		}
 		return false;
@@ -154,7 +155,7 @@ public class BlockCrystal extends BlockTerra{
 	@Override
 	public boolean canBlockStay(World world, int x, int y, int z){
 		ForgeDirection d = getDirection(world.getBlockMetadata(x, y, z)).getOpposite();
-		return world.isSideSolid(x + d.offsetX, y + d.offsetY, z + d.offsetZ, d);
+		return world.isSideSolid(x + d.offsetX, y + d.offsetY, z + d.offsetZ, d.getOpposite());
 	}
 	
 	@Override
