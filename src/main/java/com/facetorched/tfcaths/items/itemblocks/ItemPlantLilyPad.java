@@ -43,8 +43,6 @@ public class ItemPlantLilyPad extends ItemPlant{
 					System.out.println(OreDictionary.getOreName(id));
 				*/
 				
-				System.out.println(AthsParser.getAthsPlants(IFungus.class));
-				
 				if (!world.canMineBlock(par3EntityPlayer, i, j, k))
 					return par1ItemStack;
 
