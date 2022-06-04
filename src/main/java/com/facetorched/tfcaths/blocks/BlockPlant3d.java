@@ -50,6 +50,12 @@ public class BlockPlant3d extends BlockPlant{
 		}
 	}
 	
+	@Override
+	public BlockPlant setScale(float scale) {
+		this.scale = scale;
+		return this;
+	}
+	
 	public BlockPlant3d setIsAxisAligned() {
 		this.isAxisAligned = true;
 		return this;

@@ -592,7 +592,7 @@ public class BlockPlant extends BlockTerra{
 	}
 	public BlockPlant setScale(float scale) {
 		this.scale = scale;
-		if(this.getClass() == BlockPlant.class && scale > 1f) {
+		if(scale > 1f) {
 			setGrassBounds();
 		}
 		return this;

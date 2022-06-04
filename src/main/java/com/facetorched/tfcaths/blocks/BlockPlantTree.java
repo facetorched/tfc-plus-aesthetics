@@ -25,6 +25,12 @@ public class BlockPlantTree extends BlockPlant implements ITree{
 		this.renderId = AthsBlockSetup.plantTreeRenderID;
 	}
 	
+	@Override
+	public BlockPlant setScale(float scale) {
+		this.scale = scale;
+		return this;
+	}
+	
 	public BlockPlantTree setSapling(ItemStack sapling) {
 		this.sapling = sapling;
 		return this;

@@ -32,4 +32,9 @@ public class BlockPlantLilyPad extends BlockPlant implements ILilyPad{
 			return true;
 		return false;
 	}
+	
+	@Override
+	public BlockPlant setScale(float scale) {
+		throw new UnsupportedOperationException("Cannot set the scale of BlockPlantLilyPad");
+	}
 }

@@ -31,4 +31,9 @@ public class BlockPlantLow extends BlockPlant{
 			sideIcons[i] = register.registerIcon(AthsMod.MODID+":plants/"+plantNames[i]+"_Side");
 		}
 	}
+	
+	@Override
+	public BlockPlant setScale(float scale) {
+		throw new UnsupportedOperationException("Cannot set the scale of BlockPlantLow");
+	}
 }

@@ -11,4 +11,9 @@ public class BlockPlantLayer extends BlockPlant{
 		setLayerBounds(.0625f);
 		this.renderId = AthsBlockSetup.plantLayerRenderID;
 	}
+	
+	@Override
+	public BlockPlant setScale(float scale) {
+		throw new UnsupportedOperationException("Cannot set the scale of BlockPlantLayer");
+	}
 }
