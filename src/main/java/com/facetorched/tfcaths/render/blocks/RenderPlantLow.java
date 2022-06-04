@@ -2,9 +2,11 @@ package com.facetorched.tfcaths.render.blocks;
 
 import java.util.Random;
 
+import com.dunk.tfc.api.TFCBlocks;
 import com.facetorched.tfcaths.AthsBlockSetup;
 import com.facetorched.tfcaths.blocks.BlockPlantLow;
 
+import cpw.mods.fml.client.registry.RenderingRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
@@ -13,12 +15,14 @@ import net.minecraft.world.IBlockAccess;
 
 public class RenderPlantLow extends AbstractRenderPlant{
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public boolean renderPlantBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId,
 			RenderBlocks renderer, Tessellator tessellator, int rgb, int meta, float scale, IIcon icon, Random random) {
 		if(!(block instanceof BlockPlantLow)) {
 			return false;
 		}
+		RenderingRegistry.instance().renderWorldBlock(renderer, world, x, y, z, TFCBlocks.leafLitter, TFCBlocks.leafLitterRenderId);
 		BlockPlantLow plantLow = (BlockPlantLow)block;
 		renderer.drawCrossedSquares(plantLow.sideIcons[meta], x, y, z, scale);
 		int rotation = 0;

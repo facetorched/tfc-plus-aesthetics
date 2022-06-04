@@ -202,6 +202,9 @@ public class BlockPlant extends BlockTerra{
 		super.harvestBlock(world, player, x, y, z, meta);
 	}
 	public BlockPlant setRenderID(int id) {
+		if(id == AthsBlockSetup.plantCropRenderID) {
+			setGrassBounds();
+		}
 		this.renderId = id;
 		return this;
 	}

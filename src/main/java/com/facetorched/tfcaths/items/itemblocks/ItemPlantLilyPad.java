@@ -1,8 +1,5 @@
 package com.facetorched.tfcaths.items.itemblocks;
 
-import com.facetorched.tfcaths.interfaces.IFungus;
-import com.facetorched.tfcaths.util.AthsParser;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
