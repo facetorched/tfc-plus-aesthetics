@@ -6,6 +6,7 @@ import com.dunk.tfc.Core.TFC_Time;
 import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.Constant.Global;
 import com.dunk.tfc.api.Enums.EnumTree;
+import com.facetorched.teloaddon.TeloItemSetup;
 import com.facetorched.tfcaths.blocks.BlockCrystal;
 import com.facetorched.tfcaths.blocks.BlockCrystalCluster;
 import com.facetorched.tfcaths.blocks.BlockPlant;
@@ -35,6 +36,8 @@ import com.facetorched.tfcaths.enums.EnumVary;
 import com.facetorched.tfcaths.items.itemblocks.ItemCrystal;
 import com.facetorched.tfcaths.util.AthsParser;
 
+import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.ModClassLoader;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -238,6 +241,8 @@ public class AthsBlockSetup {
 	public static Block topazCluster;
 	public static Block tourmaline;
 	public static Block tourmalineCluster;
+	public static Block fluorite;
+	public static Block fluoriteCluster;
 	
 	public static Block gypsum;
 	public static Block gypsumCluster;
@@ -283,6 +288,11 @@ public class AthsBlockSetup {
 		topazCluster = crystalClusterRegistryHelper(topaz);
 		tourmaline = crystalRegistryHelper(new BlockCrystal().setItemRare(ItemSetup.gemTourmaline), AthsGlobal.TOURMALINE);
 		tourmalineCluster = crystalClusterRegistryHelper(tourmaline);
+		
+		if (Loader.isModLoaded("teloaddon") && com.facetorched.teloaddon.util.Config.addFluorite) {
+			fluorite = crystalRegistryHelper(new BlockCrystal().setItemCommon(TeloItemSetup.fluorite), AthsGlobal.FLUORITE);
+			fluoriteCluster = crystalClusterRegistryHelper(fluorite);
+		}
 		
 		//non "Gems"
 		gypsum = crystalRegistryHelper(new BlockCrystal(), AthsGlobal.GYPSUM);

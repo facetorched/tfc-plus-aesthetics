@@ -26,6 +26,7 @@ public class AthsGlobal {
 	public static final String SAPPHIRE = "Sapphire";
 	public static final String TOPAZ = "Topaz";
 	public static final String TOURMALINE = "Tourmaline";
+	public static final String FLUORITE = "Fluorite";
 	
 	public static final String ROCK_CRYSTAL = "Rock_Crystal";
 	public static final String GYPSUM = "Gypsum";

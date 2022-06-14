@@ -16,6 +16,7 @@ import com.facetorched.tfcaths.blocks.BlockPlantEpiphyte3d;
 import com.facetorched.tfcaths.interfaces.ILilyPad;
 import com.facetorched.tfcaths.interfaces.ITree;
 
+import cpw.mods.fml.common.Loader;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -83,22 +84,26 @@ public class Config {
 	}
 	
 	public static void reloadCrystals() {
-		athsCrystalHelper(AthsGlobal.AGATE, new String[] {"Sed","Diorite","Granite","Rhyolite","Andesite"}, /*size*/1, /*dispersion*/1, /*rarity*/100);
-        athsCrystalClusterHelper(AthsGlobal.AMETHYST, new String[] {"IgEx","Limestone","Granite"}, /*size*/20, /*dispersion*/1, /*rarity*/160);
-        athsCrystalClusterHelper(AthsGlobal.BERYL, new String[] {"Granite","Rhyolite","Gneiss"}, /*size*/18, /*dispersion*/3, /*rarity*/420);
-        athsCrystalClusterHelper(AthsGlobal.DIAMOND, new String[] {"Gabbro"}, /*size*/35, /*dispersion*/2, /*rarity*/350);
-        athsCrystalClusterHelper(AthsGlobal.EMERALD, new String[] {"Granite","Rhyolite","Gneiss"}, /*size*/18, /*dispersion*/3, /*rarity*/500);
-        athsCrystalClusterHelper(AthsGlobal.GARNET, new String[] {"Granite","MM","Sandstone","Shale","Claystone"}, /*size*/15, /*dispersion*/5, /*rarity*/400);
-        athsCrystalHelper(AthsGlobal.JADE, new String[] {"MM"}, /*size*/1, /*dispersion*/1, /*rarity*/350);
-        athsCrystalHelper(AthsGlobal.JASPER, new String[] {"Chert","Limestone","Dolomite","Schist","Gneiss","Phyllite","Slate"}, /*size*/1, /*dispersion*/1, /*rarity*/100);
-        athsCrystalHelper(AthsGlobal.OPAL, new String[] {"All"}, /*size*/1, /*dispersion*/1, /*rarity*/650);
-        athsCrystalClusterHelper(AthsGlobal.RUBY, new String[] {"IgIn","MM"}, /*size*/20, /*dispersion*/6, /*rarity*/500);
-        athsCrystalClusterHelper(AthsGlobal.SAPPHIRE, new String[] {"IgIn","MM"}, /*size*/20, /*dispersion*/6, /*rarity*/500);
-        athsCrystalClusterHelper(AthsGlobal.TOPAZ, new String[] {"Granite","Rhyolite"}, /*size*/18, /*dispersion*/3, /*rarity*/400);
-        athsCrystalClusterHelper(AthsGlobal.TOURMALINE, new String[] {"Granite","Diorite","Gneiss","Phyllite","Quartzite"}, /*size*/18, /*dispersion*/3, /*rarity*/400);
+		athsCrystalHelper(AthsGlobal.AGATE, new String[] {"Sed","Diorite","Granite","Rhyolite","Andesite"}, /*size*/1, /*dispersion*/1, /*rarity*/70);
+        athsCrystalClusterHelper(AthsGlobal.AMETHYST, new String[] {"IgEx","Limestone","Granite"}, /*size*/20, /*dispersion*/1, /*rarity*/120);
+        athsCrystalClusterHelper(AthsGlobal.BERYL, new String[] {"Granite","Rhyolite","Gneiss"}, /*size*/18, /*dispersion*/3, /*rarity*/300);
+        athsCrystalClusterHelper(AthsGlobal.DIAMOND, new String[] {"Gabbro"}, /*size*/35, /*dispersion*/2, /*rarity*/280);
+        athsCrystalClusterHelper(AthsGlobal.EMERALD, new String[] {"Granite","Rhyolite","Gneiss"}, /*size*/18, /*dispersion*/3, /*rarity*/350);
+        athsCrystalClusterHelper(AthsGlobal.GARNET, new String[] {"Granite","MM","Sandstone","Shale","Claystone"}, /*size*/15, /*dispersion*/5, /*rarity*/300);
+        athsCrystalHelper(AthsGlobal.JADE, new String[] {"MM"}, /*size*/1, /*dispersion*/1, /*rarity*/280);
+        athsCrystalHelper(AthsGlobal.JASPER, new String[] {"Chert","Limestone","Dolomite","Schist","Gneiss","Phyllite","Slate"}, /*size*/1, /*dispersion*/1, /*rarity*/70);
+        athsCrystalHelper(AthsGlobal.OPAL, new String[] {"All"}, /*size*/1, /*dispersion*/1, /*rarity*/480);
+        athsCrystalClusterHelper(AthsGlobal.RUBY, new String[] {"IgIn","MM"}, /*size*/20, /*dispersion*/6, /*rarity*/350);
+        athsCrystalClusterHelper(AthsGlobal.SAPPHIRE, new String[] {"IgIn","MM"}, /*size*/20, /*dispersion*/6, /*rarity*/350);
+        athsCrystalClusterHelper(AthsGlobal.TOPAZ, new String[] {"Granite","Rhyolite"}, /*size*/18, /*dispersion*/3, /*rarity*/280);
+        athsCrystalClusterHelper(AthsGlobal.TOURMALINE, new String[] {"Granite","Diorite","Gneiss","Phyllite","Quartzite"}, /*size*/18, /*dispersion*/3, /*rarity*/280);
         
-        athsCrystalClusterHelper(AthsGlobal.ROCK_CRYSTAL, new String[] {"MM"}, /*size*/20, /*dispersion*/1, /*rarity*/120);
-        athsCrystalClusterHelper(AthsGlobal.GYPSUM, new String[] {"MM"}, /*size*/50, /*dispersion*/1, /*rarity*/140);
+        if (Loader.isModLoaded("teloaddon") && com.facetorched.teloaddon.util.Config.addFluorite) {
+        	athsCrystalClusterHelper(AthsGlobal.FLUORITE, new String[] {"Limestone","Dolomite","Granite","Rhyolite","Sandstone"}, /*size*/20, /*dispersion*/1, /*rarity*/70);
+        }
+        
+        athsCrystalClusterHelper(AthsGlobal.ROCK_CRYSTAL, new String[] {"MM"}, /*size*/20, /*dispersion*/1, /*rarity*/80);
+        athsCrystalClusterHelper(AthsGlobal.GYPSUM, new String[] {"MM"}, /*size*/50, /*dispersion*/1, /*rarity*/100);
 		
 		if (config.hasChanged()) 
 			config.save();
