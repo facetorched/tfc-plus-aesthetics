@@ -1,6 +1,25 @@
 # TFC+ Aesthetics
 World generated decoration blocks for TFC+ to make the world prettier
 
+# Feature Summary
+- **Plants**
+  - 167 unique and aesthetic plants
+  - By default, each plant generates based on its real-world native habitat within your TFC+ world.
+  - Many of the plants will change appearance depending on the time of year and weather.
+  - Grass-like plants can be harvested with a knife for straw
+  - Tree-like plants will drop sticks, poles and saplings
+  - All plants can be broken with a shovel to obtain the plant itself. (Some do already, even without a shovel)
+- **Crafting Recipes**
+  - Edible mushrooms can be crafted with a knife to make food items
+  - Papyrus can be crafted into paper
+- **Barrel Recipes**
+  - All plants can be duplicated in a barrel of freshwater over a fairly long time
+  - Fruiting pokeweed can be turned into liquid red dye by putting in a barrel of tannin
+- **Crystals**
+  - Clusters generate in caves based on rock type.
+  - Can be broken with a pickaxe to obtain gemstones
+  - Can be broken with a chisel to obtain the Crystal block itself
+
 # Instructions for configuration
 
 ## General
