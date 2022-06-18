@@ -18,7 +18,7 @@ World generated decoration blocks for TFC+ to make the world prettier
 - **Crystals**
   - Clusters generate in caves based on rock type.
   - Can be broken with a pickaxe to obtain gemstones
-  - Can be broken with a chisel to obtain the Crystal block itself
+  - Right click with a chisel to obtain the Crystal block itself
 
 # Instructions for configuration
 
