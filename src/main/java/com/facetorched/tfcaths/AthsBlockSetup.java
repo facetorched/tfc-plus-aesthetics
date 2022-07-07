@@ -35,6 +35,7 @@ import com.facetorched.tfcaths.blocks.BlockPlantTreeTrimmableFlower;
 import com.facetorched.tfcaths.enums.EnumVary;
 import com.facetorched.tfcaths.items.itemblocks.ItemCrystal;
 import com.facetorched.tfcaths.util.AthsParser;
+import com.facetorched.tfcaths.util.Config;
 
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.ModClassLoader;
@@ -42,6 +43,8 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 
 public class AthsBlockSetup {
 	
@@ -280,13 +283,13 @@ public class AthsBlockSetup {
 		emeraldCluster = crystalClusterRegistryHelper(emerald);
 		garnet = crystalRegistryHelper(new BlockCrystal().setItemCommon(ItemSetup.gemGarnet), AthsGlobal.GARNET);
 		garnetCluster = crystalClusterRegistryHelper(garnet);
-		ruby = crystalRegistryHelper(new BlockCrystal().setItemRare(ItemSetup.gemRuby), AthsGlobal.RUBY);
+		ruby = crystalRegistryHelper(new BlockCrystal().setItemCommon(ItemSetup.gemRuby), AthsGlobal.RUBY);
 		rubyCluster = crystalClusterRegistryHelper(ruby);
-		sapphire = crystalRegistryHelper(new BlockCrystal().setItemRare(ItemSetup.gemSapphire), AthsGlobal.SAPPHIRE);
+		sapphire = crystalRegistryHelper(new BlockCrystal().setItemCommon(ItemSetup.gemSapphire), AthsGlobal.SAPPHIRE);
 		sapphireCluster = crystalClusterRegistryHelper(sapphire);
-		topaz = crystalRegistryHelper(new BlockCrystal().setItemRare(ItemSetup.gemTopaz), AthsGlobal.TOPAZ);
+		topaz = crystalRegistryHelper(new BlockCrystal().setItemCommon(ItemSetup.gemTopaz), AthsGlobal.TOPAZ);
 		topazCluster = crystalClusterRegistryHelper(topaz);
-		tourmaline = crystalRegistryHelper(new BlockCrystal().setItemRare(ItemSetup.gemTourmaline), AthsGlobal.TOURMALINE);
+		tourmaline = crystalRegistryHelper(new BlockCrystal().setItemCommon(ItemSetup.gemTourmaline), AthsGlobal.TOURMALINE);
 		tourmalineCluster = crystalClusterRegistryHelper(tourmaline);
 		
 		if (Loader.isModLoaded("teloaddon") && com.facetorched.teloaddon.util.Config.addFluorite) {
@@ -295,9 +298,9 @@ public class AthsBlockSetup {
 		}
 		
 		//non "Gems"
-		gypsum = crystalRegistryHelper(new BlockCrystal(), AthsGlobal.GYPSUM);
+		gypsum = crystalRegistryHelper(new BlockCrystal().setItem(ItemSetup.powder, 11), AthsGlobal.GYPSUM);
 		gypsumCluster = crystalRegistryHelper(new BlockCrystalCluster().setItem(ItemSetup.oreChunk, Global.oreSize + 1), AthsGlobal.GYPSUM);
-		rockCrystal = crystalRegistryHelper(new BlockCrystal(), AthsGlobal.ROCK_CRYSTAL);
+		rockCrystal = crystalRegistryHelper(new BlockCrystal().setItem(ItemSetup.looseRock, 15), AthsGlobal.ROCK_CRYSTAL);
 		rockCrystalCluster = crystalRegistryHelper(new BlockCrystalCluster().setItem(ItemSetup.looseRock, 15), AthsGlobal.ROCK_CRYSTAL);
 		
 		// plants with various sizes
@@ -450,7 +453,7 @@ public class AthsBlockSetup {
 		maidenhairFern = plantRegistryHelper(new BlockPlant3d().setName(AthsGlobal.MAIDENHAIR_FERN).addVarys(new EnumVary[] {EnumVary.WINTER, EnumVary.SNOW}).setNamedPart("Frond").setScale(1f));
 		victoriaLilyPad = plantRegistryHelper(new BlockPlantLilyPad3d().setOvercrowdRadius(1).setName(AthsGlobal.VICTORIA_LILY_PAD).setParts(new String[] {"Base", "Rim_Gap", "Rim_Middle", "Roots"}).setScale(2.0f));
 		yucca = plantRegistryHelper(new BlockPlant3d().setName(AthsGlobal.YUCCA).addVary(EnumVary.FLOWER).setVaryPart(EnumVary.FLOWER, "Flower").setPart("Leaf").setFlowerMonthRange(TFC_Time.APRIL, TFC_Time.JUNE).setScale(1.5f));
-		burdock = plantRegistryHelper(new BlockPlant3dFlower().setName(AthsGlobal.BURDOCK).addVarys(new EnumVary[] {EnumVary.AUTUMN, EnumVary.WINTER, EnumVary.FLOWER}).setNamedVaryPart(new EnumVary[] {EnumVary.AUTUMN, EnumVary.WINTER, EnumVary.FLOWER}, "Stem").setVaryPart(new EnumVary[] {EnumVary.DEFAULT, EnumVary.AUTUMN, EnumVary.FLOWER}, "Leaf").setFlowerMonthRange(TFC_Time.JUNE, TFC_Time.OCTOBER).setScale(2f));
+		burdock = plantRegistryHelper(new BlockPlant3dFlower().setExtraNames(AthsGlobal.BURDOCK, "Large").addVarys(new EnumVary[] {EnumVary.AUTUMN, EnumVary.WINTER, EnumVary.FLOWER, EnumVary.SNOW}).setNamedVaryPart(new EnumVary[] {EnumVary.AUTUMN, EnumVary.WINTER, EnumVary.FLOWER, EnumVary.SNOW}, "Stem").setVaryPart(new EnumVary[] {EnumVary.DEFAULT, EnumVary.AUTUMN, EnumVary.FLOWER}, "Leaf").setFlowerMonthRange(TFC_Time.JUNE, TFC_Time.OCTOBER).setScale(2f));
 		waterHyacinth = plantRegistryHelper(new BlockPlantLilyPad3dFlower().setName(AthsGlobal.WATER_HYACINTH).addVary(EnumVary.FLOWER).setNamedVaryPart(EnumVary.FLOWER, "Top").setNamedVaryPart(EnumVary.DEFAULT, "Top").setPart("Base").setPart("Roots").setFlowerMonthRange(TFC_Time.AUGUST, TFC_Time.SEPTEMBER));
 		sumac = plantRegistryHelper(new BlockPlantTree3dFlower().setExtraNames(AthsGlobal.SUMAC, "Large").addVarys(new EnumVary[] {EnumVary.AUTUMN, EnumVary.WINTER, EnumVary.FLOWER}).setVaryPart(new EnumVary[] {EnumVary.AUTUMN, EnumVary.WINTER, EnumVary.FLOWER}, "Flower").setVaryPart(new EnumVary[] {EnumVary.DEFAULT, EnumVary.FLOWER}, "Leaves").setNamedVaryPart(EnumVary.AUTUMN, "Leaves").setParts(new String[] {"Stem_Top", "Stem_Bottom", "Stem_Middle"}).setFlowerMonthRange(TFC_Time.JULY, TFC_Time.NOVEMBER).setScale(3f));
 		hostaHalcyon = plantRegistryHelper(new BlockPlant3dFlower().setName(AthsGlobal.HOSTA_HALCYON).setOverrideModelName("Hosta").addVarys(new EnumVary[] {EnumVary.AUTUMN, EnumVary.WINTER, EnumVary.FLOWER}).setNamedVaryParts(new EnumVary[] {EnumVary.DEFAULT, EnumVary.WINTER, EnumVary.FLOWER}, new String[] {"Scape"}).setVaryParts(new EnumVary[] {EnumVary.DEFAULT, EnumVary.FLOWER}, new String[] {"Stem", "Leaf"}).setVaryParts(EnumVary.AUTUMN, "Hosta", new String[] {"Autumn_Leaf", "Autumn_Stem"}).setFlowerMonthRange(TFC_Time.JULY, TFC_Time.AUGUST).setScale(2f));

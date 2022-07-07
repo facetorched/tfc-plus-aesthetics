@@ -12,6 +12,7 @@ import com.facetorched.tfcaths.AthsMod;
 import com.facetorched.tfcaths.WorldGen.Generators.AthsWorldGenCrystals;
 import com.facetorched.tfcaths.WorldGen.Generators.CrystalSpawnData;
 import com.facetorched.tfcaths.util.AthsParser;
+import com.facetorched.tfcaths.util.Config;
 import com.facetorched.tfcaths.util.Point3D;
 import com.facetorched.tfcaths.util.Point3DD;
 
@@ -68,6 +69,7 @@ public class BlockCrystal extends BlockTerra{
 			CrystalSpawnData data = new CrystalSpawnData(AthsMod.MODID+":"+this.crystalName, AthsMod.MODID+":"+this.crystalName+"_Cluster", new String[] {"All"}, 1, 1, 1);
 			ArrayList<Point3D> points = AthsWorldGenCrystals.getValidOpenings(p.add(AthsGlobal.NEIGHBORS), data, world);
 			System.out.println(data.block2);
+			System.out.println(Config.rockCrystalNetherQuartz);
 			for(Point3D point : points) {
 				AthsWorldGenCrystals.placeCrystal(point, data, world, new Random());
 				//world.setBlock(point.x, point.y, point.z, Blocks.glass);
@@ -146,7 +148,6 @@ public class BlockCrystal extends BlockTerra{
 	public boolean canPlaceBlockOnSide(World world, int x, int y, int z, int side) {
 		ForgeDirection d = ForgeDirection.getOrientation(side).getOpposite();
 		if (world.isSideSolid(x + d.offsetX, y + d.offsetY, z + d.offsetZ, ForgeDirection.getOrientation(side))) {
-			System.out.println(d);
 			return super.canPlaceBlockOnSide(world, x, y, z, side);
 		}
 		return false;

@@ -5,18 +5,21 @@ import java.io.File;
 import com.dunk.tfc.Reference;
 import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.Enums.EnumTree;
+import com.facetorched.tfcaths.AthsBlockSetup;
 import com.facetorched.tfcaths.AthsGlobal;
 import com.facetorched.tfcaths.AthsMod;
 import com.facetorched.tfcaths.WorldGen.Generators.AthsWorldGenCrystals;
 import com.facetorched.tfcaths.WorldGen.Generators.AthsWorldGenPlants;
 import com.facetorched.tfcaths.WorldGen.Generators.CrystalSpawnData;
 import com.facetorched.tfcaths.WorldGen.Generators.PlantSpawnData;
+import com.facetorched.tfcaths.blocks.BlockCrystal;
 import com.facetorched.tfcaths.blocks.BlockPlantCactus;
 import com.facetorched.tfcaths.blocks.BlockPlantEpiphyte3d;
 import com.facetorched.tfcaths.interfaces.ILilyPad;
 import com.facetorched.tfcaths.interfaces.ITree;
 
 import cpw.mods.fml.common.Loader;
+import net.minecraft.init.Items;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -39,6 +42,8 @@ public class Config {
 	public static float rarityEpiphyte;
 	public static float rarityCactus;
 	public static float rarityOther;
+	
+	public static boolean rockCrystalNetherQuartz;
 	
 	public static void preInit(File configDir){
 		if (config != null) throw new IllegalStateException("Preinit can't be called twice.");
@@ -79,6 +84,10 @@ public class Config {
 		rarityEpiphyte = config.getFloat("rarityEpiphyte", "_rarity_epiphyte", 1f, 0f, 10000f, "The multiplier applied to epiphyte plant rarity. Set to 0 to disable these from spawning entirely");
 		rarityCactus = config.getFloat("rarityCactus", "_rarity_cactus", 1f, 0f, 10000f, "The multiplier applied to cactus rarity. Set to 0 to disable these from spawning entirely");
 		rarityOther = config.getFloat("rarityOther", "_rarity_other", 1f, 0f, 10000f, "The multiplier applied to non-categorized plants. Set to 0 to disable these from spawning entirely");
+		
+		rockCrystalNetherQuartz = config.getBoolean("rockCrystalNetherQuartz", "_rock_crystal_nether_quartz", true, "Set to false to prevent rock crystal from dropping nether quartz. Will drop quartzite rocks only.");
+		if (rockCrystalNetherQuartz)
+			((BlockCrystal)(AthsBlockSetup.rockCrystalCluster)).setItem(Items.quartz, 0);
 		
 		if (config.hasChanged()) config.save();
 	}
@@ -156,7 +165,7 @@ public class Config {
 				/*size*/22, /*dispersion*/8, /*rarity*/2568, /*minAltitude*/144, /*maxAltitude*/160, /*minTemp*/-10f, /*maxTemp*/30f, /*minRain*/500f, /*maxRain*/1000f, /*minEVT*/0f, /*maxEVT*/10f,/*forestGen*/-0.4f);
 		athsPlantHelper(AthsGlobal.BRIDAL_VEIL_STINKHORN, new int[] {0}, new String[] {"ore:blockSoil"}, AthsGlobal.LAND_BIOMES, new String[]{"Americas", "Asia","Africa"},
 				/*size*/2, /*dispersion*/1, /*rarity*/10096, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/20f, /*maxTemp*/32f, /*minRain*/1000f, /*maxRain*/8000f, /*minEVT*/1f, /*maxEVT*/10f);
-		athsPlantHelper(AthsGlobal.BURDOCK, new int[] {0}, new String[] {"ore:blockSoil"}, AthsGlobal.LAND_BIOMES, new String[]{"Asia","Europe"},
+		athsPlantHelper(AthsGlobal.BURDOCK, new int[] {0,1}, new String[] {"ore:blockSoil"}, AthsGlobal.LAND_BIOMES, new String[]{"Asia","Europe"},
 				/*size*/8, /*dispersion*/9, /*rarity*/968, /*minAltitude*/144, /*maxAltitude*/255, /*minTemp*/-5f, /*maxTemp*/18f, /*minRain*/450f, /*maxRain*/1500f, /*minEVT*/0f, /*maxEVT*/4f);
 		athsPlantHelper(AthsGlobal.CAMAS_FLOWER, new int[] {0}, new String[] {"ore:blockSoil"}, AthsGlobal.LAND_BIOMES, new String[]{"Americas"},
 				/*size*/25, /*dispersion*/6, /*rarity*/6384, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/-13f, /*maxTemp*/12f, /*minRain*/300f, /*maxRain*/750f, /*minEVT*/0f, /*maxEVT*/2f);

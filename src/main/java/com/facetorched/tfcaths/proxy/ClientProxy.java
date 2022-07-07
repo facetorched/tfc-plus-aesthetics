@@ -16,6 +16,7 @@ import com.facetorched.tfcaths.render.blocks.RenderPlantWater;
 
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
@@ -50,6 +51,7 @@ public class ClientProxy implements IProxy {
         // DEBUG
         //System.out.println("on Client side");
         // register key bindings
+    	registerWailaClasses();
     }
 
     @Override
@@ -60,4 +62,8 @@ public class ClientProxy implements IProxy {
         // DEBUG
         //System.out.println("on Client side");
     }
+    
+    public void registerWailaClasses(){
+		FMLInterModComms.sendMessage("Waila", "register", "com.facetorched.tfcaths.waila.BlockData.callbackRegister"); // Blocks
+	}
 }
