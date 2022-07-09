@@ -27,10 +27,10 @@ public class BlockData implements IWailaDataProvider
 	public ItemStack getWailaStack(IWailaDataAccessor accessor, IWailaConfigHandler config)
 	{
 		Block block = accessor.getBlock();
-
 		if (block instanceof BlockCrystal) {
 			BlockCrystal b = (BlockCrystal)(block);
-			return new ItemStack(b.crystalItem, 1, b.crystalMetas[0]);
+			int meta = (int)((accessor.getWorld().getTotalWorldTime() / 20) % b.crystalMetas.length);
+			return new ItemStack(b.crystalItem, 1, b.crystalMetas[meta]);
 		}
 		return null;
 	}
