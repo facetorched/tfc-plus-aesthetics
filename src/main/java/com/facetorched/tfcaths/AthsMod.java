@@ -21,7 +21,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class AthsMod
 {
     public static final String MODID = "tfcaths";
-    public static final String VERSION = "1.6.0"; // change in gradle.build as well
+    public static final String VERSION = "1.6.1"; // change in gradle.build as well
     public static final String NAME = "TFC+ Aesthetics";
     
     @SidedProxy(
@@ -51,7 +51,7 @@ public class AthsMod
     	Config.reloadPlants();
     	Config.reloadCrystals();
     	
-    	AthsRecipes.RegisterRecipes();
+    	AthsRecipes.registerRecipes();
     	
     	AthsBlockSetup.addFlowerPotPlants();
     	

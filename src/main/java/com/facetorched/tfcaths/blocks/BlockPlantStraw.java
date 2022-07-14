@@ -9,7 +9,6 @@ import com.facetorched.tfcaths.util.AthsParser;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -20,12 +19,15 @@ public class BlockPlantStraw extends BlockPlant implements IShearable{
 	public BlockPlantStraw() {
 		super(Material.vine);
 		setGrassBounds();
+		setHasNoDrops();
 	}
 	
 	@Override
 	public void harvestBlock(World world, EntityPlayer player, int x, int y, int z, int meta) {
-		//super.harvestBlock(world, player, x, y, z, meta);
-
+		if(world.isRemote) {
+			super.harvestBlock(world, player, x, y, z, meta);
+			return;
+		}
 		ItemStack is = player.inventory.getCurrentItem();
 		if (is != null && is.getItem() == TFCItems.stoneFlake){
 			dropItemStacks(world, x, y, z, new ItemStack(ItemSetup.straw), 1, getMaxStraw(meta), new Random());
@@ -35,18 +37,12 @@ public class BlockPlantStraw extends BlockPlant implements IShearable{
 			return;
 		}
 		int[] equipIDs = OreDictionary.getOreIDs(is);
-		for (int id : equipIDs)
-		{
+		for (int id : equipIDs){
 			String name = OreDictionary.getOreName(id);
-			if (name.startsWith("itemShovel")) {
-				dropBlockAsItem(world, x, y, z, new ItemStack(this, 1, meta));
-				AthsParser.damageItem(player, is);
-				break;
-			}
-			else if (name.startsWith("itemKnife")){
+			if (name.startsWith("itemKnife")){
 				dropItemStacks(world, x, y, z, new ItemStack(ItemSetup.straw), 1, getMaxStraw(meta), new Random());
 				AthsParser.damageItem(player, is);
-				break;
+				return;
 			}
 			else if (name.startsWith("itemScythe"))
 			{
@@ -62,26 +58,19 @@ public class BlockPlantStraw extends BlockPlant implements IShearable{
 						}
 					}
 				}
-				break;
+				return;
 			}
 		}
-	}
-	@Override
-	protected void checkAndDropBlock(World world, int x, int y, int z){
-		if (!this.canBlockStay(world, x, y, z)){
-			world.setBlock(x, y, z, Blocks.air, 0, 2);
-		}
+		super.harvestBlock(world, player, x, y, z, meta);
 	}
 
 	@Override
-	public boolean isShearable(ItemStack item, IBlockAccess world, int x, int y, int z)
-	{
+	public boolean isShearable(ItemStack item, IBlockAccess world, int x, int y, int z){
 		return true;
 	}
 
 	@Override
-	public ArrayList<ItemStack> onSheared(ItemStack item, IBlockAccess world, int x, int y, int z, int fortune)
-	{
+	public ArrayList<ItemStack> onSheared(ItemStack item, IBlockAccess world, int x, int y, int z, int fortune){
 		ArrayList<ItemStack> ret = new ArrayList<ItemStack>();
 		ret.add(new ItemStack(this, 1, world.getBlockMetadata(x, y, z)));
 		return ret;

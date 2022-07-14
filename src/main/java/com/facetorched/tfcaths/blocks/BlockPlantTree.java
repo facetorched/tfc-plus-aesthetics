@@ -58,8 +58,8 @@ public class BlockPlantTree extends BlockPlant implements ITree{
 	@Override
 	public void harvestBlock(World world, EntityPlayer player, int x, int y, int z, int meta) {
 		if(AthsParser.isHolding(world, player, "itemShovel"))
-			dropBlockAsItem(world, x, y, z, new ItemStack(this, 1, meta));
-		else {
+			super.harvestBlock(world, player, x, y, z, meta);
+		else if (!world.isRemote) {
 			Random random = new Random();
 			if (this.sapling != null)
 				dropItemStacks(world, x, y, z, this.sapling, 0, 3, random);
@@ -67,12 +67,6 @@ public class BlockPlantTree extends BlockPlant implements ITree{
 				dropItemStacks(world, x, y, z, new ItemStack(ItemSetup.stick), 0, 3, random);
 			else
 				dropItemStacks(world, x, y, z, new ItemStack(ItemSetup.stick), 2, 5, random);
-		}
-	}
-	@Override
-	protected void checkAndDropBlock(World world, int x, int y, int z){
-		if (!this.canBlockStay(world, x, y, z)){
-			world.setBlock(x, y, z, getBlockById(0), 0, 2); // set to air
 		}
 	}
 	

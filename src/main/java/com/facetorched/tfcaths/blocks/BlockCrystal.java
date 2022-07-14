@@ -12,7 +12,6 @@ import com.facetorched.tfcaths.AthsMod;
 import com.facetorched.tfcaths.WorldGen.Generators.AthsWorldGenCrystals;
 import com.facetorched.tfcaths.WorldGen.Generators.CrystalSpawnData;
 import com.facetorched.tfcaths.util.AthsParser;
-import com.facetorched.tfcaths.util.Config;
 import com.facetorched.tfcaths.util.Point3D;
 import com.facetorched.tfcaths.util.Point3DD;
 
@@ -59,20 +58,23 @@ public class BlockCrystal extends BlockTerra{
 	{
 		super.onBlockActivated(world, x, y, z, player, side, hitX, hitY, hitZ);
 		if(AthsParser.isHolding(world, player, "itemChisel")) {
-			dropBlockAsItem(world, x, y, z, new ItemStack(this, 1, 0));
-			world.setBlock(x, y, z, Blocks.air, 0, 2);
-			world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, "dig.glass", 1.0F, world.rand.nextFloat() * 0.1F + 0.9F);
+			if(!world.isRemote) {
+				dropBlockAsItem(world, x, y, z, new ItemStack(this, 1, 0));
+				world.setBlock(x, y, z, Blocks.air, 0, 2);
+			}
+			else {
+				world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, "dig.glass", 1.0F, world.rand.nextFloat() * 0.1F + 0.9F);
+			}
 		}
 		
 		if(TFCOptions.enableDebugMode){
-			Point3D p = new Point3D(x, y, z);
-			CrystalSpawnData data = new CrystalSpawnData(AthsMod.MODID+":"+this.crystalName, AthsMod.MODID+":"+this.crystalName+"_Cluster", new String[] {"All"}, 1, 1, 1);
-			ArrayList<Point3D> points = AthsWorldGenCrystals.getValidOpenings(p.add(AthsGlobal.NEIGHBORS), data, world);
-			System.out.println(data.block2);
-			System.out.println(Config.rockCrystalNetherQuartz);
-			for(Point3D point : points) {
-				AthsWorldGenCrystals.placeCrystal(point, data, world, new Random());
-				//world.setBlock(point.x, point.y, point.z, Blocks.glass);
+			if (!world.isRemote) {
+				CrystalSpawnData data = new CrystalSpawnData(AthsMod.MODID+":"+this.crystalName, AthsMod.MODID+":"+this.crystalName+"_Cluster", new String[] {"All"}, 1, 1, 1);
+				Point3D p = new Point3D(x, y, z);
+				ArrayList<Point3D> points = AthsWorldGenCrystals.getValidOpenings(p.add(AthsGlobal.NEIGHBORS), data, world);
+				for(Point3D point : points) {
+					AthsWorldGenCrystals.placeCrystal(point, data, world, new Random());
+				}
 			}
 		}
 		return false;
@@ -165,7 +167,7 @@ public class BlockCrystal extends BlockTerra{
 	}
 
 	protected void checkAndDropBlock(World world, int x, int y, int z){
-		if (!this.canBlockStay(world, x, y, z)){
+		if (!world.isRemote && !this.canBlockStay(world, x, y, z)){
 			dropBlockAsItem(world, x, y, z, new ItemStack(this, 1, 0));
 			world.setBlock(x, y, z, Blocks.air, 0, 2);
 		}
@@ -181,14 +183,12 @@ public class BlockCrystal extends BlockTerra{
      */
     @SideOnly(Side.CLIENT)
     @Override
-    public int getRenderBlockPass()
-    {
+    public int getRenderBlockPass(){
         return isTransparent ? 1 : 0;
     }
     
     @Override
-    public Item getItemDropped(int meta, Random random, int fortune)
-    {
+    public Item getItemDropped(int meta, Random random, int fortune){
         return this.crystalItem; // can be null
     }
     

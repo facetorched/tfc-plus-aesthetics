@@ -86,28 +86,6 @@ public class BlockPlant extends BlockTerra{
 
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityplayer, int side, float hitX, float hitY, float hitZ)  {
-		//setIsWaterPlant();
-		/*
-		if(TFCOptions.enableDebugMode && world.isRemote){
-			Block b = world.getBlock(x, y-1, z);
-			if(b!=null) {
-				int[] ids = OreDictionary.getOreIDs(new ItemStack(b.getItem(world, x, y, z), 1, this.getDamageValue(world, x, y, z)));
-				System.out.println(ids.length);
-				for(int id : ids)
-					System.out.println(OreDictionary.getOreName(id));
-			}
-		}
-		if(world.isRemote) {
-		}
-		*/
-		/*
-		if(this.icons != null && this.icons.length>0) {
-			System.out.println(this.getIcon(0, 0));
-			if(this instanceof BlockPlant3d) {
-				System.out.println(((BlockPlant3d)this).getModelParts(0).get(0).getTexture());
-			}
-		}
-		*/
 		return super.onBlockActivated(world, x, y, z, entityplayer, side, hitX, hitY, hitZ);
 	}
 
@@ -189,7 +167,7 @@ public class BlockPlant extends BlockTerra{
 	}
 	@Override
 	public void harvestBlock(World world, EntityPlayer player, int x, int y, int z, int meta) {
-		if(poisonDuration != 0 && player.getHeldItem() == null &&
+		if(!world.isRemote && poisonDuration != 0 && player.getHeldItem() == null &&
 				! ( hasVary(EnumVary.WINTER, meta) && (isVary(meta, EnumVary.SNOW) || isVary(meta, EnumVary.WINTER)))) {
 			player.addPotionEffect(new PotionEffect(19, poisonDuration * 20));
 		}
@@ -238,8 +216,7 @@ public class BlockPlant extends BlockTerra{
 	}
 
 	@Override
-	public int damageDropped(int dmg)
-	{
+	public int damageDropped(int dmg){
 		return dmg;
 	}
 
@@ -257,8 +234,7 @@ public class BlockPlant extends BlockTerra{
 	
 
 	@Override
-	public boolean canPlaceBlockAt(World world, int x, int y, int z)
-	{
+	public boolean canPlaceBlockAt(World world, int x, int y, int z){
 		Block block = world.getBlock(x, y, z);
 		return (world.isAirBlock(x, y, z) || block.getMaterial().isReplaceable()) && this.canBlockStay(world, x, y, z);
 	}
@@ -269,8 +245,7 @@ public class BlockPlant extends BlockTerra{
 	}
 
 	@Override
-	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z)
-	{
+	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z){
 		if(hasCollision) {
 			return AxisAlignedBB.getBoundingBox((double)x + this.minX, (double)y + this.minY, (double)z + this.minZ, (double)x + this.maxX, (double)y + this.maxY, (double)z + this.maxZ);
 		}
@@ -278,14 +253,12 @@ public class BlockPlant extends BlockTerra{
 	}
 
 	@Override
-	public int getRenderType()
-	{
+	public int getRenderType(){
 		return this.renderId;
 	}
 
 	@Override
-	public boolean isOpaqueCube()
-	{
+	public boolean isOpaqueCube(){
 		return false;
 	}
 	
@@ -296,15 +269,8 @@ public class BlockPlant extends BlockTerra{
 	}
 
 	@Override
-	public boolean renderAsNormalBlock()
-	{
+	public boolean renderAsNormalBlock(){
 		return false;
-	}
-	
-	// when placed or generated
-	@Override
-	public void onBlockAdded(World world, int x, int y, int z) {
-		//this.updateTick(world, x, y, z, null);
 	}
 	
 	@Override
@@ -313,14 +279,14 @@ public class BlockPlant extends BlockTerra{
     }
 
 	@Override
-	public void onNeighborBlockChange(World world, int x, int y, int z, Block block)
-	{
+	public void onNeighborBlockChange(World world, int x, int y, int z, Block block){
 		this.checkAndDropBlock(world, x, y, z);
 	}
 
 	protected void checkAndDropBlock(World world, int x, int y, int z){
-		if (!this.canBlockStay(world, x, y, z)){
-			this.dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z), 0);
+		if (!world.isRemote && !this.canBlockStay(world, x, y, z)){
+			if (!this.hasNoDrops)
+				this.dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z), 0);
 			world.setBlock(x, y, z, Blocks.air, 0, 2);
 		}
 	}
@@ -332,6 +298,7 @@ public class BlockPlant extends BlockTerra{
 	}
 	
 	public void updateVary(World world, int x, int y, int z, Random random) {
+		if (world.isRemote) return;
 		if (this.hasVarys) {
 			int meta = world.getBlockMetadata(x, y, z);
 			int month = TFC_Time.getSeasonAdjustedMonth(z);
@@ -395,6 +362,7 @@ public class BlockPlant extends BlockTerra{
 	}
 	
 	public void shiftToVary(World world, int x, int y, int z, int meta, EnumVary vary) {
+		if(world.isRemote) return;
 		int newMeta = varyStartIndexes[vary.index] + getBaseMeta(meta);
 		if(meta != newMeta) {
 			if (!hasVary(vary, meta)) {
@@ -405,12 +373,12 @@ public class BlockPlant extends BlockTerra{
 	}
 	
 	// useful for growing or trimming plants
-	public boolean shiftMeta(World world, int x, int y, int z, int meta, int delta) {
+	public void shiftMeta(World world, int x, int y, int z, int meta, int delta) {
+		if(world.isRemote) return;
 		int testMeta = getBaseMeta(meta) + delta;
 		if (testMeta >= 0 && testMeta < numBaseMetas) {
-			return world.setBlockMetadataWithNotify(x, y, z, meta + delta, 2);
+			world.setBlockMetadataWithNotify(x, y, z, meta + delta, 2);
 		}
-		return false;
 	}
 	public EnumVary[] getVarys() {
 		EnumVary[] ret = new EnumVary[plantNames.length];
@@ -648,7 +616,7 @@ public class BlockPlant extends BlockTerra{
 	}
 	
 	public boolean dropItemStacks(World world, int x, int y, int z, ItemStack is, int min, int max, Random random) {
-		if(max - min <= 0) {
+		if(world.isRemote || max - min <= 0) {
 			return false;
 		}
 		int numDrops = min + random.nextInt(max - min);
@@ -658,6 +626,7 @@ public class BlockPlant extends BlockTerra{
 	}
 	@Override
 	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity){
+		if(world.isRemote) return;
 		int meta = world.getBlockMetadata(x, y, z);
 		if(this.isDamaging && entity instanceof EntityLivingBase &&
 				! ( hasVary(EnumVary.WINTER, meta) && (isVary(meta, EnumVary.SNOW) || isVary(meta, EnumVary.WINTER))) && // if it gets withered, it shouldn't hurt you

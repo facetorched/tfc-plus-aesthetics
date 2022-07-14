@@ -19,7 +19,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 public class AthsRecipes {
-	public static void RegisterRecipes() {
+	public static void registerRecipes() {
 		if(Config.mushroomRecipes) {
 			for(BlockPlant b : AthsParser.getAthsPlants(IFungus.class)) {
 				addFoodRefineRecipe(b, b.getFoodItemStack());
