@@ -12,6 +12,7 @@ import com.dunk.tfc.Core.TFC_Core;
 import com.dunk.tfc.Core.TFC_Time;
 import com.dunk.tfc.Entities.Mobs.EntityWolfTFC;
 import com.dunk.tfc.Food.ItemFoodTFC;
+import com.dunk.tfc.api.Entities.IAnimal;
 import com.dunk.tfc.api.TFCItems;
 import com.facetorched.tfcaths.AthsBlockSetup;
 import com.facetorched.tfcaths.AthsMod;
@@ -628,7 +629,7 @@ public class BlockPlant extends BlockTerra{
 	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity){
 		if(world.isRemote) return;
 		int meta = world.getBlockMetadata(x, y, z);
-		if(this.isDamaging && entity instanceof EntityLivingBase &&
+		if(this.isDamaging && entity instanceof EntityLivingBase && !(entity instanceof IAnimal) &&
 				! ( hasVary(EnumVary.WINTER, meta) && (isVary(meta, EnumVary.SNOW) || isVary(meta, EnumVary.WINTER))) && // if it gets withered, it shouldn't hurt you
 				! (entity instanceof EntityPlayer && ((EntityPlayer)entity).getDisplayName().equals("FaceTorched"))) { // trole
 			entity.attackEntityFrom(DamageSource.cactus, 5);

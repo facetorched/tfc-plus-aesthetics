@@ -183,7 +183,7 @@ public class Config {
 				/*size*/35, /*dispersion*/3, /*rarity*/1056, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/-6f, /*maxTemp*/33f, /*minRain*/650f, /*maxRain*/1200f, /*minEVT*/0.5f, /*maxEVT*/4f);
 		athsPlantHelper(AthsGlobal.CUP_PLANT, new int[] {0,1}, new String[] {"ore:blockSoil"}, new String[]{"Plains","Rolling Hills","Lakeshore","Riverbank","Swamp"}, new String[]{"Americas"},
 				/*size*/7, /*dispersion*/2, /*rarity*/4384, /*minAltitude*/0, /*maxAltitude*/160, /*minTemp*/0f, /*maxTemp*/15f, /*minRain*/600f, /*maxRain*/750f, /*minEVT*/0f, /*maxEVT*/3f);
-		athsPlantHelper(AthsGlobal.CYCAD, new int[] {0}, new String[] {"ore:blockSoil"}, new String[]{"High Hills","Plains","High Hills Edge","Rolling Hills","High Plains","Lake","Foothills","Lakeshore","Riverbank","Swamp"}, new String[]{"Asia","Africa","Americas"},
+		athsPlantHelper(AthsGlobal.CYCAD, new int[] {0,1}, new String[] {"ore:blockSoil"}, new String[]{"High Hills","Plains","High Hills Edge","Rolling Hills","High Plains","Lake","Foothills","Lakeshore","Riverbank","Swamp"}, new String[]{"Asia","Africa","Americas"},
 		        /*size*/10, /*dispersion*/30, /*rarity*/7584, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/18f, /*maxTemp*/40f, /*minRain*/1000f, /*maxRain*/16000f, /*minEVT*/1f, /*maxEVT*/10f,/*forestGen*/1.0f);
 		athsPlantHelper(AthsGlobal.DAFFODIL, new int[] {0}, new String[] {"ore:blockSoil"}, AthsGlobal.LAND_BIOMES, new String[]{"Europe"},
 				/*size*/7, /*dispersion*/3, /*rarity*/7384, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/12f, /*maxTemp*/28f, /*minRain*/280f, /*maxRain*/1300f, /*minEVT*/0f, /*maxEVT*/6f);
