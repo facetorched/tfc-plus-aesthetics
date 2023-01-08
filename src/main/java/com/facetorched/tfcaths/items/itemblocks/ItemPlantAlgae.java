@@ -1,6 +1,7 @@
 package com.facetorched.tfcaths.items.itemblocks;
 
 import com.facetorched.tfcaths.blocks.BlockPlantAlgae;
+import com.facetorched.tfcaths.enums.EnumVary;
 import com.facetorched.tfcaths.util.AthsLogger;
 
 import cpw.mods.fml.relauncher.Side;
@@ -21,6 +22,7 @@ public class ItemPlantAlgae extends ItemPlantLilyPad{
 	{
 		try {
 			BlockPlantAlgae algae = ((BlockPlantAlgae)this.field_150939_a);
+			if(algae.isVary(is.getItemDamage(), EnumVary.SNOW))return super.getColorFromItemStack(is, par2);
 			int rgb = 128;
 			return Math.min((int)(rgb * algae.redMult) + algae.redShift, 255) << 16 | 
 					Math.min((int)(rgb * algae.greenMult) + algae.greenShift, 255) << 8 | 

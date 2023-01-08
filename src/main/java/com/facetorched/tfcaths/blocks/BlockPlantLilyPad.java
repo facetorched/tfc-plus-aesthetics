@@ -1,10 +1,15 @@
 package com.facetorched.tfcaths.blocks;
 
+import com.dunk.tfc.BlockSetup;
 import com.facetorched.tfcaths.AthsBlockSetup;
+import com.facetorched.tfcaths.enums.EnumVary;
 import com.facetorched.tfcaths.interfaces.ILilyPad;
 import com.facetorched.tfcaths.items.itemblocks.ItemPlantLilyPad;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -36,5 +41,15 @@ public class BlockPlantLilyPad extends BlockPlant implements ILilyPad{
 	@Override
 	public BlockPlant setScale(float scale) {
 		throw new UnsupportedOperationException("Cannot set the scale of BlockPlantLilyPad");
+	}
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+	public IIcon getIcon(int side, int meta)
+	{
+		if(this.isVary(meta, EnumVary.SNOW)) {
+			return BlockSetup.snow.getIcon(1, 0);
+		}
+		return super.getIcon(side, meta);
 	}
 }
