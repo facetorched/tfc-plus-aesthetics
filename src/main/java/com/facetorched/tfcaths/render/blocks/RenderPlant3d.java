@@ -63,7 +63,9 @@ public class RenderPlant3d extends AbstractRenderPlant {
 			rotation = random.nextFloat() * AthsGlobal.TWO_PI;
 		
 		// scale down by some amount
-		scale *= 1 - .4 * random.nextFloat();
+		if (!block3d.isConstantSize) {
+			scale *= 1 - .4 * random.nextFloat();
+		}
 		
 		// translate by some random amount and vertical shift to prevent z fighting with neighbors
 		float dx = .25F + random.nextFloat() * 0.5F;

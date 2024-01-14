@@ -68,9 +68,11 @@ public class RenderPlantEpiphyte3d extends RenderPlant3d{
 			rotation += AthsGlobal.HALF_PI;
 		}
 		// scale down by some amount
-		scale *= 1 - .4 * random.nextFloat();
+		if (!block3d.isConstantSize) {
+			scale *= 1 - .4 * random.nextFloat();
+		}
 		
-		// translate by some random amount and vertical shift to prevent z fighting with neighbors
+		// translate by some amount so that it "sticks" to the surface
 		float cos = (float)Math.cos(rotation);
 		float sin = (float)Math.sin(rotation);
 		

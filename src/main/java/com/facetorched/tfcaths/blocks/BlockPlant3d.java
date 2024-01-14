@@ -22,6 +22,7 @@ public class BlockPlant3d extends BlockPlant{
 	public HashMap<Integer, ArrayList<ObjPart>> modelParts = new HashMap<Integer, ArrayList<ObjPart>>();
 	public String overrideModelName; // despite being different plants, use the same model (this is the name of the obj file)
 	public boolean isAxisAligned = false;
+	public boolean isConstantSize = false;
 	
 	public BlockPlant3d() {
 		super();
@@ -58,6 +59,11 @@ public class BlockPlant3d extends BlockPlant{
 	
 	public BlockPlant3d setIsAxisAligned() {
 		this.isAxisAligned = true;
+		return this;
+	}
+	
+	public BlockPlant3d setIsConstantSize() {
+		this.isConstantSize = true;
 		return this;
 	}
 	
