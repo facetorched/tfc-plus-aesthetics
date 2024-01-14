@@ -215,7 +215,13 @@ public class BlockPlant3d extends BlockPlant{
 		}
 		return this;
 	}
-	
+	/**
+	 * set part for all metas of all varys using base meta names
+	 */
+	public BlockPlant3d setNamedBaseMetaPart(String partName) {
+		setNamedBaseMetaPart(getVarys(), partName);
+		return this;
+	}
 	/**
 	 * set part for all metas of a given vary using base meta names (example male and female versions of cones)
 	 */

@@ -133,18 +133,30 @@ public class BlockPlant extends BlockTerra{
 		return result;
 	}
 	
+	public int[] getBaseMetas() {
+		int[] result = new int[numBaseMetas];
+		for (int meta = 0; meta < numBaseMetas; meta++) {
+			result[meta] = meta;
+		}
+		return result;
+	}
+	
 	public BlockPlant setGrassBounds() {
 		float var4 = 0.4F;
 		this.setBlockBounds(0.5F - var4, 0.0F, 0.5F - var4, 0.5F + var4, var4 * 2.0F, 0.5F + var4);
 		return this;
 	}
 	public BlockPlant setTreeBounds() {
-		float var4 = 0.25F;
-		this.setBlockBounds(0.5F - var4, 0.0F, 0.5F - var4, 0.5F + var4, 1.5F, 0.5F + var4);
+		setThinBounds(1.5f);
 		return this;
 	}
 	public BlockPlant setLayerBounds(float h) {
 		this.setBlockBounds(0F, 0F, 0F, 1F, h, 1F);
+		return this;
+	}
+	public BlockPlant setThinBounds(float h) {
+		float var4 = 0.25F;
+		this.setBlockBounds(0.5F - var4, 0.0F, 0.5F - var4, 0.5F + var4, h, 0.5F + var4);
 		return this;
 	}
 	public BlockPlant setHasNoDrops() {

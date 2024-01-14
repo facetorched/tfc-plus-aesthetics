@@ -18,14 +18,6 @@ public class BlockPlantLilyPad3d extends BlockPlant3d implements ILilyPad{
 		setItemBlock(ItemPlantLilyPad.class);
 	}
 	
-	// player can stand on this block!
-	@Override
-	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z){
-		if(scale <= 1f)
-			return null;
-        return AxisAlignedBB.getBoundingBox((double)x + this.minX, (double)y + this.minY, (double)z + this.minZ, (double)x + this.maxX, (double)y + this.maxY, (double)z + this.maxZ);
-    }
-	
 	@Override
 	public boolean shouldGenerateAt(World world, int x, int y, int z) {
 		

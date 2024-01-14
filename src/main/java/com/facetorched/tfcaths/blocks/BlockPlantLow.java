@@ -28,7 +28,28 @@ public class BlockPlantLow extends BlockPlant{
 		super.registerBlockIcons(register);
 		sideIcons = new IIcon[plantNames.length];
 		for (int i = 0; i < plantNames.length; ++i){
-			sideIcons[i] = register.registerIcon(AthsMod.MODID+":plants/"+plantNames[i]+"_Side");
+			if(iconVarys == null) // normal
+				sideIcons[i] = register.registerIcon(AthsMod.MODID+":plants/"+plantNames[i]+"_Side");
+			else { // icon diversity is related to specific varys
+				if(isAnyVary(i, iconVarys)) { // is this meta included in the icon array?
+					sideIcons[i] = register.registerIcon(AthsMod.MODID+":plants/"+plantNames[i]+"_Side");; // these icons should be treated normally
+				}
+				else if (getVary(i) != null){
+					sideIcons[i] = register.registerIcon(AthsMod.MODID+":plants/"+plantKey + getVary(i).suffix + "_Side"); // for plants such as colored flowers, some textures are shared
+				}
+			}
+		}
+		for (int i = 0; i < this.icons.length; ++i){
+			if(iconVarys == null) // normal
+				this.icons[i] = register.registerIcon(AthsMod.MODID+":plants/"+plantNames[i]);
+			else { // icon diversity is related to specific varys
+				if(isAnyVary(i, iconVarys)) { // is this meta included in the icon array?
+					this.icons[i] = register.registerIcon(AthsMod.MODID+":plants/"+plantNames[i]); // these icons should be treated normally
+				}
+				else if (getVary(i) != null){
+					this.icons[i] = register.registerIcon(AthsMod.MODID+":plants/"+plantKey + getVary(i).suffix); // for plants such as colored flowers, some textures are shared
+				}
+			}
 		}
 	}
 	
