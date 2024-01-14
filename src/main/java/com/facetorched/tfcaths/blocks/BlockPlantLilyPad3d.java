@@ -4,7 +4,6 @@ import com.facetorched.tfcaths.interfaces.ILilyPad;
 import com.facetorched.tfcaths.items.itemblocks.ItemPlantLilyPad;
 
 import net.minecraft.init.Blocks;
-import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
