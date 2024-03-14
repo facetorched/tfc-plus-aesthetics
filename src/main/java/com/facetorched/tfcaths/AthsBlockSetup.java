@@ -393,6 +393,11 @@ public class AthsBlockSetup {
 	public static Block whiteSkunkCabbage;
 	public static Block bucephalandra;
 	public static Block japaneseMountainYam;
+	public static Block sapphireTower;
+	public static Block queenOfTheAndes;
+	public static Block spanishMoss;
+	public static Block oldMansBeardLichen;
+
 	
 	public static int plantCrossRenderID;
 	public static int plantCropRenderID;
@@ -750,7 +755,9 @@ public class AthsBlockSetup {
 		splitLeafMonstera = plantRegistryHelper(new BlockPlant3d().setName(AthsGlobal.SPLIT_LEAF_MONSTERA).setPart("Stem").setPart("Leaf").setScale(1.0f));
 		trillium = plantRegistryHelper(new BlockPlant3dFlower().setName(AthsGlobal.TRILLIUM).addVarys(new EnumVary[] {EnumVary.DEFAULT, EnumVary.WINTER, EnumVary.FLOWER, EnumVary.SNOW}).setPart("Stem").setVaryPart(new EnumVary[] {EnumVary.DEFAULT, EnumVary.FLOWER}, "Leaf").setVaryParts(EnumVary.FLOWER, new String[] {"Petal_1","Petal_2","Stamen"}).setFlowerMonthRange(TFC_Time.APRIL, TFC_Time.JUNE));
 		travellersPalm = plantRegistryHelper(new BlockPlantTree3d().setExtraNames(AthsGlobal.TRAVELLERS_PALM, "Short","Stumpy").setPart("Plant").setIsAxisAligned().setScale(1f));
-		
+		sapphireTower = plantRegistryHelper(new BlockPlant3d().setName(AthsGlobal.SAPPHIRE_TOWER).addVary(EnumVary.FLOWER).setVaryPart(EnumVary.FLOWER, "Flower").setPart("Leaf").setFlowerMonthRange(TFC_Time.APRIL, TFC_Time.MAY).setScale(2.0f));
+		queenOfTheAndes = plantRegistryHelper(new BlockPlantTree3d().setName(AthsGlobal.QUEEN_OF_THE_ANDES).addVary(EnumVary.FLOWER).setVaryPart(EnumVary.FLOWER, "Flower").setPart("Leaf").setPart("Bottom_Leaf").setFlowerMonthRange(TFC_Time.JUNE, TFC_Time.SEPTEMBER).setScale(5.0f));
+
 		//epiphyte 3d
 		arpophyllumGiganteum = plantRegistryHelper(new BlockPlantEpiphyte3dFlower().setName(AthsGlobal.ARPOPHYLLUM_GIGANTEUM).addVary(EnumVary.FLOWER).setPart("Leaf").setVaryPart(EnumVary.FLOWER, "Flower").setFlowerMonthRange(TFC_Time.FEBRUARY, TFC_Time.MAY).setScale(2f));
 		blackSpleenwort = plantRegistryHelper(new BlockPlantEpiphyte3d().setName(AthsGlobal.BLACK_SPLEENWORT).setPart("Frond").setScale(2f));
@@ -775,6 +782,7 @@ public class AthsBlockSetup {
 		tillandsiaBromeliad = plantRegistryHelper(new BlockPlantEpiphyte3d().setName(AthsGlobal.TILLANDSIA_BROMELIAD).addVary(EnumVary.FLOWER).setPart("Leaf").setVaryPart(EnumVary.FLOWER, "Flower").setFlowerMonthRange(TFC_Time.JUNE, TFC_Time.AUGUST));
 		splitLeafMonsteraEpiphyte = plantRegistryHelper(new BlockPlantEpiphyte3d().setName(AthsGlobal.SPLIT_LEAF_MONSTERA_EPIPHYTE).setPart("Stem").setPart("Leaf").setScale(1.0f));
 		walkingFern = plantRegistryHelper(new BlockPlantEpiphyte3d().setNames(AthsGlobal.WALKING_FERN, new String[] {"American", "Asian"}).setPart("Underlay").setPart("Leaf").setIsConstantSize().setScale(1.0f));
+		spanishMoss = plantRegistryHelper(new BlockPlantEpiphyte3d().setName(AthsGlobal.SPANISH_MOSS).setPart(null));
 		
 		//cringe polypore moment
 		artistsConk = plantRegistryHelper(new BlockPlantEpiphyte3dFungus().setName(AthsGlobal.ARTISTS_CONK).setPart(null));
@@ -792,7 +800,7 @@ public class AthsBlockSetup {
 		woodEar = plantRegistryHelper(new BlockPlantEpiphyte3dFungus().setName(AthsGlobal.WOOD_EAR).setPart("Sporocarp").setBrownMushroom(80f).setScale(0.8f));
 		turkeyTail = plantRegistryHelper(new BlockPlantEpiphyte3dFungus().setName(AthsGlobal.TURKEY_TAIL).setPart(null));
 		oysterMushroom = plantRegistryHelper(new BlockPlantEpiphyte3dFungus().setName(AthsGlobal.OYSTER_MUSHROOM).setPart("Sporocarp").setBrownMushroom(50f));
-		
+		oldMansBeardLichen = plantRegistryHelper(new BlockPlantEpiphyte3dFungus().setName(AthsGlobal.OLD_MANS_BEARD_LICHEN).setPart(null));
 	}
 	
 	public static BlockPlant plantRegistryHelper(BlockPlant block) {

@@ -344,8 +344,12 @@ public class AthsGlobal {
 	public static final String WATER_PLANTAIN = "Water_Plantain";
 	public static final String WELWITSCHIA = "Welwitschia";
 	public static final String WOOD_BITTER_VETCH = "Wood_Bitter_Vetch";
-	
 	public static final String CARALLUMA = "Caralluma";
+	public static final String SPANISH_MOSS = "Spanish_Moss";
+	public static final String OLD_MANS_BEARD_LICHEN = "Old_Mans_Beard_Lichen";
+	public static final String SAPPHIRE_TOWER = "Sapphire_Tower";
+	public static final String QUEEN_OF_THE_ANDES = "Queen_of_the_Andes";
+
 	
 	public static final String[] SHALLOW_WATER_BIOMES = new String[]{"River","Beach","Gravel Beach","Swamp","Lake","Shore","Salt Swamp","Lakeshore","Riverbank","Estuary"};
 	public static final String[] LAND_BIOMES = new String[] {"All","!Ocean","!Hell","!Deep Ocean"};
