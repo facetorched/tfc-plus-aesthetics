@@ -15,6 +15,9 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.MovingObjectPosition.MovingObjectType;
+import net.minecraft.world.World;
 
 public class ItemPlant extends ItemTerraBlock{
 	public ItemPlant(Block b)
@@ -60,4 +63,36 @@ public class ItemPlant extends ItemTerraBlock{
 		String sciName = "gui." + b.plantKey + "." + b.plantNames[meta] + ".sciname";
         list.add(TFC_Core.translate(sciName));
     }
+	
+	@Override
+	public ItemStack onItemRightClick(ItemStack is, World world, EntityPlayer player){
+		BlockPlant b = (BlockPlant)this.field_150939_a;
+		if (b.isWaterPlant) {
+			this.tryToPlaceInWater(is, world, player);
+		}
+		return super.onItemRightClick(is, world, player);
+		
+	}
+	
+	public ItemStack tryToPlaceInWater(ItemStack is, World world, EntityPlayer player) {
+		MovingObjectPosition movingobjectposition = this.getMovingObjectPositionFromPlayer(world, player, true);
+		if (movingobjectposition != null && movingobjectposition.typeOfHit == MovingObjectType.BLOCK){
+			int i = movingobjectposition.blockX;
+			int j = movingobjectposition.blockY;
+			int k = movingobjectposition.blockZ;
+			if (!world.canMineBlock(player, i, j, k) ||
+				!player.canPlayerEdit(i, j, k, movingobjectposition.sideHit, is) ||
+				!world.getBlock(i, j, k).getMaterial().isLiquid()) {
+				return is;
+			}
+			if (this.field_150939_a.canBlockStay(world, i, j + 1, k) && world.isAirBlock(i, j + 1, k)){
+				world.setBlock(i, j + 1, k, this.field_150939_a, this.getDamage(is), 2);
+				world.spawnParticle("splash", i, j + 2, k, 0.0D, 0.0D, 0.0D);
+				world.playSoundEffect(i + 0.5F, j + 0.5F, k + 0.5F, "random.splash", 0.5F, this.field_150939_a.stepSound.getPitch() * 0.8F);
+				if (!player.capabilities.isCreativeMode)
+					--is.stackSize;
+			}
+		}
+		return is;
+	}
 }

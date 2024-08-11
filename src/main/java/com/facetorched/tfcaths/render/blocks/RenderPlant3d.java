@@ -38,15 +38,35 @@ public class RenderPlant3d extends AbstractRenderPlant {
 		RenderHelper.disableStandardItemLighting();
 		tessellator.startDrawingQuads();
 		tessellator.setColorOpaque_F(1, 1, 1);
-		float maxDist = 0f;
+		float [] lowerCorner = {0,0,0};
+		float [] upperCorner = {0,0,0};
 		for (Vertex v : model.vertices) {
-			maxDist = Math.max(Math.max(Math.max(Math.abs(v.x), Math.abs(v.y)), Math.abs(v.z)), maxDist);
+			lowerCorner[0] = Math.min(lowerCorner[0], v.x);
+			lowerCorner[1] = Math.min(lowerCorner[1], v.y);
+			lowerCorner[2] = Math.min(lowerCorner[2], v.z);
+			upperCorner[0] = Math.max(upperCorner[0], v.x);
+			upperCorner[1] = Math.max(upperCorner[1], v.y);
+			upperCorner[2] = Math.max(upperCorner[2], v.z);
 		}
-		float dy = -0.1f;
-		tessellator.addTranslation(0, dy, 0);
-		renderWithOBJ(model, block3d.getModelParts(meta), tessellator, .8f/maxDist, 0.0f);
+		float maxDist = Math.max(Math.max(upperCorner[0] - lowerCorner[0], upperCorner[1] - lowerCorner[1]), upperCorner[2] - lowerCorner[2]);
+		float renderScale = 1.7f / maxDist;
+		float worldScale = block3d.getScale() * maxDist;
+		if (worldScale < 1.0f) {
+			renderScale *= worldScale;
+		}
+		if (worldScale > 4) {
+			renderScale *= 1.1f;
+		}
+		float [] center = {
+				(lowerCorner[0] + (upperCorner[0] - lowerCorner[0])/2) * renderScale,
+				(lowerCorner[1] + (upperCorner[1] - lowerCorner[1])/2) * renderScale,
+				(lowerCorner[2] + (upperCorner[2] - lowerCorner[2])/2) * renderScale,
+		};
+		float dy = 0.0f;
+		tessellator.addTranslation(-center[0], -center[1] + dy, -center[2]);
+		renderWithOBJ(model, block3d.getModelParts(meta), tessellator, renderScale, 0.0f);
 		tessellator.draw();
-		tessellator.addTranslation(0, -dy, 0);
+		tessellator.addTranslation(center[0], center[1] - dy, center[2]);
 		RenderHelper.enableStandardItemLighting();
 	}
 	

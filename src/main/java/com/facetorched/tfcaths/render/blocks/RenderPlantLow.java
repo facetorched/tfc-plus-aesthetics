@@ -24,7 +24,10 @@ public class RenderPlantLow extends AbstractRenderPlant{
 		}
 		RenderingRegistry.instance().renderWorldBlock(renderer, world, x, y, z, TFCBlocks.leafLitter, TFCBlocks.leafLitterRenderId);
 		BlockPlantLow plantLow = (BlockPlantLow)block;
+        tessellator.setColorOpaque_I(rgb); //need to call again because we rendered the leaves...
 		renderer.drawCrossedSquares(plantLow.sideIcons[meta], x, y, z, scale);
+		
+		
 		int rotation = 0;
 		// render each layer
 		for(int i = 0; i < 2; i++) {

@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import com.dunk.tfc.ItemSetup;
+import com.dunk.tfc.Blocks.Vanilla.BlockCustomTallGrass;
 import com.dunk.tfc.api.TFCItems;
 import com.facetorched.tfcaths.util.AthsParser;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -51,8 +53,15 @@ public class BlockPlantStraw extends BlockPlant implements IShearable{
 				//Now check each block around the destroyed block for AOE directions
 				for (int r = -1; r < 2; r++){
 					for (int c = -1; c < 2; c++){
-						if (world.getBlock(r + x, y, c + z) == this){
-							dropItemStacks(world, r + x, y, c + z, new ItemStack(ItemSetup.straw), 1, getMaxStraw(world.getBlockMetadata(r + x, y, c + z)), new Random());
+						if (world.getBlock(r + x, y, c + z) instanceof BlockPlantStraw){
+							BlockPlantStraw b = (BlockPlantStraw)world.getBlock(r + x, y, c + z);
+							int bMeta = world.getBlockMetadata(r + x, y, c + z);
+							dropItemStacks(world, r + x, y, c + z, new ItemStack(ItemSetup.straw), 1, b.getMaxStraw(bMeta), new Random());
+							AthsParser.damageItem(player, is);
+							world.setBlockToAir(r + x, y, c + z);
+						}
+						else if(world.getBlock(r + x, y, c + z) instanceof BlockCustomTallGrass) {
+							dropItemStacks(world, r + x, y, c + z, new ItemStack(ItemSetup.straw), 1, 1, null);
 							AthsParser.damageItem(player, is);
 							world.setBlockToAir(r + x, y, c + z);
 						}

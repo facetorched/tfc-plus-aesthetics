@@ -15,6 +15,7 @@ import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.api.Entities.IAnimal;
 import com.dunk.tfc.api.TFCItems;
 import com.facetorched.tfcaths.AthsBlockSetup;
+import com.facetorched.tfcaths.AthsGlobal;
 import com.facetorched.tfcaths.AthsMod;
 import com.facetorched.tfcaths.WorldGen.Generators.AthsWorldGenPlants;
 import com.facetorched.tfcaths.WorldGen.Generators.PlantSpawnData;
@@ -74,8 +75,7 @@ public class BlockPlant extends BlockTerra{
 	public BlockPlant(Material m){
 		super(m);
 		this.setTickRandomly(true);
-		float var4 = 0.2F;
-		this.setBlockBounds(0.5F - var4, 0.0F, 0.5F - var4, 0.5F + var4, var4 * 3.0F, 0.5F + var4);
+		this.setFlowerBounds();
 		this.setCreativeTab(TFCTabs.TFC_DECORATION);
 		this.scale = 1.0F; //default
 		this.varyStartIndexes = new Integer[EnumVary.values().length]; // will default to false for all
@@ -139,6 +139,12 @@ public class BlockPlant extends BlockTerra{
 			result[meta] = meta;
 		}
 		return result;
+	}
+	
+	public BlockPlant setFlowerBounds() {
+		float var4 = 0.2F;
+		this.setBlockBounds(0.5F - var4, 0.0F, 0.5F - var4, 0.5F + var4, var4 * 3.0F, 0.5F + var4);
+		return this;
 	}
 	
 	public BlockPlant setGrassBounds() {
@@ -520,6 +526,16 @@ public class BlockPlant extends BlockTerra{
 		setKeyName(name);
 		return this;
 	}
+	public BlockPlant setExtraNames(String name, String [] suffixes) {
+		String [] names = new String [suffixes.length + 1];
+		names[0] = name;
+		for (int i = 1; i < names.length; i++) {
+			names[i] = name + "_" + suffixes[i - 1];
+		}
+		setNames(names);
+		setKeyName(name);
+		return this;
+	}
 	public BlockPlant setName(String name) {
 		setNames(new String[] {name});
 		setKeyName(name);
@@ -629,10 +645,13 @@ public class BlockPlant extends BlockTerra{
 	}
 	
 	public boolean dropItemStacks(World world, int x, int y, int z, ItemStack is, int min, int max, Random random) {
-		if(world.isRemote || max - min <= 0) {
+		if(world.isRemote || max < min) {
 			return false;
 		}
-		int numDrops = min + random.nextInt(max - min);
+		int numDrops = min;
+		if (max > min) {
+			numDrops = min + random.nextInt(max - min);
+		}
 		is.stackSize = numDrops;
 		dropBlockAsItem(world, x, y, z, is);
 		return true;

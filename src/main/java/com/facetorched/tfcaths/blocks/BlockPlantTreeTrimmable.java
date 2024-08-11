@@ -21,13 +21,14 @@ public class BlockPlantTreeTrimmable extends BlockPlantTree{
 			//if(player.isSneaking()) {
 			//	shiftMeta(world, x, y, z, meta, 2); // add 2 to the meta (narrow)
 			//}
+			AthsParser.damageItem(player, player.getHeldItem());
 			shiftMeta(world, x, y, z, meta, 1); // add 1 to the meta (trimmed)
 		}
 		return super.onBlockActivated(world, x, y, z, player, side, hitX, hitY, hitZ);
 	}
 	@Override
 	public BlockPlant setExtraNames(String name) {
-		return setExtraNames(name, "Trimmed", "Narrow");
+		return setExtraNames(name, new String [] {"Trimmed", "Columnar", "Narrow", "Spiral"});
 	}
 	
 	@Override
