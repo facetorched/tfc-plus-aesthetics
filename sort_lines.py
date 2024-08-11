@@ -10,8 +10,8 @@ for entry_ind, entry in enumerate(content.split(";")):
     if entry == "":
         continue
     if entry_ind != 0:
-        newline_ind = entry.find("\n\t\taths")
-        new_entry = entry[newline_ind:]
+        newline_ind = entry.find("aths")
+        new_entry = "\n\t\t" + entry[newline_ind:]
     else:
         new_entry = entry
     new_entry = new_entry.replace("”", "\"").replace("“", "\"").replace("’", "'").replace("‘", "'")
