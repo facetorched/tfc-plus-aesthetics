@@ -228,7 +228,7 @@ public class AthsGlobal {
 	public static final String THALE_CRESS = "Thale_Cress";
 	public static final String THISTLE = "Thistle";
 	public static final String TITAN_ARUM = "Titan_Arum";
-	public static final String TRAVELLERS_PALM = "Travellers_Palm";
+	public static final String TRAVELERS_PALM = "Travelers_Palm";
 	public static final String TRILLIUM = "Trillium";
 	public static final String TRUMPET_VINE = "Trumpet_Vine";
 	public static final String VANILLA_ORCHID = "Vanilla_Orchid";
@@ -454,6 +454,7 @@ public class AthsGlobal {
 	public static final String PEONY= "Peony";
 	public static final String HOSTA_DANCING_QUEEN = "Hosta_Dancing_Queen";
 	public static final String ALPINE_JUNIPER = "Alpine_Juniper";
+	public static final String LIVERWORT_EPIPHYTE = "Liverwort_Epiphyte";
 
 	
 	public static final String[] SHALLOW_WATER_BIOMES = new String[]{"River","Beach","Gravel Beach","Swamp","Lake","Shore","Salt Swamp","Lakeshore","Riverbank","Estuary"};
