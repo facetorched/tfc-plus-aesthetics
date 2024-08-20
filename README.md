@@ -1,3 +1,4 @@
+![image](logo.png)
 # TFC+ Aesthetics
 World generated decoration blocks for TFC+ to make the world prettier
 
