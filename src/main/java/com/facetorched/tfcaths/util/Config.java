@@ -631,6 +631,12 @@ public class Config {
 				/*size*/1, /*dispersion*/1, /*rarity*/5800, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/-6f, /*maxTemp*/14f, /*minRain*/750f, /*maxRain*/4000f, /*minEVT*/0f, /*maxEVT*/10f,/*forestGen*/1.0f);
 		athsPlantHelper(AthsGlobal.JIAN_CHUN_LUO, new int[] {0,1}, new String[] {"ore:blockSoil"}, AthsGlobal.LAND_BIOMES, new String[]{"Europe","Asia","Africa"},
 				/*size*/4, /*dispersion*/4, /*rarity*/7984, /*minAltitude*/0, /*maxAltitude*/150, /*minTemp*/-4f, /*maxTemp*/19f, /*minRain*/660f, /*maxRain*/1090f, /*minEVT*/1f, /*maxEVT*/6f);
+		athsPlantHelper(AthsGlobal.JUNIPER, new int[] {0,1,2,3,4,5}, new String[] {"ore:blockSoil","ore:blockSand","ore:blockGravel","ore:stone"}, AthsGlobal.LAND_BIOMES, new String[]{"Americas","Asia","Europe","Africa"},
+				/*size*/20, /*dispersion*/30, /*rarity*/5000, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/-20f, /*maxTemp*/40f, /*minRain*/450f, /*maxRain*/2500f, /*minEVT*/0f, /*maxEVT*/10f,/*forestGen*/-0.2f);
+		athsPlantHelper(AthsGlobal.JUNIPER + "_Outcrop", AthsGlobal.JUNIPER, new int[] {0,1,2,3,4,5}, new String[] {"ore:blockSoil","ore:blockSand","ore:blockGravel","ore:stone"}, new String[] {"Mountains","High Hills","Mountain Range","Mountain Range Edge","Foothills","Mountains Edge","High Hills Edge"}, new String[]{"Americas","Asia","Europe","Africa"},
+				/*size*/10, /*dispersion*/15, /*rarity*/3200, /*minAltitude*/180, /*maxAltitude*/255, /*minTemp*/-20f, /*maxTemp*/40f, /*minRain*/450f, /*maxRain*/2500f, /*minEVT*/0f, /*maxEVT*/10f,/*forestGen*/0f);
+		athsPlantHelper(AthsGlobal.JUNIPER + "_Desert", AthsGlobal.JUNIPER, new int[] {0,1,2,3,4,5}, new String[] {"ore:blockSoil","ore:blockSand","ore:blockGravel","ore:stone"}, AthsGlobal.LAND_BIOMES, new String[]{"Americas","Asia","Europe","Africa"},
+				/*size*/8, /*dispersion*/40, /*rarity*/4000, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/-20f, /*maxTemp*/40f, /*minRain*/88f, /*maxRain*/450f, /*minEVT*/0f, /*maxEVT*/10f,/*forestGen*/-1f);
 		athsPlantHelper(AthsGlobal.LACCARIA_MUSHROOM, new int[] {0}, new String[] {"ore:blockSoil","terrafirmacraftplus:Peat","terrafirmacraftplus:PeatGrass"}, AthsGlobal.LAND_BIOMES, new String[]{"Americas"},
 				/*size*/2, /*dispersion*/2, /*rarity*/7500, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/-5f, /*maxTemp*/18f, /*minRain*/750f, /*maxRain*/8000f, /*minEVT*/0f, /*maxEVT*/10f,/*forestGen*/1.0f);
 		athsPlantHelper(AthsGlobal.LADY_FERN, new int[] {0}, new String[] {"ore:blockSoil"}, AthsGlobal.LAND_BIOMES, new String[]{"Americas","Asia","Europe"},

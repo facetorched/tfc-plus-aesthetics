@@ -503,6 +503,7 @@ public class AthsBlockSetup {
 	public static Block peony;
 	public static Block alpineJuniper;
 	public static Block liverwortEpiphyte;
+	public static Block juniper;
 
 	public static int plantCrossRenderID;
 	public static int plantCropRenderID;
@@ -1009,6 +1010,7 @@ public class AthsBlockSetup {
 		peony = plantRegistryHelper(new BlockPlantFlower().setName(AthsGlobal.PEONY).addVarys(new EnumVary[] {EnumVary.FLOWER, EnumVary.SNOW}).setFlowerMonthRange(TFC_Time.MAY, TFC_Time.JULY).setScale(2.0f));
 		alpineJuniper = plantRegistryHelper(new BlockPlant().setName(AthsGlobal.ALPINE_JUNIPER).addVarys(new EnumVary[] {EnumVary.FRUIT,EnumVary.WINTER,EnumVary.SNOW}).setRenderID(plantCropRenderID).setMonthVaryRange(TFC_Time.AUGUST, TFC_Time.NOVEMBER, EnumVary.FRUIT).setScale(2.0f));
 		liverwortEpiphyte = plantRegistryHelper(new BlockPlantEpiphyte3d().setName(AthsGlobal.LIVERWORT_EPIPHYTE).setPart("Leaf").setPart("Overlay").setScale(1.0f));
+		juniper = plantRegistryHelper(new BlockPlantTree().setNames(AthsGlobal.JUNIPER, new String[] {"Bushy","Gnarled","Piney","Split","Twisted","Wispy"}).addVarys(new EnumVary[] {EnumVary.WINTER, EnumVary.SNOW, EnumVary.FRUIT}).setMonthVaryRange(TFC_Time.AUGUST, TFC_Time.NOVEMBER, EnumVary.FRUIT));
 	}
 	
 	public static BlockPlant plantRegistryHelper(BlockPlant block) {

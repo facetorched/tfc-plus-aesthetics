@@ -455,6 +455,7 @@ public class AthsGlobal {
 	public static final String HOSTA_DANCING_QUEEN = "Hosta_Dancing_Queen";
 	public static final String ALPINE_JUNIPER = "Alpine_Juniper";
 	public static final String LIVERWORT_EPIPHYTE = "Liverwort_Epiphyte";
+	public static final String JUNIPER = "Juniper";
 
 	
 	public static final String[] SHALLOW_WATER_BIOMES = new String[]{"River","Beach","Gravel Beach","Swamp","Lake","Shore","Salt Swamp","Lakeshore","Riverbank","Estuary"};
