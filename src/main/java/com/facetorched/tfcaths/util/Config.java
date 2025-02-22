@@ -227,7 +227,7 @@ public class Config {
 				/*size*/5, /*dispersion*/3, /*rarity*/4584, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/15f, /*maxTemp*/40f, /*minRain*/1500f, /*maxRain*/16000f, /*minEVT*/0f, /*maxEVT*/4f,/*forestGen*/1.0f);
 		athsPlantHelper(AthsGlobal.BIRD_OF_PARADISE, new int[] {0}, new String[] {"ore:blockSoil"}, AthsGlobal.LAND_BIOMES, new String[]{"Africa"},
 				/*size*/3, /*dispersion*/3, /*rarity*/7584, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/12f, /*maxTemp*/16f, /*minRain*/600f, /*maxRain*/3000f, /*minEVT*/0f, /*maxEVT*/4f);
-		athsPlantHelper(AthsGlobal.BISHOPS_WEED, new int[] {0}, new String[] {"ore:blockSoil"}, AthsGlobal.LAND_BIOMES, new String[]{"Americas","Asia","Europe","Africa"},
+		athsPlantHelper(AthsGlobal.BISHOPS_WEED, new int[] {0}, new String[] {"ore:blockSoil"}, AthsGlobal.LAND_BIOMES, new String[]{"Asia","Europe"},
 				/*size*/65, /*dispersion*/1, /*rarity*/5100, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/-3f, /*maxTemp*/18f, /*minRain*/670f, /*maxRain*/2000f, /*minEVT*/0.25f, /*maxEVT*/10f,/*forestGen*/1.0f);
 		athsPlantHelper(AthsGlobal.BITTER_OYSTER, new int[] {0}, new String[] {"oak","birch","maple","hickory","ash","chestnut","pine"}, AthsGlobal.LAND_BIOMES, new String[]{"Asia","Americas","Europe"},
 				/*size*/1, /*dispersion*/1, /*rarity*/5500, /*minAltitude*/0, /*maxAltitude*/255, /*minTemp*/4f, /*maxTemp*/16f, /*minRain*/800f, /*maxRain*/10000f, /*minEVT*/0f, /*maxEVT*/10f,/*forestGen*/1.0f);
