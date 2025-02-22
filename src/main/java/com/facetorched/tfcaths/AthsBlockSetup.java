@@ -668,7 +668,7 @@ public class AthsBlockSetup {
 		scarletElfcup = plantRegistryHelper(new BlockPlant3d().setName(AthsGlobal.SCARLET_ELFCUP).setPart("Sporocarp").setPart("Overlay").setScale(0.8f));
 		shaggyMane = plantRegistryHelper(new BlockPlantFungus().setName(AthsGlobal.SHAGGY_MANE).setScale(0.8f));
 		strawberriesAndCreamMushroom = plantRegistryHelper(new BlockPlantFungus().setName(AthsGlobal.STRAWBERRIES_AND_CREAM_MUSHROOM));
-		strawMushroom = plantRegistryHelper(new BlockPlantFungus().setName(AthsGlobal.STRAW_MUSHROOM).setBrownMushroom(12f));
+		strawMushroom = plantRegistryHelper(new BlockPlantFungus().setName(AthsGlobal.STRAW_MUSHROOM).setBrownMushroom(12f).setScale(0.8f));
 		strictBranchCoralFungus = plantRegistryHelper(new BlockPlantFungus().setName(AthsGlobal.STRICT_BRANCH_CORAL_FUNGUS));
 		suedeBolete = plantRegistryHelper(new BlockPlantFungus().setName(AthsGlobal.SUEDE_BOLETE).setBrownMushroom(28f));
 		sulfurTuft = plantRegistryHelper(new BlockPlantFungus().setName(AthsGlobal.SULFUR_TUFT).setRedMushroom(18f).setScale(0.8f));
