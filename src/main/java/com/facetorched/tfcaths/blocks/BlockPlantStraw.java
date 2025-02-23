@@ -8,7 +8,6 @@ import com.dunk.tfc.Blocks.Vanilla.BlockCustomTallGrass;
 import com.dunk.tfc.api.TFCItems;
 import com.facetorched.tfcaths.util.AthsParser;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

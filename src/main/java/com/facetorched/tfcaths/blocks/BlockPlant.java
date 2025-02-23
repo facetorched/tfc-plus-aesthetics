@@ -15,7 +15,6 @@ import com.dunk.tfc.Food.ItemFoodTFC;
 import com.dunk.tfc.api.Entities.IAnimal;
 import com.dunk.tfc.api.TFCItems;
 import com.facetorched.tfcaths.AthsBlockSetup;
-import com.facetorched.tfcaths.AthsGlobal;
 import com.facetorched.tfcaths.AthsMod;
 import com.facetorched.tfcaths.WorldGen.Generators.AthsWorldGenPlants;
 import com.facetorched.tfcaths.WorldGen.Generators.PlantSpawnData;
