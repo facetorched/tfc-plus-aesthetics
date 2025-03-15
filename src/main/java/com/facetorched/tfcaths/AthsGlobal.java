@@ -456,6 +456,43 @@ public class AthsGlobal {
 	public static final String ALPINE_JUNIPER = "Alpine_Juniper";
 	public static final String LIVERWORT_EPIPHYTE = "Liverwort_Epiphyte";
 	public static final String JUNIPER = "Juniper";
+	
+	public static final String BAY_BOLETE = "Bay_Bolete";
+	public static final String BICOLOR_BOLETE = "Bicolor_Bolete";
+	public static final String BLACK_TRUMPET = "Black_Trumpet";
+	public static final String BLUING_BOLETE = "Bluing_Bolete";
+	public static final String BLUSHER = "Blusher";
+	public static final String CAESAR_MUSHROOM = "Caesar_Mushroom";
+	public static final String CAULIFLOWER_MUSHROOM = "Cauliflower_Mushroom";
+	public static final String DEER_MUSHROOM = "Deer_Mushroom";
+	public static final String EARTHY_INOCYBE = "Earthy_Inocybe";
+	public static final String FAIRY_FINGERS = "Fairy_Fingers";
+	public static final String FALSE_MOREL = "False_Morel";
+	public static final String GREEN_QUILTED_RUSSULA = "Green_Quilted_Russula";
+	public static final String HEDGEHOG_MUSHROOM = "Hedgehog_Mushroom";
+	public static final String HORSE_HOOF_FUNGUS = "Horse_Hoof_Fungus";
+	public static final String LIBERTY_CAP = "Liberty_Cap";
+	public static final String LOBSTER_MUSHROOM = "Lobster_Mushroom";
+	public static final String MAITAKE = "Maitake";
+	public static final String NORTHERN_TOOTH_FUNGUS = "Northern_Tooth_Fungus";
+	public static final String PEAR_SHAPED_PUFFBALL = "Pear_Shaped_Puffball";
+	public static final String RED_CRACKING_BOLETE = "Red_Cracking_Bolete";
+	public static final String RESINOUS_POLYPORE = "Resinous_Polypore";
+	public static final String PARASOL_MUSHROOM = "Parasol_Mushroom";
+	public static final String SHORT_STEMMED_RUSSULA = "Short_Stemmed_Russula";
+	public static final String SHRIMP_OF_THE_WOODS = "Shrimp_of_the_Woods";
+	public static final String SHRIMP_RUSSULA = "Shrimp_Russula";
+	public static final String SLIPPERY_JACK = "Slippery_Jack";
+	public static final String THE_VOMITER = "The_Vomiter";
+	public static final String VARIEGATED_RUSSULA = "Variegated_Russula";
+	public static final String VIOLET_TOOTH_FUNGUS = "Violet_Tooth_Fungus";
+	public static final String WALNUT_MYCENA = "Walnut_Mycena";
+	public static final String WINTER_CHANTERELLE = "Winter_Chanterelle";
+	public static final String YELLOW_KNIGHT = "Yellow_Knight";
+	public static final String YELLOW_SWAMP_RUSSULA = "Yellow_Swamp_Russula";
+	public static final String GREGS_MOUSTACHE = "Gregs_Moustache";
+	public static final String BITTER_BOLETE = "Bitter_Bolete";
+	public static final String BRICK_CAP = "Brick_Cap";
 
 	
 	public static final String[] SHALLOW_WATER_BIOMES = new String[]{"River","Beach","Gravel Beach","Swamp","Lake","Shore","Salt Swamp","Lakeshore","Riverbank","Estuary"};
