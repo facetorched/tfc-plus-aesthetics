@@ -21,7 +21,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class AthsMod
 {
     public static final String MODID = "tfcaths";
-    public static final String VERSION = "1.7.0"; // change in build.gradle as well
+    public static final String VERSION = "1.7.1-pre"; // change in build.gradle as well
     public static final String NAME = "TFC+ Aesthetics";
     
     @SidedProxy(

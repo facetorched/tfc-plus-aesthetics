@@ -541,7 +541,24 @@ public class AthsBlockSetup {
 	public static Block gregsMoustache;
 	public static Block bitterBolete;
 	public static Block brickCap;
+	public static Block sugarbush;
+	public static Block silvertree;
+	public static Block woodsia;
+	public static Block northernBeechFern;
+	public static Block yellowLotus;
+	public static Block waterLettuce;
+	public static Block frailejone;
+	public static Block arcticPoppy;
+	public static Block arcticWillow;
+	public static Block algaeMatSargassum;
+	public static Block sargassumClump;
+	public static Block termiteMound;
+	public static Block hornwort;
+	public static Block quillwort;
+	public static Block spikemoss;
+	public static Block monkeyflower;
 
+	
 
 	public static int plantCrossRenderID;
 	public static int plantCropRenderID;
@@ -1051,12 +1068,12 @@ public class AthsBlockSetup {
 		juniper = plantRegistryHelper(new BlockPlantTree().setNames(AthsGlobal.JUNIPER, new String[] {"Bushy","Gnarled","Piney","Twisted","Wispy"}).addVarys(new EnumVary[] {EnumVary.WINTER, EnumVary.SNOW}));
 		
 		// stupid mushrooms
-		bayBolete = plantRegistryHelper(new BlockPlantFungus().setName(AthsGlobal.BAY_BOLETE).setBrownMushroom(24f));
+		bayBolete = plantRegistryHelper(new BlockPlantFungus().setName(AthsGlobal.BAY_BOLETE).setBrownMushroom(24f).setSeasonalFungus(TFC_Time.APRIL, TFC_Time.MAY));
 		bicolorBolete = plantRegistryHelper(new BlockPlantFungus().setName(AthsGlobal.BICOLOR_BOLETE).setBrownMushroom(24f));
 		redCrackingBolete = plantRegistryHelper(new BlockPlantFungus().setName(AthsGlobal.RED_CRACKING_BOLETE).setBrownMushroom(16f).setScale(0.9f));
 		bluingBolete = plantRegistryHelper(new BlockPlantFungus().setName(AthsGlobal.BLUING_BOLETE).setBrownMushroom(24f));
 		slipperyJack = plantRegistryHelper(new BlockPlantFungus().setName(AthsGlobal.SLIPPERY_JACK).setBrownMushroom(24f));
-		blusher = plantRegistryHelper(new BlockPlantFungus().setName(AthsGlobal.BLUSHER).setBrownMushroom(20f).setScale(0.8f));
+		blusher = plantRegistryHelper(new BlockPlantFungus().setNames(AthsGlobal.BLUSHER, new String[] {"American","Eurasian"}).setBrownMushroom(20f).setScale(0.8f));
 		blackTrumpet = plantRegistryHelper(new BlockPlantFungus().setName(AthsGlobal.BLACK_TRUMPET).setBrownMushroom(16f).setScale(0.7f));
 		winterChanterelle = plantRegistryHelper(new BlockPlantFungus().setName(AthsGlobal.WINTER_CHANTERELLE).setBrownMushroom(16).setScale(0.7f));
 		caesarMushroom = plantRegistryHelper(new BlockPlantFungus().setNames(AthsGlobal.CAESAR_MUSHROOM, new String[] {"Eurasian","American"}).setBrownMushroom(20f).setScale(0.8f));
@@ -1087,9 +1104,22 @@ public class AthsBlockSetup {
 		gregsMoustache = plantRegistryHelper(new BlockPlantFungus().setName(AthsGlobal.GREGS_MOUSTACHE)); // what the Greg
 		bitterBolete = plantRegistryHelper(new BlockPlantFungus().setName(AthsGlobal.BITTER_BOLETE).setScale(0.9f));
 		brickCap = plantRegistryHelper(new BlockPlantFungus().setName(AthsGlobal.BRICK_CAP).setBrownMushroom(15f).setScale(0.8f));
-
-
-	
+		sugarbush = plantRegistryHelper(new BlockPlant().setName(AthsGlobal.SUGARBUSH).addVarys(new EnumVary[] {EnumVary.FLOWER}).setFlowerMonthRange(TFC_Time.JUNE, TFC_Time.AUGUST).setIsWoody().setScale(2f));
+		silvertree = plantRegistryHelper(new BlockPlantTree().setExtraNames(AthsGlobal.SILVERTREE, "Small").setScale(6f));
+		frailejone = plantRegistryHelper(new BlockPlantTree3d().setName(AthsGlobal.FRAILEJONE).addVary(EnumVary.FLOWER).setVaryPart(EnumVary.FLOWER, "Flower").setPart("Leaf").setPart("Shag").setPart("Trunk").setFlowerMonthRange(TFC_Time.JULY, TFC_Time.AUGUST).setScale(1.5f));
+		northernBeechFern = plantRegistryHelper(new BlockPlant3d().setName(AthsGlobal.NORTHERN_BEECH_FERN).addVarys(new EnumVary[] {EnumVary.WINTER, EnumVary.AUTUMN, EnumVary.SNOW}).setNamedPart("Frond").setNamedPart("Stem").setScale(1.3f));
+		woodsia = plantRegistryHelper(new BlockPlant3d().setName(AthsGlobal.WOODSIA).addVarys(new EnumVary[] {EnumVary.WINTER, EnumVary.SNOW, EnumVary.AUTUMN}).setNamedPart("Frond").setScale(2f));
+		waterLettuce = plantRegistryHelper(new BlockPlantLilyPad3d().setName(AthsGlobal.WATER_LETTUCE).setPart("Base").setPart("Roots").setPart("Top"));
+		yellowLotus = plantRegistryHelper(new BlockPlantLilyPad3d().setOvercrowdRadius(1).setName(AthsGlobal.YELLOW_LOTUS).addVarys(new EnumVary[] {EnumVary.WINTER, EnumVary.SNOW, EnumVary.FLOWER}).setNamedVaryPart(new EnumVary[] {EnumVary.WINTER, EnumVary.SNOW}, "Leaf").setVaryPart(new EnumVary[] {EnumVary.DEFAULT, EnumVary.FLOWER}, "Leaf").setPart("Root").setVaryParts(EnumVary.FLOWER, new String[] {"Petal", "Stamen", "Stamen_Top"}).setVaryPart(new EnumVary[] {EnumVary.DEFAULT, EnumVary.FLOWER}, "Stem").setVaryParts(new EnumVary[] {EnumVary.WINTER, EnumVary.SNOW}, "Lotus_Winter", new String[] {"Stem"}).setFlowerMonthRange(TFC_Time.JUNE, TFC_Time.OCTOBER).setScale(1.4f));
+		arcticPoppy = plantRegistryHelper(new BlockPlantFlower().setName(AthsGlobal.ARCTIC_POPPY).addVarys(new EnumVary[] {EnumVary.FLOWER, EnumVary.SNOW}).setFlowerMonthRange(TFC_Time.APRIL, TFC_Time.MAY).setScale(1f));
+		arcticWillow = plantRegistryHelper(new BlockPlantFlower().setName(AthsGlobal.ARCTIC_WILLOW).addVarys(new EnumVary[] {EnumVary.FLOWER, EnumVary.SNOW}).setFlowerMonthRange(TFC_Time.MAY, TFC_Time.JUNE).setIsWoody().setScale(1f));
+		quillwort = plantRegistryHelper(new BlockPlant().setName(AthsGlobal.QUILLWORT).addVarys(new EnumVary[] {EnumVary.SNOW}).setRenderID(plantCropRenderID).setScale(1f).setIsWaterPlant());
+		hornwort = plantRegistryHelper(new BlockPlant().setName(AthsGlobal.HORNWORT).addVarys(new EnumVary[] {EnumVary.SNOW}).setRenderID(plantCropRenderID).setScale(1f));
+		spikemoss = plantRegistryHelper(new BlockPlantLow().setName(AthsGlobal.SPIKEMOSS).addVarys(new EnumVary[] {EnumVary.SNOW}));
+		algaeMatSargassum = plantRegistryHelper(new BlockPlantAlgae().setColorRange(.4f, 75, .5f, 40, 0f, 0).setExtraNames(AthsGlobal.ALGAE_MAT_SARGASSUM));
+		sargassumClump = plantRegistryHelper(new BlockPlant().setName(AthsGlobal.SARGASSUM_CLUMP).setRenderID(plantCropRenderID).setScale(2.0f));
+		termiteMound = plantRegistryHelper(new BlockPlant(Material.ground).setExtraNames(AthsGlobal.TERMITE_MOUND).setHasNoDrops().setScale(3.0F));
+		monkeyflower = plantRegistryHelper(new BlockPlantFlower().setName(AthsGlobal.MONKEYFLOWER).addVarys(new EnumVary[] {EnumVary.FLOWER, EnumVary.WINTER, EnumVary.SNOW}).setFlowerMonthRange(TFC_Time.APRIL, TFC_Time.JULY).setScale(1f));
 	}
 	
 	public static BlockPlant plantRegistryHelper(BlockPlant block) {

@@ -493,6 +493,22 @@ public class AthsGlobal {
 	public static final String GREGS_MOUSTACHE = "Gregs_Moustache";
 	public static final String BITTER_BOLETE = "Bitter_Bolete";
 	public static final String BRICK_CAP = "Brick_Cap";
+	public static final String SUGARBUSH = "Sugarbush";
+	public static final String SILVERTREE = "Silvertree";
+	public static final String NORTHERN_BEECH_FERN = "Northern_Beech_Fern";
+	public static final String WOODSIA = "Woodsia";
+	public static final String FRAILEJONE = "Frailejone";
+	public static final String YELLOW_LOTUS  = "Yellow_Lotus";
+	public static final String WATER_LETTUCE = "Water_Lettuce";
+	public static final String ARCTIC_POPPY = "Arctic_Poppy";
+	public static final String ARCTIC_WILLOW = "Arctic_Willow";
+	public static final String SARGASSUM_CLUMP = "Sargassum_Clump";
+	public static final String ALGAE_MAT_SARGASSUM = "Algae_Mat_Sargassum";
+	public static final String HORNWORT = "Hornwort";
+	public static final String QUILLWORT = "Quillwort";
+	public static final String SPIKEMOSS = "Spikemoss";
+	public static final String TERMITE_MOUND = "Termite_Mound";
+	public static final String MONKEYFLOWER = "Monkeyflower";
 
 	
 	public static final String[] SHALLOW_WATER_BIOMES = new String[]{"River","Beach","Gravel Beach","Swamp","Lake","Shore","Salt Swamp","Lakeshore","Riverbank","Estuary"};

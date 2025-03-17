@@ -185,6 +185,7 @@ public class BlockPlant extends BlockTerra{
 	}
 	@Override
 	public void harvestBlock(World world, EntityPlayer player, int x, int y, int z, int meta) {
+		if (!this.hasMeta(meta)) return;
 		if(!world.isRemote && poisonDuration != 0 && player.getHeldItem() == null &&
 				! ( hasVary(EnumVary.WINTER, meta) && (isVary(meta, EnumVary.SNOW) || isVary(meta, EnumVary.WINTER)))) {
 			player.addPotionEffect(new PotionEffect(19, poisonDuration * 20));
@@ -220,7 +221,9 @@ public class BlockPlant extends BlockTerra{
 	public void registerBlockIcons(IIconRegister register){
 		this.icons = new IIcon[plantNames.length];
 		for (int i = 0; i < this.icons.length; ++i){
-			if(iconVarys == null) // normal
+			if(!this.hasMeta(i) && i>0) // meta doesn't exist so set it to the first one as a placeholder
+				this.icons[i] = this.icons[0];
+			else if(iconVarys == null) // normal
 				this.icons[i] = register.registerIcon(AthsMod.MODID+":plants/"+plantNames[i]);
 			else { // icon diversity is related to specific varys
 				if(isAnyVary(i, iconVarys)) { // is this meta included in the icon array?
@@ -303,7 +306,7 @@ public class BlockPlant extends BlockTerra{
 
 	protected void checkAndDropBlock(World world, int x, int y, int z){
 		if (!world.isRemote && !this.canBlockStay(world, x, y, z)){
-			if (!this.hasNoDrops)
+			if (!this.hasNoDrops && this.hasMeta(world.getBlockMetadata(x, y, z)))
 				this.dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z), 0);
 			world.setBlock(x, y, z, Blocks.air, 0, 2);
 		}
@@ -501,10 +504,13 @@ public class BlockPlant extends BlockTerra{
 	 */
 	public boolean hasVary(EnumVary vary, int meta) {
 		Integer start = varyStartIndexes[vary.index];
-		if(this.blacklistMetas != null) {
+		if(this.blacklistMetas != null && vary != EnumVary.MYCELIUM) {
 			return start != null && !blacklistMetas[start + getBaseMeta(meta)];
 		}
 		return start != null;
+	}
+	public boolean hasMeta(int meta) {
+		return meta < plantNames.length && (blacklistMetas == null || !blacklistMetas[meta]);
 	}
 	
 	public BlockPlant setExtraNames(String name) {
@@ -634,6 +640,22 @@ public class BlockPlant extends BlockTerra{
 	public BlockPlant setBlacklistMeta(EnumVary vary, int baseMeta) {
 		int meta = varyStartIndexes[vary.index] + baseMeta;
 		return setBlacklistMeta(meta);
+	}
+	public BlockPlant setBlacklistVary(EnumVary vary) {
+		for (int baseMeta : this.getBaseMetas()) {
+			this.setBlacklistMeta(vary, baseMeta);
+		}
+		return this;
+	}
+	public BlockPlant setSeasonalFungus(int startMonth, int endMonth) {
+		this.addVary(EnumVary.MYCELIUM);
+		this.setBlacklistVary(EnumVary.MYCELIUM);
+		setMonthVaryRange((endMonth+1)%12, (startMonth-1)%12, EnumVary.MYCELIUM);
+		for (EnumVary vary : this.monthVarys) {
+			System.out.println(vary);
+		}
+		
+		return this;
 	}
 	public BlockPlant setItemBlock(Class<? extends ItemBlock> itemBlock) {
 		this.itemBlock = itemBlock;

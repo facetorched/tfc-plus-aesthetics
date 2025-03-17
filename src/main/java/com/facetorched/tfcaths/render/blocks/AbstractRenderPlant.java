@@ -50,6 +50,11 @@ public abstract class AbstractRenderPlant implements ISimpleBlockRenderingHandle
 			renderSnow(world, x, y, z, block, modelId, renderer);
 			renderLeaves(world, x, y, z, block, modelId, renderer);
 		}
+		if(block instanceof BlockPlant) {
+			BlockPlant plant = (BlockPlant)block;
+			int meta = world.getBlockMetadata(x, y, z);
+			if (!plant.hasMeta(meta)) return false;
+		}
 		
 		Tessellator tessellator = Tessellator.instance;
 		if(block.getLightValue() == 0.0f) {
