@@ -650,11 +650,7 @@ public class BlockPlant extends BlockTerra{
 	public BlockPlant setSeasonalFungus(int startMonth, int endMonth) {
 		this.addVary(EnumVary.MYCELIUM);
 		this.setBlacklistVary(EnumVary.MYCELIUM);
-		setMonthVaryRange((endMonth+1)%12, (startMonth-1)%12, EnumVary.MYCELIUM);
-		for (EnumVary vary : this.monthVarys) {
-			System.out.println(vary);
-		}
-		
+		setMonthVaryRange((endMonth+1)%12, ((startMonth-1)%12+12)%12, EnumVary.MYCELIUM);
 		return this;
 	}
 	public BlockPlant setItemBlock(Class<? extends ItemBlock> itemBlock) {

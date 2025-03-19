@@ -22,7 +22,8 @@ public class AthsRecipes {
 	public static void registerRecipes() {
 		if(Config.mushroomRecipes) {
 			for(BlockPlant b : AthsParser.getAthsPlants(IFungus.class)) {
-				addFoodRefineRecipe(b, b.getFoodItemStack());
+				if (b.getFoodItemStack() != null)
+					addFoodRefineRecipe(b, b.getFoodItemStack());
 			}
 		}
 		if(Config.miscRecipes) {

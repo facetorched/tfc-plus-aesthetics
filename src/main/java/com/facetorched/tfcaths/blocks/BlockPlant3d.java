@@ -45,8 +45,10 @@ public class BlockPlant3d extends BlockPlant{
 		}
 		
 		for(int i = 0; i < plantNames.length; i++) {
-			for(ObjPart objPart : modelParts.get(i)) {
-				objPart.setIcon(register.registerIcon(objPart.getTexture()));
+			if (this.hasMeta(i)) {
+				for(ObjPart objPart : modelParts.get(i)) {
+					objPart.setIcon(register.registerIcon(objPart.getTexture()));
+				}
 			}
 		}
 	}
