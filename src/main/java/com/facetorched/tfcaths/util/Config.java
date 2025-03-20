@@ -37,6 +37,9 @@ public class Config {
 	public static boolean propagationRecipes;
 	public static boolean miscRecipes;
 	
+	public static boolean plantsPopOff;
+	public static boolean requireShovel;
+	
 	public static float rarityTree;
 	public static float rarityLilyPad;
 	public static float rarityEpiphyte;
@@ -93,6 +96,9 @@ public class Config {
 		mushroomRecipes = config.getBoolean("mushroomRecipes", "_general", true, "Set to false to prevent fungi from being craftable into mushroom food items");
 		propagationRecipes = config.getBoolean("propagationRecipes", "_general", true, "Set to false to prevent plants from being growable in a barrel");
 		miscRecipes = config.getBoolean("miscRecipes", "_general", true, "Set to false to prevent addition of various TFC+ styled plant-based recipes");
+		
+		plantsPopOff = config.getBoolean("plantsPopOff", "_general", false, "Set to true to allow plants to drop an item when the block they are on is destroyed.");
+		requireShovel = config.getBoolean("requireShovel", "_general", false, "Set to true to only drop plants if the player breaks them with a shovel.");
 		
 		rarityTree = config.getFloat("rarityTree", "_general", 1f, 0f, 10000f, "The multiplier applied to tree-like plant rarity. Set to 0 to disable these from spawning entirely");
 		rarityLilyPad = config.getFloat("rarityLilyPad", "_general", 1f, 0f, 10000f, "The multiplier applied to lilypad-like plant rarity (including algae). Set to 0 to disable these from spawning entirely");

@@ -12,6 +12,7 @@ import com.facetorched.tfcaths.blocks.BlockPlant;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -47,6 +48,16 @@ public class AthsParser {
 						return true;
 					}
 				}
+			}
+		}
+		return false;
+	}
+	
+	public static boolean isHolding(World world, EntityPlayer player, Item item) {
+		if (!world.isRemote){
+			ItemStack is = player.inventory.getCurrentItem();
+			if (is != null && is.getItem() == item){
+				return true;
 			}
 		}
 		return false;

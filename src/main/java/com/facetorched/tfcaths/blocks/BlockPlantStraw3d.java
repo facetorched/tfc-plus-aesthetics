@@ -17,10 +17,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.IShearable;
 import net.minecraftforge.oredict.OreDictionary;
 
-public class BlockPlantStraw extends BlockPlant implements IShearable, IStraw{
-	public BlockPlantStraw() {
+public class BlockPlantStraw3d extends BlockPlant3d implements IShearable, IStraw{
+	public BlockPlantStraw3d() {
 		super(Material.vine);
-		setGrassBounds();
 		setHasNoDrops();
 	}
 	

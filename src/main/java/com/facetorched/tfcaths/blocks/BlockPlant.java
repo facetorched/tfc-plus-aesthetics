@@ -21,6 +21,7 @@ import com.facetorched.tfcaths.WorldGen.Generators.PlantSpawnData;
 import com.facetorched.tfcaths.enums.EnumVary;
 import com.facetorched.tfcaths.items.itemblocks.ItemPlant;
 import com.facetorched.tfcaths.util.AthsParser;
+import com.facetorched.tfcaths.util.Config;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -190,7 +191,13 @@ public class BlockPlant extends BlockTerra{
 				! ( hasVary(EnumVary.WINTER, meta) && (isVary(meta, EnumVary.SNOW) || isVary(meta, EnumVary.WINTER)))) {
 			player.addPotionEffect(new PotionEffect(19, poisonDuration * 20));
 		}
-		if(hasNoDrops) {
+		if(AthsParser.isHolding(world, player, TFCItems.stoneFlake) || AthsParser.isHolding(world, player, "itemKnife")){
+			if (this.getFoodItemStack() != null) {
+				dropBlockAsItem(world, x, y, z, this.getFoodItemStack().copy());
+			}
+			return;
+		}
+		if(hasNoDrops || Config.requireShovel) {
 			if(AthsParser.isHolding(world, player, "itemShovel")) {
 				super.harvestBlock(world, player, x, y, z, meta);
 			}
@@ -306,7 +313,7 @@ public class BlockPlant extends BlockTerra{
 
 	protected void checkAndDropBlock(World world, int x, int y, int z){
 		if (!world.isRemote && !this.canBlockStay(world, x, y, z)){
-			if (!this.hasNoDrops && this.hasMeta(world.getBlockMetadata(x, y, z)))
+			if (!this.hasNoDrops && this.hasMeta(world.getBlockMetadata(x, y, z)) && Config.plantsPopOff)
 				this.dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z), 0);
 			world.setBlock(x, y, z, Blocks.air, 0, 2);
 		}

@@ -11,6 +11,7 @@ import com.facetorched.tfcaths.util.ObjPart;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
@@ -25,7 +26,10 @@ public class BlockPlant3d extends BlockPlant{
 	public boolean isConstantSize = false;
 	
 	public BlockPlant3d() {
-		super();
+		this(Material.plants);
+	}
+	public BlockPlant3d(Material m) {
+		super(m);
 		setGrassBounds();
 		this.renderId = AthsBlockSetup.plant3dRenderID;
 	}
