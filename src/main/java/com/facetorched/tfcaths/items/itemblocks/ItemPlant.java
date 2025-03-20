@@ -60,6 +60,8 @@ public class ItemPlant extends ItemTerraBlock{
 		super.addInformation(stack, player, list, advanced);
 		int meta = stack.getItemDamage();
 		BlockPlant b = (BlockPlant)this.field_150939_a;
+		if (!b.hasMeta(meta) || meta <= b.plantNames.length)
+			return;
 		String sciName = "gui." + b.plantKey + "." + b.plantNames[meta] + ".sciname";
         list.add(TFC_Core.translate(sciName));
     }
