@@ -6,12 +6,14 @@ import java.util.Random;
 import com.facetorched.tfcaths.AthsBlockSetup;
 import com.facetorched.tfcaths.AthsGlobal;
 import com.facetorched.tfcaths.blocks.BlockPlant3d;
+import com.facetorched.tfcaths.enums.EnumVary;
 import com.facetorched.tfcaths.util.ObjPart;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.client.model.obj.Face;
@@ -33,6 +35,10 @@ public class RenderPlant3d extends AbstractRenderPlant {
 		}
 		BlockPlant3d block3d = (BlockPlant3d) block;
 		if (!(block3d.hasMeta(meta))) {
+			return;
+		}
+		if (block3d.getModelParts(meta) == null && block3d.getVary(meta) == EnumVary.SNOW) {
+			renderInventorySnow();
 			return;
 		}
 		WavefrontObject model = block3d.getModelObj(meta);
@@ -71,6 +77,13 @@ public class RenderPlant3d extends AbstractRenderPlant {
 		tessellator.draw();
 		tessellator.addTranslation(center[0], center[1] - dy, center[2]);
 		RenderHelper.enableStandardItemLighting();
+	}
+	
+	public void renderInventorySnow() { // super hacky but hey why not
+		Block b = Blocks.snow;
+		b.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.125F, 1.0F);
+		RenderBlocks.getInstance().renderBlockAsItem(b, 0, 1);
+		b.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
 	}
 	
 	@Override

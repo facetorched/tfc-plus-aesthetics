@@ -47,17 +47,17 @@ public class BlockPlant3d extends BlockPlant{
 				modelObjs[i] = (WavefrontObject)AdvancedModelLoader.loadModel(new ResourceLocation(AthsMod.MODID + ":models/blocks/plants/" + overrideModelName + ".obj"));
 			}
 		}
-		try {
 		for(int i = 0; i < plantNames.length; i++) {
 			if (this.hasMeta(i)) {
+				if (modelParts.get(i) == null) {
+					//System.out.println("No part(s) registered for " + plantNames[getBaseMeta(i)] + ", " + getVary(i) + ". Skipping registering icons...");
+					continue;
+				}
 				for(ObjPart objPart : modelParts.get(i)) {
 					objPart.setIcon(register.registerIcon(objPart.getTexture()));
 				}
 			}
 		}
-		}
-		catch (Exception e) {
-		      System.out.println(plantNames);}
 	}
 	
 	@Override
@@ -306,6 +306,27 @@ public class BlockPlant3d extends BlockPlant{
 	}
 	
 	/**
+	 * set parts for all metas of a given vary. use plantkey + textureName as name
+	 */
+	public BlockPlant3d setTexturePart(EnumVary vary, String[] partNames, String textureName) {
+		for(int i = 0; i < numBaseMetas; i++) {
+			int meta = varyStartIndexes[vary.index] + i;
+			setPart(meta, plantKey, partNames[i], textureName);
+		}
+		return this;
+	}
+	
+	/**
+	 * set parts for all metas. use plantkey + textureName as name
+	 */
+	public BlockPlant3d setTexturePart(String[] partNames, String textureName) {
+		for(int i = 0; i < plantNames.length; i++) {
+			setPart(i, plantKey, partNames[i], textureName);
+		}
+		return this;
+	}
+	
+	/**
 	 * set part for only one specific meta given a vary and baseMeta. use plantKey as name
 	 */
 	public BlockPlant3d setPart(EnumVary vary, int baseMeta, String partName) {
@@ -314,18 +335,34 @@ public class BlockPlant3d extends BlockPlant{
 	}
 	
 	/**
-	 *  the most basic way to set a part. only use this externally if brute force is needed
+	 *  A basic way to set a part. part name will be used for the texture if not null
 	 */
 	public BlockPlant3d setPart(int meta, String plantName, String partName) {
+		return setPart(meta, plantName, partName, partName);
+	}
+	
+	/**
+	 *  the most basic way to set a part. only use this externally if brute force is needed
+	 */
+	public BlockPlant3d setPart(int meta, String plantName, String partName, String textureName) {
 		// should we only run this on the client? not sure how
 		ObjPart part;
-		if(partName == null) {
-			part =  new ObjPart(AthsMod.MODID + ":plants/" + plantName, "_"); // in the obj file the part should be named _
+		if (textureName == null) {
+			if(partName == null) {
+				part =  new ObjPart(AthsMod.MODID + ":plants/" + plantName, "_"); // in the obj file the part should be named _
+			}
+			else {
+				part =  new ObjPart(AthsMod.MODID + ":plants/" + plantName, partName);
+			}
 		}
 		else {
-			part =  new ObjPart(AthsMod.MODID + ":plants/" + plantName + "_" + partName, partName);
+			if(partName == null) {
+				part =  new ObjPart(AthsMod.MODID + ":plants/" + plantName + "_" + textureName, "_"); // in the obj file the part should be named _
+			}
+			else {
+				part =  new ObjPart(AthsMod.MODID + ":plants/" + plantName + "_" + textureName, partName);
+			}
 		}
-		
 		if (this.modelParts.containsKey(meta)) {
 			this.modelParts.get(meta).add(part);
 		}
